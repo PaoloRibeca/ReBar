@@ -1,5 +1,12 @@
 ![ReBar](doc/logo/rebar-banner-animated.svg)
 
+[![arXiv](https://img.shields.io/badge/arXiv-2610.39307-b31b1b.svg)](https://arxiv.org/abs/2610.39307)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23750242.svg)](https://doi.org/10.5281/zenodo.23750242)
+[![Release](https://img.shields.io/github/v/release/PaoloRibeca/ReBar)](https://github.com/PaoloRibeca/ReBar/releases/latest)
+[![Build binaries](https://github.com/PaoloRibeca/ReBar/actions/workflows/build-binaries.yml/badge.svg)](https://github.com/PaoloRibeca/ReBar/actions/workflows/build-binaries.yml)
+[![Code: GPL-3.0-or-later](https://img.shields.io/badge/code-GPL--3.0--or--later-blue.svg)](LICENSE)
+[![Data: CC BY 4.0](https://img.shields.io/badge/data-CC_BY_4.0-lightgrey.svg)](LICENSE-DATA.md)
+
 ReBar computes the renormalisation-group functions $\beta$, $\eta$ and $\nu$ of the three-dimensional $O(N)$ $\phi^4$
 model in fixed dimension (the massive zero-momentum scheme), to tenth order in the coupling (eleventh for $\beta$).
 These series, once resummed, give the critical exponents of the $O(N)$ universality classes directly in three
@@ -156,7 +163,8 @@ distributed GPU-accelerated parametric integration* (P. Ribeca, 2026),
 [arXiv:2610.39307](https://arxiv.org/abs/2610.39307). Please cite the paper
 for the results and the method, and the repository, version 0.4.3,
 [doi:10.5281/zenodo.23750242](https://doi.org/10.5281/zenodo.23750242), for the code, the graph lists and the ledger
-(GitHub shows `CITATION.cff` as "Cite this repository").
+(GitHub shows `CITATION.cff` as "Cite this repository"; [doi:10.5281/zenodo.23750241](https://doi.org/10.5281/zenodo.23750241)
+resolves to the latest version).
 
 ## Credits and licence
 
