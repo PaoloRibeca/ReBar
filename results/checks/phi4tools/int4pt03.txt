@@ -1,0 +1,2 @@
+1	ee11|22|ee|	0	bubble[0]^2/4
+2	ee12|e22|e|	1	bubble[q1]*prop[q1]^2

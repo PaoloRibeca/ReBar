@@ -1,0 +1,48 @@
+# CITATION.cff -- how to cite ReBar (https://citation-file-format.github.io/, schema 1.2.0).
+# The code is under the GPL v3 or later; the data and the text are under CC BY 4.0 (README.md, "Credits and licence").
+cff-version: 1.2.0
+message: >-
+  If you use ReBar, its graph lists or its numbers, please cite the paper (preferred-citation) and this repository
+  (below).
+type: software
+title: >-
+  ReBar: renormalisation-group functions of the three-dimensional O(N) phi^4 model from R-bar-subtracted Feynman
+  integrals on GPUs
+abstract: >-
+  ReBar computes the fixed-dimension renormalisation-group functions beta, eta and nu of the three-dimensional O(N)
+  phi^4 model (massive zero-momentum scheme) to tenth order in the coupling (eleventh for beta). Every coefficient is a sum of
+  zero-momentum R-bar-subtracted parametric Feynman integrals, sampled graph by graph with tropical Monte Carlo on
+  GPUs; the graphs come from a generator derived from the one written in 2003 for the seven-loop computation.
+  Per-graph statistics are pooled in a ledger to which anyone can contribute computing time.
+authors:
+  - family-names: Ribeca
+    given-names: Paolo
+    email: paolo.ribeca@gmail.com
+repository-code: "https://github.com/PaoloRibeca/ReBar"
+version: 0.4.3
+date-released: "2026-10-29"
+doi: 10.5281/zenodo.23750242
+license: GPL-3.0-or-later
+keywords:
+  - critical exponents
+  - renormalization group
+  - O(N) model
+  - phi^4 theory
+  - Feynman integrals
+  - BPHZ
+  - tropical Monte Carlo
+  - GPU
+preferred-citation:
+  type: article
+  status: preprint
+  authors:
+    - family-names: Ribeca
+      given-names: Paolo
+  title: >-
+    Ten-loop fixed-dimension renormalization-group functions of the three-dimensional O(N) model from
+    distributed GPU-accelerated parametric integration
+  year: 2026
+  identifiers:
+    - type: other
+      value: "arXiv:2610.39307"
+  url: "https://arxiv.org/abs/2610.39307"

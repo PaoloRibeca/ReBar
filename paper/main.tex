@@ -1,0 +1,105 @@
+% main.tex -- Ten-loop fixed-dimension RG functions of the 3-D O(N) model (draft)
+%
+% Build with `make` (two-column PRD layout, main.pdf) or `make onecolumn`
+% (single-column draft, main-onecolumn.pdf). REVTeX 4.2 is bundled in ./tex/.
+% The numbers in generated/ come from the ledger through `make -C ../series`.
+%
+% Layout switch: main-onecolumn.tex defines \PaperColumns before inputting this file.
+\providecommand\PaperColumns{twocolumn}
+\edef\PaperOptions{aps,prd,10pt,\PaperColumns,superscriptaddress,nofootinbib,floatfix}
+\expandafter\documentclass\expandafter[\PaperOptions]{revtex4-2}
+
+\usepackage{amsmath,amssymb}
+\allowdisplaybreaks                % multi-line displays may break between their lines at the end of a column
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage[dvipsnames]{xcolor}
+% Ragged-right p columns without the array package, whose 2024 version does not work with REVTeX's tabular code:
+% \raggedcolumns, inside a table, makes every p cell of that table ragged right (Table tab:effort).
+\makeatletter
+\newcommand{\raggedcolumns}{\let\rebar@parboxrestore\@arrayparboxrestore
+  \def\@arrayparboxrestore{\rebar@parboxrestore\let\rebar@cr\\\raggedright\let\\\rebar@cr}}
+\makeatother
+% REVTeX balances the columns of the last page when it closes the two-column grid at \end{document}, but the
+% end-of-document hook of pgf forces a page break before that: close the grid first (pgf's hook comes after this one).
+\makeatletter\AtBeginDocument{\AtEndDocument{\par\close@column}}\makeatother
+\usepackage{pgfplots}               % Fig. fig:cost (sections/results.tex)
+\pgfplotsset{compat=1.15}
+\usepackage[colorlinks=true,linkcolor=MidnightBlue,citecolor=MidnightBlue,urlcolor=MidnightBlue,
+            breaklinks=true]{hyperref}
+\hypersetup{pdftitle={Ten-loop fixed-dimension renormalization-group functions of the three-dimensional O(N) model
+  from distributed GPU-accelerated parametric integration},pdfauthor={Paolo Ribeca}}
+
+% ---------------------------------------------------------------------------------------------------------------
+% Draft markers.
+% \TBD{text}: something still to be done or decided (red, bold). \TBD{} prints a bare marker.
+\newcommand{\TBD}[1]{\textcolor{red}{\bfseries[TBD\if\relax\detokenize{#1}\relax\else: #1\fi]}}
+
+% British spelling throughout, the heading of the acknowledgments environment included (REVTeX's default is American).
+\renewcommand{\acknowledgmentsname}{Acknowledgements}
+
+% Let TeX stretch interword space a little before it gives up on a line (long numbers in math mode).
+\setlength{\emergencystretch}{1em}
+
+% Notation
+\newcommand{\ubar}{\ensuremath{\bar u}}
+\newcommand{\Rbar}{\ensuremath{\bar R}}
+
+% Reproducibility checks (ids of ../checks/README.md, listed in Table tab:checks, Appendix app:reproducibility):
+% \check{G2} prints [check G2] and \checks{G1,G2} prints [checks G1, G2], in small type, each id linked to its row of
+% the table (\checkid{G2} there). \check replaces the math accent of that name, which the paper does not use.
+\makeatletter
+\protected\def\check@link#1{\hyperlink{check.#1}{#1}}% protected: kept as is in the \edef of \checks
+\DeclareRobustCommand{\check}[1]{{\small[check~\check@link{#1}]}}
+\DeclareRobustCommand{\checks}[1]{{\edef\check@ids{\zap@space#1 \@empty}\def\check@sep{}\def\check@list{}%
+  \@for\check@id:=\check@ids\do{\edef\check@list{\check@list\check@sep\noexpand\check@link{\check@id}}%
+    \def\check@sep{,\space}}%
+  \small[checks~\check@list]}}
+\newcommand*{\checkid}[1]{\hypertarget{check.#1}{#1}}
+\makeatother
+
+% Numbers from the ledger (values, errors, class counts, coefficients at N=1), written by `make -C ../series`.
+\input{generated/values}
+\input{generated/largeorder-fit}% Sec. III C: the subleading fit of the large-order ratios (series/largeorder.py)
+\input{generated/newpoly}% Tables tab:newpoly, tab:newpolynu and the large-N numbers of Sec. II E (series/polynomials.py)
+\input{generated/routes}% Table tab:routes and the route-B numbers of the text (series/routeb.py)
+\input{generated/exponents}% Table tab:exponents and the resummed numbers of the text (series/resum.py)
+\input{generated/costhist}% Fig. fig:costhist: histogram bodies and the numbers it quotes (series/costfig.py)
+
+% ---------------------------------------------------------------------------------------------------------------
+\begin{document}
+
+\title{Ten-loop fixed-dimension renormalization-group functions\\ of the three-dimensional
+\texorpdfstring{$O(N)$}{O(N)} model\\ from distributed GPU-accelerated parametric integration}
+
+\author{Paolo Ribeca}
+\affiliation{Biomathematics and Statistics Scotland (BioSS), Edinburgh, United Kingdom}
+\affiliation{UK Health Security Agency (UKHSA), London, United Kingdom}
+
+\date{\today}
+
+\input{sections/abstract}
+
+\maketitle
+
+\input{sections/intro_sota}
+\input{sections/methods}
+\input{sections/results}
+\input{sections/summary}
+
+\begin{acknowledgments}
+I wish to thank Jean Zinn-Justin and Riccardo Guida for proposing to me, in 2000, the problem of computing critical
+exponents in scalar quantum field theories, and for their patience since. I am greatly indebted to Riccardo Guida for
+several years of mentoring and discussions on this topic, from 2000 to 2005, during which many of the materials and
+methods used here to generate and check results were devised; it is much to my regret that he declined to be an author
+of this paper. I sincerely thank my institutions for the generous permission to use their computational infrastructure
+for this project. The work described here was carried out with the invaluable assistance of Claude (Anthropic).
+\end{acknowledgments}
+
+% The appendices issue \appendix themselves (sections/appendices.tex).
+\input{sections/appendices}
+
+\bibliographystyle{apsrev4-2}
+\bibliography{references}
+
+\end{document}

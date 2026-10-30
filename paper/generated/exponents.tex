@@ -1,0 +1,106 @@
+% generated/exponents.tex -- body of Table tab:exponents and the resummed numbers of the text, N = 0..3.
+% WRITTEN BY series/resum.py --tex (200 draws, seed 20261018) from series/generated/coefficients.json:
+% do not edit by hand.  Every line ends with % so that the file can be read anywhere.
+%
+% Macro contract.  \exprows: the rows of the table, per N in chronological order of the series (Guida-Zinn-Justin
+% 1998, 8th order of Phi4tools and ours, 9th, 10th), then the non-perturbative benchmarks.  Per N (suffix Nzero .. Nthree), row (A: Phi4tools at
+% 8th order; B, C, D: this work at 8th, 9th, 10th order, D with beta to ubar^11; Dten: D with beta to ubar^10)
+% and quantity (Ustar, Nu, Eta, Omega): \rs<Quantity><Row>N<n>, value(total resummation error), e.g.
+% \rsNuDNone (nu from the series of 1/nu); \rsNuDirDN<n>: nu of row D from the series of nu.
+% \rsPull<Quantity>N<n>: (row D - benchmark) / combined error, the benchmark being the Monte Carlo one for
+% N = 0, 2, 3 and the bootstrap for N = 1 (signed).  Statistics: \rsStatMax<Quantity> (largest statistical
+% error, rows B-D, all N),
+% \rsStatRatio (largest statistical/resummation error ratio, rows B-D), \rsStatRatioA (row A),
+% \rsLinDev (largest relative difference between linearised and resampled errors, N = 1, row D),
+% \rsClassDev (largest relative difference between resampling the classes and the sums, N = 1, row B).
+% Benchmarks as in the table: \rsBench<Source><Quantity>N<n>, Source GZJ (Guida-Zinn-Justin 1998), MC, CB.
+% \rsEtaWindow (largest change of eta, row D, when the alpha window is extended to 12), \rsNuDirMax
+% (largest |nu from 1/nu - nu from nu|, rows B-D), \rsDraws.  Method: \rsBmax, \rsAlphaMin, \rsAlphaMax,
+% \rsAone (a at N = 1), \rsInstanton (A).
+% \rsABdiff, \rsABmax: largest |row A - row B|, absolute and in units of the resummation error of row B (rows A
+% and B are printed as one when their digits are the same).  \rsGain<Quantity>: range over N
+% of the ratio of the resummation errors of rows B and D.  Scientific values in math mode.
+\newcommand*{\exprows}{%
+0 & 7th order, Ref.~\cite{GuidaZinnJustin1998} & 1.413(6) & 0.5882(11) & 0.0284(25) & 0.812(16) \\%
+ & 8th order, Ref.~\cite{Phi4tools2024} and this work & 1.4175(64) & 0.58825(66) & 0.0278(26) & 0.798(24) \\%
+ & 9th order, this work & 1.4137(54) & 0.58806(57) & 0.0281(20) & 0.807(25) \\%
+ & 10th order, this work & 1.4098(41) & 0.58788(45) & 0.0283(18) & 0.818(26) \\%
+ & self-avoiding walks, Refs.~\cite{ClisbyDunweg2016,Clisby2017} & --- & 0.58759700(40) & 0.0310434(21) & 0.899(14) \\%
+\hline%
+1 & 7th order, Ref.~\cite{GuidaZinnJustin1998} & 1.411(4) & 0.6304(13) & 0.0335(25) & 0.799(11) \\%
+ & 8th order, Ref.~\cite{Phi4tools2024} and this work & 1.4141(48) & 0.63024(94) & 0.0326(26) & 0.791(17) \\%
+ & 9th order, this work & 1.4116(33) & 0.63006(66) & 0.0329(20) & 0.796(15) \\%
+ & 10th order, this work & 1.4093(22) & 0.62997(51) & 0.0333(18) & 0.803(14) \\%
+ & conformal bootstrap, Refs.~\cite{ChangEtAl2025,SimmonsDuffin2017,Reehorst2022} & --- & 0.62997097(12) & 0.036297612(48) & 0.82968(23) \\%
+\hline%
+2 & 7th order, Ref.~\cite{GuidaZinnJustin1998} & 1.403(3) & 0.6703(15) & 0.0354(25) & 0.789(11) \\%
+ & 8th order, Ref.~\cite{Phi4tools2024} and this work & 1.4049(31) & 0.6698(14) & 0.0344(23) & 0.785(11) \\%
+ & 9th order, this work & 1.4038(12) & 0.66998(94) & 0.0347(17) & 0.7869(54) \\%
+ & 10th order, this work & 1.40297(50) & 0.67019(74) & 0.0352(16) & 0.7895(31) \\%
+ & Monte Carlo, Ref.~\cite{Hasenbusch2019} & --- & 0.67169(7) & 0.03810(8) & 0.789(4) \\%
+ & conformal bootstrap, Ref.~\cite{ChesterEtAl2020} & --- & 0.67175(10) & 0.038176(44) & 0.794(8) \\%
+\hline%
+3 & 7th order, Ref.~\cite{GuidaZinnJustin1998} & 1.390(4) & 0.7073(35) & 0.0355(25) & 0.782(13) \\%
+ & 8th order, Ref.~\cite{Phi4tools2024} and this work & 1.3913(16) & 0.7062(19) & 0.0343(18) & 0.7816(58) \\%
+ & 9th order, this work & 1.39117(58) & 0.7070(17) & 0.0347(14) & 0.7818(24) \\%
+ & 10th order, this work & 1.39138(16) & 0.7075(13) & 0.0352(13) & 0.78148(82) \\%
+ & Monte Carlo, Ref.~\cite{Hasenbusch2020} & --- & 0.71164(10) & 0.03784(5) & 0.759(2) \\%
+ & conformal bootstrap, Ref.~\cite{ChesterEtAl2021} & --- & 0.71168(41) & 0.03787(13) & --- \\%
+}%
+\newcommand*{\rsUstarANzero}{1.4175(64)}\newcommand*{\rsNuANzero}{0.58825(66)}\newcommand*{\rsEtaANzero}{0.0278(26)}\newcommand*{\rsOmegaANzero}{0.798(24)}%
+\newcommand*{\rsUstarBNzero}{1.4175(64)}\newcommand*{\rsNuBNzero}{0.58825(66)}\newcommand*{\rsEtaBNzero}{0.0278(26)}\newcommand*{\rsOmegaBNzero}{0.798(24)}%
+\newcommand*{\rsUstarCNzero}{1.4137(54)}\newcommand*{\rsNuCNzero}{0.58806(57)}\newcommand*{\rsEtaCNzero}{0.0281(20)}\newcommand*{\rsOmegaCNzero}{0.807(25)}%
+\newcommand*{\rsUstarDNzero}{1.4098(41)}\newcommand*{\rsNuDNzero}{0.58788(45)}\newcommand*{\rsEtaDNzero}{0.0283(18)}\newcommand*{\rsOmegaDNzero}{0.818(26)}%
+\newcommand*{\rsUstarDtenNzero}{1.4119(40)}\newcommand*{\rsNuDtenNzero}{0.58803(45)}\newcommand*{\rsEtaDtenNzero}{0.0285(19)}\newcommand*{\rsOmegaDtenNzero}{0.811(22)}%
+\newcommand*{\rsNuDirDNzero}{0.58785(45)}%
+\newcommand*{\rsPullNuNzero}{+0.6}\newcommand*{\rsPullEtaNzero}{-1.5}\newcommand*{\rsPullOmegaNzero}{-2.7}%
+\newcommand*{\rsUstarANone}{1.4141(48)}\newcommand*{\rsNuANone}{0.63024(94)}\newcommand*{\rsEtaANone}{0.0326(26)}\newcommand*{\rsOmegaANone}{0.791(17)}%
+\newcommand*{\rsUstarBNone}{1.4141(48)}\newcommand*{\rsNuBNone}{0.63024(94)}\newcommand*{\rsEtaBNone}{0.0326(26)}\newcommand*{\rsOmegaBNone}{0.791(17)}%
+\newcommand*{\rsUstarCNone}{1.4116(33)}\newcommand*{\rsNuCNone}{0.63006(66)}\newcommand*{\rsEtaCNone}{0.0329(20)}\newcommand*{\rsOmegaCNone}{0.796(15)}%
+\newcommand*{\rsUstarDNone}{1.4093(22)}\newcommand*{\rsNuDNone}{0.62997(51)}\newcommand*{\rsEtaDNone}{0.0333(18)}\newcommand*{\rsOmegaDNone}{0.803(14)}%
+\newcommand*{\rsUstarDtenNone}{1.4106(21)}\newcommand*{\rsNuDtenNone}{0.63012(50)}\newcommand*{\rsEtaDtenNone}{0.0334(18)}\newcommand*{\rsOmegaDtenNone}{0.799(13)}%
+\newcommand*{\rsNuDirDNone}{0.62988(57)}%
+\newcommand*{\rsPullNuNone}{0.0}\newcommand*{\rsPullEtaNone}{-1.6}\newcommand*{\rsPullOmegaNone}{-1.9}%
+\newcommand*{\rsUstarANtwo}{1.4049(31)}\newcommand*{\rsNuANtwo}{0.6698(14)}\newcommand*{\rsEtaANtwo}{0.0344(23)}\newcommand*{\rsOmegaANtwo}{0.785(11)}%
+\newcommand*{\rsUstarBNtwo}{1.4049(31)}\newcommand*{\rsNuBNtwo}{0.6698(14)}\newcommand*{\rsEtaBNtwo}{0.0344(23)}\newcommand*{\rsOmegaBNtwo}{0.785(11)}%
+\newcommand*{\rsUstarCNtwo}{1.4038(12)}\newcommand*{\rsNuCNtwo}{0.66998(94)}\newcommand*{\rsEtaCNtwo}{0.0347(17)}\newcommand*{\rsOmegaCNtwo}{0.7869(54)}%
+\newcommand*{\rsUstarDNtwo}{1.40297(50)}\newcommand*{\rsNuDNtwo}{0.67019(74)}\newcommand*{\rsEtaDNtwo}{0.0352(16)}\newcommand*{\rsOmegaDNtwo}{0.7895(31)}%
+\newcommand*{\rsUstarDtenNtwo}{1.40339(67)}\newcommand*{\rsNuDtenNtwo}{0.67026(76)}\newcommand*{\rsEtaDtenNtwo}{0.0353(16)}\newcommand*{\rsOmegaDtenNtwo}{0.7882(33)}%
+\newcommand*{\rsNuDirDNtwo}{0.66986(88)}%
+\newcommand*{\rsPullNuNtwo}{-2.0}\newcommand*{\rsPullEtaNtwo}{-1.8}\newcommand*{\rsPullOmegaNtwo}{+0.1}%
+\newcommand*{\rsUstarANthree}{1.3913(16)}\newcommand*{\rsNuANthree}{0.7062(19)}\newcommand*{\rsEtaANthree}{0.0343(18)}\newcommand*{\rsOmegaANthree}{0.7816(58)}%
+\newcommand*{\rsUstarBNthree}{1.3913(16)}\newcommand*{\rsNuBNthree}{0.7062(19)}\newcommand*{\rsEtaBNthree}{0.0343(18)}\newcommand*{\rsOmegaBNthree}{0.7816(58)}%
+\newcommand*{\rsUstarCNthree}{1.39117(58)}\newcommand*{\rsNuCNthree}{0.7070(17)}\newcommand*{\rsEtaCNthree}{0.0347(14)}\newcommand*{\rsOmegaCNthree}{0.7818(24)}%
+\newcommand*{\rsUstarDNthree}{1.39138(16)}\newcommand*{\rsNuDNthree}{0.7075(13)}\newcommand*{\rsEtaDNthree}{0.0352(13)}\newcommand*{\rsOmegaDNthree}{0.78148(82)}%
+\newcommand*{\rsUstarDtenNthree}{1.39126(17)}\newcommand*{\rsNuDtenNthree}{0.7075(13)}\newcommand*{\rsEtaDtenNthree}{0.0351(13)}\newcommand*{\rsOmegaDtenNthree}{0.78164(81)}%
+\newcommand*{\rsNuDirDNthree}{0.7068(16)}%
+\newcommand*{\rsPullNuNthree}{-3.1}\newcommand*{\rsPullEtaNthree}{-2.0}\newcommand*{\rsPullOmegaNthree}{+10.4}%
+\newcommand*{\rsBenchGZJEtaNzero}{0.0284(25)}\newcommand*{\rsBenchGZJNuNzero}{0.5882(11)}\newcommand*{\rsBenchGZJOmegaNzero}{0.812(16)}\newcommand*{\rsBenchGZJUstarNzero}{1.413(6)}%
+\newcommand*{\rsBenchGZJEtaNone}{0.0335(25)}\newcommand*{\rsBenchGZJNuNone}{0.6304(13)}\newcommand*{\rsBenchGZJOmegaNone}{0.799(11)}\newcommand*{\rsBenchGZJUstarNone}{1.411(4)}%
+\newcommand*{\rsBenchGZJEtaNtwo}{0.0354(25)}\newcommand*{\rsBenchGZJNuNtwo}{0.6703(15)}\newcommand*{\rsBenchGZJOmegaNtwo}{0.789(11)}\newcommand*{\rsBenchGZJUstarNtwo}{1.403(3)}%
+\newcommand*{\rsBenchGZJEtaNthree}{0.0355(25)}\newcommand*{\rsBenchGZJNuNthree}{0.7073(35)}\newcommand*{\rsBenchGZJOmegaNthree}{0.782(13)}\newcommand*{\rsBenchGZJUstarNthree}{1.390(4)}%
+\newcommand*{\rsBenchMCEtaNzero}{0.0310434(21)}\newcommand*{\rsBenchMCNuNzero}{0.58759700(40)}\newcommand*{\rsBenchMCOmegaNzero}{0.899(14)}%
+\newcommand*{\rsBenchMCEtaNtwo}{0.03810(8)}\newcommand*{\rsBenchMCNuNtwo}{0.67169(7)}\newcommand*{\rsBenchMCOmegaNtwo}{0.789(4)}%
+\newcommand*{\rsBenchMCEtaNthree}{0.03784(5)}\newcommand*{\rsBenchMCNuNthree}{0.71164(10)}\newcommand*{\rsBenchMCOmegaNthree}{0.759(2)}%
+\newcommand*{\rsBenchCBEtaNone}{0.036297612(48)}\newcommand*{\rsBenchCBNuNone}{0.62997097(12)}\newcommand*{\rsBenchCBOmegaNone}{0.82968(23)}%
+\newcommand*{\rsBenchCBEtaNtwo}{0.038176(44)}\newcommand*{\rsBenchCBNuNtwo}{0.67175(10)}\newcommand*{\rsBenchCBOmegaNtwo}{0.794(8)}%
+\newcommand*{\rsBenchCBEtaNthree}{0.03787(13)}\newcommand*{\rsBenchCBNuNthree}{0.71168(41)}%
+\newcommand*{\rsStatMaxUstar}{5\times10^{-5}}%
+\newcommand*{\rsStatMaxNu}{7\times10^{-6}}%
+\newcommand*{\rsStatMaxEta}{3\times10^{-6}}%
+\newcommand*{\rsStatMaxOmega}{1\times10^{-4}}%
+\newcommand*{\rsStatRatio}{0.1}%
+\newcommand*{\rsStatRatioA}{8\times10^{-4}}%
+\newcommand*{\rsLinDev}{4\%}%
+\newcommand*{\rsClassDev}{12\%}%
+\newcommand*{\rsABdiff}{1\times10^{-6}}%
+\newcommand*{\rsABmax}{1\times10^{-3}}%
+\newcommand*{\rsGainUstar}{1.6--10.5}%
+\newcommand*{\rsGainNu}{1.4--1.8}%
+\newcommand*{\rsGainEta}{1.4}%
+\newcommand*{\rsGainOmega}{0.9--7.0}%
+\newcommand*{\rsEtaWindow}{2\times10^{-4}}%
+\newcommand*{\rsNuDirMax}{1\times10^{-3}}%
+\newcommand*{\rsDraws}{200}%
+\newcommand*{\rsBmax}{12}\newcommand*{\rsAlphaMin}{-2}\newcommand*{\rsAlphaMax}{10}%
+\newcommand*{\rsAone}{0.1477742}\newcommand*{\rsInstanton}{113.3835}%

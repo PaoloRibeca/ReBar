@@ -1,0 +1,2 @@
+1	ee11|1|	0.25	1VR=0	selfloop=1
+2	e111|e|	0.166666666667	1VR=0	selfloop=0

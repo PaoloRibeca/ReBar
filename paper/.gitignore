@@ -1,0 +1,14 @@
+# LaTeX build products (the PDFs are built with `make`, not committed)
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.run.xml
+*.synctex.gz
+*Notes.bib
+/main-onecolumn.pdf
+/png/
+/arxiv/

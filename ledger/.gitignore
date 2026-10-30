@@ -1,0 +1,3 @@
+# run JSONs being written or continued by rebar-refine.sh (archived by the merge)
+/*/runs/
+*.new

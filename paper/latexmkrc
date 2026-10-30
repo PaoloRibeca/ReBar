@@ -1,0 +1,9 @@
+# latexmkrc -- make the bundled REVTeX 4.2 (./tex/) visible to pdflatex and bibtex.
+# Works with old latexmk versions too (no ensure_path).
+$ENV{'TEXINPUTS'} = './tex//:' . (defined $ENV{'TEXINPUTS'} ? $ENV{'TEXINPUTS'} : '');
+$ENV{'BSTINPUTS'} = './tex//:' . (defined $ENV{'BSTINPUTS'} ? $ENV{'BSTINPUTS'} : '');
+$pdf_mode = 1;
+$pdflatex = 'pdflatex -interaction=nonstopmode -halt-on-error -file-line-error %O %S';
+$bibtex_use = 2;
+# REVTeX writes <jobname>Notes.bib for its bibliography control entry.
+$clean_ext = 'bbl run.xml %RNotes.bib synctex.gz';

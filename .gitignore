@@ -1,0 +1,21 @@
+# build products
+/graphs/bin/
+/graphs/build/
+/integrator/bin/
+/integrator/build/
+/integrator/config.mk
+*.o
+__pycache__/
+*.pyc
+# run outputs (results tarballs are archived separately)
+/integrator/results-*/
+results-*.tar.gz
+run_all.log
+# rendered documentation
+*.pdf
+!/paper/main.pdf
+# the archive of the merged runs (format 3: kept outside git, deposited on Zenodo by batch)
+/ledger-archive/
+# release archives and their payload directories (releases/CURRENT and MANIFEST stay tracked)
+/releases/ReBar-*
+/releases/CURRENT~

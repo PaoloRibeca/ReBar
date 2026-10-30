@@ -1,0 +1,68 @@
+N = 0: ratio of each coefficient of gN^k to its leading large-order estimate
+  k   beta                 eta                  eta_phi2
+  3     1.5552    -0.4852     1.0698
+  4     1.1848     1.0025     0.8835
+  5     1.0220     0.3580     0.7903
+  6     0.9679     0.5746     0.7712
+  7     0.9506     0.5179     0.7714
+  8     0.9536     0.5693     0.7859
+  9     0.9653     0.5929     0.8055
+  10     0.9808     0.6272     0.8272
+  11     0.9969                      
+N = 1: ratio of each coefficient of gN^k to its leading large-order estimate
+  k   beta                 eta                  eta_phi2
+  3     1.7508    -0.5476     1.1649
+  4     1.3127     1.1200     0.9374
+  5     1.1208     0.3678     0.8385
+  6     1.0508     0.6216     0.8120
+  7     1.0245     0.5417     0.8084
+  8     1.0220     0.5985     0.8206
+  9     1.0302     0.6175     0.8388
+  10     1.0433     0.6520     0.8596
+  11     1.0579                      
+N = 2: ratio of each coefficient of gN^k to its leading large-order estimate
+  k   beta                 eta                  eta_phi2
+  3     2.0848    -0.6626     1.3543
+  4     1.5313     1.3240     1.0486
+  5     1.2916     0.3972     0.9399
+  6     1.1947     0.7083     0.8972
+  7     1.1535     0.5937     0.8876
+  8     1.1411     0.6588     0.8945
+  9     1.1427     0.6710     0.9095
+  10     1.1509     0.7057     0.9280
+  11     1.1616                      
+N = 3: ratio of each coefficient of gN^k to its leading large-order estimate
+  k   beta                 eta                  eta_phi2
+  3     2.5918    -0.8436     1.6535
+  4     1.8620     1.6344     1.2235
+  5     1.5489     0.4474     1.1014
+  6     1.4106     0.8409     1.0308
+  7     1.3466     0.6765     1.0130
+  8     1.3186     0.7535     1.0108
+  9     1.3096     0.7556     1.0208
+  10     1.3097     0.7906     1.0350
+  11     1.3138                      
+N = 4: ratio of each coefficient of gN^k to its leading large-order estimate
+  k   beta                 eta                  eta_phi2
+  3     3.3349    -1.1168     2.0978
+  4     2.3428     2.0885     1.4783
+  5     1.9195     0.5223     1.3392
+  6     1.7192     1.0323     1.2233
+  7     1.6209     0.7967     1.1949
+  8     1.5693     0.8899     1.1777
+  9     1.5438     0.8772     1.1804
+  10     1.5312     0.9122     1.1873
+  11     1.5251                      
+wrote ../paper/generated/largeorder.tex
+subleading fit ratio = c0 (1 + d1/k + d2/k^2), k = 6..kmax; predicted/computed - 1 for the last orders
+  N=0 beta     c0 1.3550  d1 -4.336  d2 +15.730  max residual 1.9e-04   k=10: -7.3e-05  k=11: +4.5e-04
+  N=0 eta_phi2 c0 1.2349  d1 -4.877  d2 +15.743  max residual 2.8e-04   k=10: -6.7e-04
+  N=1 beta     c0 1.4157  d1 -4.258  d2 +16.271  max residual 1.8e-04   k=10: -1.6e-04  k=11: +3.8e-04
+  N=1 eta_phi2 c0 1.2682  d1 -4.821  d2 +15.978  max residual 3.4e-04   k=10: -9.0e-04
+  N=2 beta     c0 1.4998  d1 -3.989  d2 +16.606  max residual 2.3e-04   k=10: -1.1e-04  k=11: +5.2e-04
+  N=2 eta_phi2 c0 1.3172  d1 -4.524  d2 +15.668  max residual 5.7e-04   k=10: -1.5e-03
+  N=3 beta     c0 1.6105  d1 -3.558  d2 +16.880  max residual 3.1e-04   k=10: +1.1e-05  k=11: +8.1e-04
+  N=3 eta_phi2 c0 1.3783  d1 -3.971  d2 +14.763  max residual 1.5e-03   k=10: -2.6e-03
+  N=4 beta     c0 1.7504  d1 -2.979  d2 +17.230  max residual 4.2e-04   k=10: +1.7e-04  k=11: +1.2e-03
+  N=4 eta_phi2 c0 1.4442  d1 -3.096  d2 +13.092  max residual 2.9e-03   k=10: -4.5e-03
+wrote ../paper/generated/largeorder-fit.tex

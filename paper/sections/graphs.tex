@@ -1,0 +1,140 @@
+% sections/graphs.tex -- Methods B: graphs and integrands (generation, construction, consistency checks)
+% ---------------------------------------------------------------------------------------------------------------
+\subsection{Graphs and integrands}
+\label{sec:methods-graphs}
+
+The pipeline from the Lagrangian to the sampled integrands has three stages, each with its own checks: for each order, the generation
+of the graphs, the construction of the subtracted integrand of every graph, and the consistency checks that
+tie the two to exact results. All three are automatic and were run here to ten loops.
+
+\subsubsection{Generating the graphs}
+\label{sec:methods-generation}
+
+The lists of 1PI graphs of $\Gamma^{(2)}$ and $\Gamma^{(4)}$ are produced by a generator that derives from the one
+written for the seven-loop computation of Ref.~\cite{Ribeca2003thesis}, with three improvements: it grows the graphs
+by vertex insertion instead of enumerating labelled graphs and screening them by a canonical form, it canonicalizes
+them by colour refinement with backtracking, and it takes any list of vertex degrees, the external legs being implicit
+in the valences. The class it generates is every connected graph with the given valences, self-loops and bridges
+allowed, and the construction is complete: removing a leaf of a spanning tree and re-pairing the half-lines it leaves
+is the inverse of an insertion, so that every graph with $V$ vertices descends from one with $V-1$. The class
+is grown order by order, each candidate canonicalized and kept in a hash set, and the 1PI graphs are written out at
+the end of every order, together with their Nickel indices and weights. The cost is a few hundred insertions per
+graph grown, so that it follows the size of the class, growing by a factor of ten to twelve per loop on one core.
+Table~\ref{tab:generation} gives the sizes and the times, measured on one core of a cluster node; the
+counts through eight loops are those of Ref.~\cite{Ribeca2003thesis} (Table~3.1), the others are new~\check{G1}. Every
+complete list satisfies its zero-dimensional sum rule (Sec.~\ref{sec:methods-checks}) through twelve loops for
+$\Gamma^{(2)}$ and eleven for $\Gamma^{(4)}$.
+
+Every graph is converted to its Nickel index~\cite{NMB1977} in canonical form---the
+lexicographic minimum over vertex labellings---which identifies it across lists and keys its random numbers
+(Sec.~\ref{sec:methods-rng}); one-vertex-reducible graphs and graphs with both legs on one vertex are flagged, since
+their integrands vanish (Sec.~\ref{sec:methods-construction}), and are not built for $B_L$ and $H_L$.
+
+\begin{table}
+\caption{\label{tab:generation}%
+Generation of the graph lists: numbers of 1PI graphs without self-loops (one-vertex-reducible ones included), and the
+CPU time of the generator on one core of a cluster node (an Intel Xeon Platinum 9242), one list at a time on an
+otherwise idle node, the Nickel indices, weights and sum rules included. The eleven- and twelve-loop lists were made
+on 96 threads, in 23~s and 275~s of wall time for $\Gamma^{(2)}$ and 1005~s for $\Gamma^{(4)}$ at eleven loops, the
+last with 38~GB of memory; their times in the table are core times summed over the threads. Every regenerated list
+equals the stored one. The counts of graphs whose integrands survive the pruning (Sec.~\ref{sec:methods-construction})
+are in Table~\ref{tab:graphcounts}.}
+\begin{ruledtabular}
+\setlength{\tabcolsep}{3pt}\footnotesize
+\begin{tabular}{lrrrr}
+$L$ & $\Gamma^{(4)}$ & time & $\Gamma^{(2)}$ & time \\
+\hline
+7  & 3986       & 2.1 s & 317    & 0.1 s \\
+8  & 26\,540    & 22 s & 1622   & 1.1 s \\
+9  & 197\,022   & 4.3 min & 9184   & 9.8 s \\
+10 & 1\,593\,254 & 53 min & 59\,614 & 98 s \\
+11 & 13\,975\,511 & 14.1 h & 428\,164 & 22 min \\
+12 & --- & --- & 3\,393\,754 & 4.2 h \\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+\paragraph{Weights.}
+Each graph carries the weight $S_G=T_G(N)\,E!/|\mathrm{Aut}\,G|$, where $E$ is its number of legs, $\mathrm{Aut}\,G$ its
+automorphism group at the level of half-edges with unlabelled legs, and $T_G(N)$ its $O(N)$ factor, obtained by
+contracting the vertex tensors $(\delta_{ij}\delta_{kl}+\delta_{ik}\delta_{jl}+\delta_{il}\delta_{jk})/3$ over the $3^V$
+pairings at the $V$ vertices and projecting on the external tensor, so that $T_G(1)=1$. The factor $E!/|\mathrm{Aut}\,G|$
+includes the sum over the labellings of the legs, which is legitimate at zero external
+momenta~\cite{Ribeca2003thesis}. The integrals do not depend on $N$: since every graph carries its polynomial
+$T_G(N)$, one run gives the coefficients for all $N$.
+
+\subsubsection{Constructing the integrands}
+\label{sec:methods-construction}
+
+Every polynomial in Eq.~\eqref{eq:forestterm} is the Kirchhoff polynomial of a minor of $G$, possibly with two vertices
+identified, and factorizes into the Kirchhoff polynomials of its blocks, which we call atoms. Expanding all forest terms
+into products of half-integer powers of atoms, with binomial coefficients that are dyadic rationals and hence exact in
+binary floating point, and adding the coefficients of identical products, removes every combination of forest terms
+that cancels identically; we call this step the pruning. Each graph becomes
+\begin{equation}
+f_G(x)=\sum_k c_k\,x_{\mathrm{ins},k}\prod_a P_a(x)^{p_{ka}/2},
+\label{eq:integrand}
+\end{equation}
+with atoms $P_a$, integer $p_{ka}$ and exact $c_k$; terms with the same atoms, which differ only by the insertions, are
+grouped. The result of the expansion is a small program: the list of atoms (each a minor of $G$, evaluated at run time
+by a spanning-tree pass and a factorization of its loop matrix), the list of terms (coefficient, insertion monomial,
+atom exponents), and the tables of the sampling density of Sec.~\ref{sec:methods-tropical}. One generic kernel
+evaluates any such program (Sec.~\ref{sec:methods-kernel}).
+
+The pruning removes up to two thirds of the raw terms. At six loops a four-point graph has on average 250 forests,
+which leave 116 terms in 22 groups with 19 distinct atoms (at most 55); at seven loops, in a sample of 300 four-point
+graphs, 583 forests, 219 terms, 39 groups and 26 atoms (at most 6128, 766, 126 and 85). The largest programs are
+those of two-point graphs with many nested two-point parts: at nine loops the chain of eight bubbles of $C_9$ has
+$3.4\times10^5$ forests and 2328 atoms, against at most 269 atoms for $H_8$ and 203 for $B_8$. The expansion is done
+once per graph on the host, in parallel over the graphs; its cost grows faster than the number of graphs
+(Table~\ref{tab:graphcounts}: about \buildpc{b8} core-seconds per graph for $B_8$, \buildpc{h9} for $H_9$,
+\buildpc{c9} for $C_9$, and from \buildpc{b10} for $B_{10}$ to \buildpc{c10} for $C_{10}$ at ten loops), so that at ten
+loops it dominates a job. The built integrands of a list are therefore
+written once to a cache file, by a CPU-only job, and loaded by every subsequent run; a run with and without the cache
+gives bitwise the same results~\check{I4}.
+
+Graphs that vanish identically come out of the pruning with no terms at all, without any structural rule: graphs with a
+cut vertex (one-vertex-reducible graphs), which factorize at zero momentum~\cite{Ribeca2003thesis} into pieces of which
+one is a renormalization part at exactly zero momentum, cancelled by its own subtraction; graphs with self-loops,
+for $L\ge2$; and, for $H_L$, generalized tadpoles, graphs with both external legs on one vertex, for which $W_G=0$. At
+three to seven loops these are 21--30\% of the four-point and 15--17\% of the two-point lists (more for $H_L$); at
+eight loops 18\% and 14\%, and at nine loops 12\% of the two-point list. In production runs the one-vertex-reducible
+graphs of $B_L$ and $H_L$ are dropped before the expansion; their vanishing, and that of the graphs with self-loops, was
+verified explicitly up to five loops~\check{I2}. Those of $C_L$ are expanded in every run, and the pruning leaves no
+term in any of them, at every order (independently verified up to seven loops~\check{I2}).
+
+\paragraph{Twins.}
+At zero momenta and equal masses, Eq.~\eqref{eq:param} depends on $G$ only through its cycle matroid, so that
+2-isomorphic graphs in Whitney's sense~\cite{Whitney1933}, which we call twins, have equal integrals in any
+representation~\cite{Ribeca2003thesis}: the 3986 seven-loop four-point graphs have 3018 distinct unsubtracted integrals,
+and the 3150 non-vanishing ones fall into 2391 classes. We checked that the subtracted integrands of twins, summed over
+the positions of the insertion, agree pointwise under the matroid map of the lines (all 3 pairs at four loops and all 25
+non-vanishing pairs at five loops for $B_L$)~\check{I3}. Twins have different $O(N)$ factors, so that a merged class carries the
+sum of their weights. Twins were not merged in the runs of Sec.~\ref{sec:results}: every class is one graph.
+
+\subsubsection{Consistency checks}
+\label{sec:methods-checks}
+
+The graphs, their weights and their integrands are checked, before any sampling, against results that are exact.
+\begin{enumerate}
+\item \emph{Zero-dimensional sum rules.} In zero dimensions every integral equals one, so that $\sum_{G}S_G$ over a
+complete list is the coefficient of $g^L$ in the corresponding vertex function of the zero-dimensional $O(N)$ model,
+known exactly from its moments (Appendix~\ref{app:sumrules}). Summed over all graphs, one-vertex-reducible ones
+included, this tests the completeness of a list and its weights without any integral; for lists without self-loops the
+bare mass is shifted so that every self-loop cancels. Every list passes it exactly, with the full $O(N)$
+polynomial, through ten loops (Table~\ref{tab:sumrules})~\check{G2}.
+\item \emph{Independent lists.} Converted to Nickel indices, our lists equal those of Ref.~\cite{Phi4tools2024}
+(generated with \textsc{feyngen}~\cite{Borinsky2014feyngen}) as sets, for $\Gamma^{(4)}$ at $L\le7$ and $\Gamma^{(2)}$ at
+$L\le8$~\check{G3}, and those of a brute-force generator in our code where that is practical ($\Gamma^{(4)}$ to five loops,
+$\Gamma^{(2)}$ to six). Two independent canonicalizers (one in the generator's string format, one on Nickel indices)
+agree on every graph, and all graphs of every list are distinct~\check{G1}.
+\item \emph{Weights.} The weights and $O(N)$ polynomials equal those of the independent implementation of
+Refs.~\cite{Ribeca2003thesis,GuidaRibeca2006} on all 260 graphs with $L\le5$ (its 251 and the nine graphs with self-loops its lists lacked) and on all 47
+graphs of its four-loop tables~\check{G4}.
+\item \emph{Integrands.} The expansion~\eqref{eq:integrand} agrees pointwise with an independent evaluation of the
+forest formula in 100-digit arithmetic (Sec.~\ref{sec:methods-validation})~\check{I1}; vanishing graphs
+vanish~\check{I2}, twins agree pointwise~\check{I3}, and the exact two-loop sums $B_2=1/2$, $H_2=1/81$ and $C_2=1/12$
+are reproduced to a few $10^{-7}$ by the sampled integrals (Sec.~\ref{sec:results-validation})~\check{N3}.
+\item \emph{Large order.} Each new coefficient is compared with its leading large-order estimate
+(Sec.~\ref{sec:methods-validation}), a test of the complete chain that catches an error of a few per cent (Sec.~\ref{sec:methods-validation})~\check{S3}.
+\end{enumerate}

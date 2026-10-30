@@ -1,0 +1,8 @@
+1	ee11|22|33|ee|	0.375	1VR=1	selfloop=0
+2	ee11|23|e33|e|	1.5	1VR=1	selfloop=0
+3	ee12|ee3|333||	0.5	1VR=0	selfloop=0
+4	ee12|e23|33|e|	6	1VR=0	selfloop=0
+5	ee12|e33|e33||	1.5	1VR=0	selfloop=0
+6	ee12|223|3|ee|	0.75	1VR=0	selfloop=0
+7	e112|e3|e33|e|	1.5	1VR=0	selfloop=0
+8	e123|e23|e3|e|	1	1VR=0	selfloop=0

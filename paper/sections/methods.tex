@@ -1,0 +1,619 @@
+% sections/methods.tex -- Methods: computation of the series, numerical approach, validation strategy
+\section{Methods}
+\label{sec:methods}
+
+This section explains how the series coefficients are reduced to integrals (Sec.~\ref{sec:methods-series}), how
+the graphs and their integrands are built (Sec.~\ref{sec:methods-graphs}), how the integrals are evaluated
+(Sec.~\ref{sec:methods-numerics}), how the series are resummed (Sec.~\ref{sec:methods-resummation}), and how
+the results are checked (Sec.~\ref{sec:methods-validation}). A claim that a script of the repository verifies is marked with the identifier of
+its check, as in \check{G2}; Appendix~\ref{app:reproducibility} lists the checks.
+
+% ---------------------------------------------------------------------------------------------------------------
+\subsection{Computing the series}
+\label{sec:methods-series}
+
+\subsubsection{Scheme and Callan--Symanzik relations}
+\label{sec:methods-cs}
+
+We consider the Euclidean action
+\begin{equation}
+S[\phi]=\int d^3x\,\Bigl[\tfrac12(\partial_\mu\phi)^2+\tfrac12 m_0^2\,\phi^2+\tfrac{\lambda_0}{4!}\,(\phi^2)^2\Bigr]
+\label{eq:action}
+\end{equation}
+for an $N$-component field $\phi$, and denote by $\Gamma^{(a,b)}$ the one-particle-irreducible (1PI) vertex functions
+with $a$ legs and $b$ insertions of $\tfrac12\phi^2$ at zero momentum, with the $O(N)$ tensors factored
+out~\cite{ZinnJustinBook,Ribeca2003thesis}. In the massive zero-momentum scheme~\cite{Parisi1980,BNGM1976,BNM1978}
+the renormalized mass $m$, the normalizations of $\phi$ and $\phi^2$, and the dimensionless coupling $g$ are fixed by
+\begin{gather}
+\Gamma^{(2)}_R(p)=m^2+p^2+O(p^4),\nonumber\\
+\Gamma^{(4)}_R(0)=m\,g,\qquad \Gamma^{(2,1)}_R(0;0)=1 .
+\label{eq:normcond}
+\end{gather}
+The renormalized functions obey the Callan--Symanzik equation~\cite{ZinnJustinBook,Ribeca2003thesis}
+\begin{equation}
+\Bigl[m\,\partial_m+\beta\,\partial_g-\tfrac a2\,\eta-b\,(\eta_{\phi^2}-\eta)\Bigr]\Gamma^{(a,b)}_R
+=(2-\eta)\,m^2\,\Gamma^{(a,b+1)}_R
+\label{eq:cs}
+\end{equation}
+for $b\le1$, where the right-hand side carries one more insertion at zero momentum, and $\beta=m\,\partial g/\partial m$,
+$\eta=m\,\partial\ln Z/\partial m$ and $\eta_{\phi^2}=m\,\partial\ln Z_{\phi^2}/\partial m$ are taken at fixed bare
+parameters ($Z$ and $Z_{\phi^2}$ normalize $\phi$ and $\phi^2$). Applied at zero momenta to the conditions~\eqref{eq:normcond}, the first through its
+$p^2$ derivative, Eq.~\eqref{eq:cs} gives, with $u=g/8\pi$ and $\beta_u=m\,\partial u/\partial m$,
+\begin{gather}
+\eta=\frac{2h}{1+h},\qquad \beta_u=-u+2\eta\,u+(2-\eta)\,\tilde b,\nonumber\\
+\eta_{\phi^2}=-(2-\eta)\,c,\qquad \frac1\nu=(2-\eta)(1-c),
+\label{eq:csrel}
+\end{gather}
+where
+\begin{gather}
+\tilde b=\frac{m\,\Gamma^{(4,1)}_R(0)}{8\pi},\qquad c=m^2\,\Gamma^{(2,2)}_R(0),\nonumber\\
+h=-m^2\,\frac{\partial\Gamma^{(2,1)}_R}{\partial p^2}\bigg|_{p=0}.
+\label{eq:bhc}
+\end{gather}
+The exponents follow at the non-trivial zero of $\beta_u$ (Sec.~\ref{sec:methods-resummation}).
+
+The three functions~\eqref{eq:bhc} are renormalized vertex functions with insertions, superficially convergent, and
+their expansions in $u$,
+\begin{gather}
+\tilde b=\sum_{L\ge1}(-1)^{L+1}B_L\,u^{L+1},\nonumber\\
+h=\sum_{L\ge2}(-1)^L H_L\,u^L,\qquad c=\sum_{L\ge1}(-1)^{L+1}C_L\,u^L,
+\label{eq:series}
+\end{gather}
+are \emph{linear} in the graphs: $B_L$ is a weighted sum over the $L$-loop graphs of $\Gamma^{(4)}$ with one insertion,
+$H_L$ and $C_L$ over the $L$-loop graphs of $\Gamma^{(2)}$ with one and two insertions, of integrals in which every
+renormalization part is subtracted at zero momentum (Secs.~\ref{sec:methods-param} and~\ref{sec:methods-rbar}). No $Z$ factor
+appears, because the subtractions implement the conditions~\eqref{eq:normcond} graph by graph. Together with lower orders, the coefficient of
+$\ubar^{L+1}$ in $\beta$ is fixed by $B_L$ and, through the term $2\eta u$, by $H_L$; that of $\ubar^{L}$ in $\eta$
+by $H_L$; and that of $\ubar^{L}$ in $\nu$ by $C_L$ and $H_L$ [Eq.~\eqref{eq:linear} in
+Appendix~\ref{app:conventions}]. Only products and quotients of series enter Eq.~\eqref{eq:csrel}; no series has to
+be reversed. At lowest order, for instance, $B_1=(N+8)/12$ gives $\beta(\ubar)=-\ubar+\ubar^2+O(\ubar^3)$ for every
+$N$. We write the RG functions in the normalization of Ref.~\cite{Phi4tools2024},
+\begin{align}
+\beta(\ubar)&=-\ubar+\ubar^2+\sum_{k\ge3}\frac{p_{\beta,k}(N)}{(N+8)^{k-1}}\,\ubar^{k},\nonumber\\
+\eta(\ubar)&=\sum_{k\ge2}\frac{p_{\eta,k}(N)}{(N+8)^{k}}\,\ubar^{k},\label{eq:series-form}\\
+\eta_{\phi^2}(\ubar)&=\sum_{k\ge1}\frac{p_{\eta_{\phi^2},k}(N)}{(N+8)^{k}}\,\ubar^{k},\nonumber\\
+\nu(\ubar)&=\frac12+\sum_{k\ge1}\frac{p_{\nu,k}(N)}{(N+8)^{k}}\,\ubar^{k},\nonumber
+\end{align}
+with polynomials $p_{X,k}(N)$, which follow from the polynomials $B_L(N)$, $H_L(N)$, $C_L(N)$ through
+Eq.~\eqref{eq:csrel} applied to the polynomials themselves, in exact rational arithmetic, rather than to their values
+at integer $N$, whose interpolation is ill-conditioned.
+Equation~\eqref{eq:csrel} is the fixed-dimension counterpart of the representation of the minimal-subtraction RG
+functions by finite subtracted integrals~\cite{AdzhemyanKompaniets2011,AdzhemyanKompaniets2014}. We call this computation, through
+Eqs.~\eqref{eq:csrel}--\eqref{eq:series}, route A.
+
+The previous complete computations~\cite{NMB1977,BNM1978,Phi4tools2024} and the automated approach of
+Ref.~\cite{Ribeca2003thesis} instead evaluated the zero-momentum vertex functions of a scheme in which only two-point
+subgraphs are subtracted (in Refs.~\cite{Ribeca2003thesis,Phi4tools2024} only the tadpole, set to zero, and the sunset,
+subtracted at $p^2=0$; in Ref.~\cite{NMB1977}, according to Ref.~\cite{Phi4tools2024}, all two-point subgraphs),
+and obtained the RG functions through the $Z$ factors, the relation between the coupling of that scheme and the
+renormalized one, and its inverse~\cite{Ribeca2003thesis}; we use this $Z$-factor route as an independent check
+(route B, Sec.~\ref{sec:methods-validation}). Along that route, in the intermediate scheme of
+Refs.~\cite{Ribeca2003thesis,Phi4tools2024}, the contribution of the $L$-loop graphs is a small difference of large numbers: the $L$-loop four-point graphs contribute
+to the coefficient of $\beta$ an amount larger than the net $B_L$ by factors of 5.5, 14.4, 29.2, 49.5 and 74 at
+$L=2,\dots,6$, and the $L$-loop graphs of $\partial\Gamma^{(2)}/\partial p^2$ contribute to $\eta$ an amount larger than
+$H_L$ by about 20, 114 and 106 at $L=4$, 5 and 6; the rest is cancelled by products of lower orders. The relative
+error of the coefficient is the relative error of the graph sum multiplied by this factor, so that the number of samples
+grows with its square. In Eq.~\eqref{eq:series} the same cancellations take place within each integrand, between a
+graph and its counterterms evaluated at the same point, so that they cost no additional samples;
+Sec.~\ref{sec:results-performance} quantifies the gain.
+
+\subsubsection{Parametric integrands}
+\label{sec:methods-param}
+
+At zero external momenta and unit mass, the integral of a graph $G$ with $\ell$ lines and $L$ loops, with one
+$d^3k/\pi^2$ per loop (Nickel's normalization~\cite{NMB1977}), is
+\begin{equation}
+A_G=\frac{\Gamma(\ell-3L/2)}{\pi^{L/2}}\int_\Delta d\mu\;U_G^{-3/2},\quad U_G=\sum_{T}\prod_{e\notin T}x_e ,
+\label{eq:param}
+\end{equation}
+where $T$ runs over the spanning trees of $G$, $\Delta$ is the simplex $x_e\ge0$, $\sum_e x_e=1$, and
+$d\mu=\delta(1-\sum_e x_e)\prod_e dx_e$~\cite{BergereZuber1974,Ribeca2003thesis,BrownKreimer2013}; the one-loop bubble, for instance,
+equals one. The Kirchhoff polynomial $U_G$ factorizes over the 2-connected components (blocks) of $G$. An insertion of
+$\tfrac12\phi^2$ at zero momentum on line $e$ squares its propagator, that is, it multiplies the Schwinger integrand by
+the parameter of $e$: in Eq.~\eqref{eq:param} it adds a factor $x_e$ and raises the argument of the Gamma function by
+one. For a two-point graph with external vertices $a$ and $b$, the external momentum enters as
+$\exp(-p^2\,W_G/U_G)$, where $W_G$ is the Kirchhoff polynomial of the graph with $a$ and $b$ identified (equivalently,
+the polynomial of the spanning 2-forests that separate $a$ from $b$; $W_G=0$ if $a=b$). The $p^2$ derivative at
+$p=0$ is therefore $-\Gamma(\ell-3L/2+1)\,\pi^{-L/2}\int_\Delta d\mu\,W_G\,U_G^{-5/2}$, a single one-signed integrand,
+which replaces the expansion into $n(n-1)/2+2n$ signed terms per chain of $n$ propagators used in momentum
+space~\cite{Ribeca2003thesis}.
+
+Since $\ell=2L$ for $\Gamma^{(4)}$ and $\ell=2L-1$ for $\Gamma^{(2)}$, all integrals entering Eq.~\eqref{eq:series} carry the
+same prefactor $\Pi_L=\Gamma(L/2+1)\,\pi^{-L/2}$, and the per-order sums are
+\begin{align}
+B_L&=\Pi_L\sum_{G\in\mathcal G_4(L)}S_G\sum_{e}\int_\Delta d\mu\;x_e\,
+      \Rbar_{G,e}\bigl[U_G^{-3/2}\bigr],\nonumber\\
+H_L&=\Pi_L\sum_{G\in\mathcal G_2(L)}S_G\sum_{e}\int_\Delta d\mu\;x_e\,
+      \Rbar_{G,e}\bigl[W_G\,U_G^{-5/2}\bigr],\label{eq:BHC}\\
+C_L&=\Pi_L\sum_{G\in\mathcal G_2(L)}S_G\sum_{(e,e')}\int_\Delta d\mu\;x_e\,x_{e'}\,
+      \Rbar_{G,ee'}\bigl[U_G^{-3/2}\bigr],\nonumber
+\end{align}
+where $\mathcal G_E(L)$ is the list of $L$-loop graphs with $E$ legs, $S_G$ the weight of $G$ including its $O(N)$
+factor (Sec.~\ref{sec:methods-graphs}), $e$ runs over the lines and $(e,e')$ over the ordered pairs of lines,
+$e=e'$ included, and $\Rbar_{G,e}$ is the subtraction operator of Sec.~\ref{sec:methods-rbar}, which depends on where the
+insertions are. The propagators have the renormalized mass, $m=1$. (Refs.~\cite{NMB1977,Ribeca2003thesis,Phi4tools2024}
+use propagators of unit mass in the scheme of their integrals instead; individual integrals differ, the RG functions
+do not.) The sums are known exactly at
+one and two loops [Eq.~\eqref{eq:exactsums}]. On the simplex the integrands can be
+multiplied by $(\sum_e x_e)^{-(L/2+1)}$, which equals one there and makes them homogeneous of degree $-\ell$: the
+integrals are then projective, and can be evaluated in any coordinates of the projective simplex
+(Sec.~\ref{sec:methods-tropical}). The integration dimension is $\ell-1$, that is 15 for the eight-loop four-point and 16
+for the nine-loop two-point graphs.
+
+\subsubsection{Zero-momentum subtractions}
+\label{sec:methods-rbar}
+
+The renormalization parts of a graph are its 1PI subgraphs $\gamma$ of three types, classified by their legs (the
+lines and external legs of $G$ attached to $\gamma$) and by the insertions on their lines: four-point parts without
+insertions, subtracted by $t^0_\gamma$, the term of order zero of the Taylor expansion in the external momenta of
+$\gamma$; two-point parts without insertions, subtracted by $t^2_\gamma$, the terms up to order two (mass and field
+normalization); and two-point parts with one insertion, subtracted by $t^0_\gamma$. These subtractions enforce the
+conditions~\eqref{eq:normcond} graph by graph~\cite{BogoliubovParasiuk1957,Hepp1966,Zimmermann1969,BergereLam1976,Zavialov1990}. In $d=3$ only the tadpole and
+the sunset subgraphs need renormalization~\cite{Ribeca2003thesis,Phi4tools2024}; all the other subtractions are finite, but the scheme requires them,
+and through them the cancellations described above take place inside each integrand. The graphs of Eq.~\eqref{eq:BHC}
+are themselves not renormalization parts, except those of $H_L$, whose own subtraction $t^0$ does not depend on $p^2$
+and drops out of the derivative, so that the subtraction of the subgraphs alone, $\Rbar$, is the complete
+renormalization:
+\begin{equation}
+\Rbar_G=\sum_{F}\prod_{\gamma\in F}\bigl(-t_\gamma\bigr),
+\label{eq:forest}
+\end{equation}
+where $F$ runs over the forests, sets of renormalization parts that are pairwise nested or vertex-disjoint (the
+compatibility condition of the counterterms generated by a Lagrangian), the empty forest included, and inner operators
+act first.
+
+In parametric space the subtractions have closed forms. The term $t^0_\gamma$ replaces $U_\theta$, in the parent $\theta$ of
+$\gamma$, by $U_\gamma\,U_{\theta/\gamma}$, where $\theta/\gamma$ is $\theta$ with $\gamma$ contracted to a point: this is the
+leading term of $U_\theta$ when the parameters of $\gamma$ go to zero. For a two-point part $\gamma$ joined to the rest at
+the vertices $a$ and $b$, the classical factorization of the Kirchhoff polynomial across a two-vertex
+cut~\cite{Nakanishi1971,BognerWeinzierl2010},
+\begin{align}
+U_\theta&=U_\gamma\,U_{\theta/\gamma}+W_\gamma\,U_{\theta\setminus\gamma}\nonumber\\
+&=U_\gamma\,\bigl(U_{\theta/\gamma}+\varepsilon_\gamma\,U_{\theta\setminus\gamma}\bigr),\qquad
+\varepsilon_\gamma=\frac{W_\gamma}{U_\gamma},
+\label{eq:effline}
+\end{align}
+where $\theta\setminus\gamma$ is $\theta$ without the lines of $\gamma$ and $W_\gamma$ is the Kirchhoff polynomial of $\gamma$
+with $a$ and $b$ identified (a spanning tree of $\theta$ contains either a spanning tree of $\gamma$, and then a
+spanning tree of $\theta/\gamma$, or a spanning two-forest of $\gamma$ that separates $a$ from $b$, and then its other
+lines connect $a$ and $b$ through $\theta\setminus\gamma$), shows that $\gamma$ acts on its parent as a massless line
+with Schwinger parameter
+$\varepsilon_\gamma$; $t^2_\gamma$ keeps the terms of order zero and one in $\varepsilon_\gamma$, and reduces to
+$t^0_\gamma$ when $a=b$. The term of a forest $F$ is thus
+\begin{equation}
+T_F=(-1)^{|F|}\,x_{\mathrm{ins}}\prod_{\theta\in F\cup\{G\}}U_{\theta/F}^{-3/2},
+\label{eq:forestterm}
+\end{equation}
+where $x_{\mathrm{ins}}$ is the monomial of the insertions and $\theta/F$ is the minor of $\theta$ in which every maximal
+element of $F$ below $\theta$ is contracted ($t^0$) or replaced by its effective line ($t^2$), with the result expanded to
+first order in every $\varepsilon$; for $H_L$ the factor of the root is $W_{G/F}\,U_{G/F}^{-5/2}$. Both terms of
+Eq.~\eqref{eq:effline} have the degree of $U_\theta$, so all forest terms are homogeneous of the same degree: they share
+the simplex and the prefactor of Eq.~\eqref{eq:BHC}, and their sum, with all positions of the insertions, is integrated
+as one function~\cite{BrownKreimer2013}.
+
+\input{sections/graphs}
+
+% ---------------------------------------------------------------------------------------------------------------
+\subsection{Numerical approach}
+\label{sec:methods-numerics}
+
+\subsubsection{Choosing the method}
+\label{sec:methods-choice}
+
+The earlier evaluations integrated each graph separately in momentum space, with one-loop subgraphs replaced by
+analytic effective vertices, on deterministic meshes~\cite{NMB1977}, by adaptive
+cubature~\cite{Ribeca2003thesis,GuidaRibeca2006}, or with VEGAS~\cite{Lepage1978,Phi4tools2024}. Because of the
+cancellations of the $Z$-factor route, and of the precision lost in finding the zero of $\beta$ and in the resummation,
+eight to ten digits per graph were considered necessary~\cite{Ribeca2003thesis}; high-precision
+methods based on integration-by-parts reduction~\cite{ChetyrkinTkachov1981,Laporta2000} are available for massive vacuum integrals only to five
+loops~\cite{LutheSchroeder2016}. The cost of that strategy is set by its hardest graphs: every graph must reach many
+digits, and both the number of graphs and their dimension grow with the order, so that each new order costs more than
+the last by a large and growing factor.
+
+We made the opposite choice deliberately: a method whose precision depends as little as possible on the order. Every
+integrand, whatever its size, is sampled by the same algorithm. Like any Monte Carlo estimate, an order sum then
+reaches a relative error $\epsilon$ in a time proportional to $1/\epsilon^2$; what the design controls is the constant of
+proportionality, and it aims at one that grows as slowly as possible with the order. Three choices serve that aim. The
+samples are shared among the graphs of an order in proportion to their spread (Sec.~\ref{sec:methods-estimators}),
+so that the constant is set by an average over the graphs of the relative spread and the cost of one sample, and by a
+factor that measures the cancellations between graphs of opposite sign: the number of graphs does not enter it by itself. Each
+graph is sampled with a density that follows its singularities (Sec.~\ref{sec:methods-tropical}), so that the weights
+stay bounded at every order. And each term of the forest formula~\eqref{eq:forestterm} costs only a polynomial in $L$
+to evaluate, since its polynomials are determinants of $L\times L$ matrices (Kirchhoff's matrix-tree theorem). At low
+orders such a method cannot match the per-graph treatment, where effective vertices reduce each integral to a few
+dimensions and deterministic integration reaches eight to ten digits. At high orders, where the dimension grows with
+the number of lines and deterministic rules slow down accordingly, it should become far cheaper. How slowly its
+constant actually grows could only be measured: empirically, the time to a fixed relative precision grows by a factor of about
+\costgrowthrange\ per loop (Sec.~\ref{sec:results-performance}). The
+construction of the integrands, done once per graph, still grows with their number, that is factorially. It is a
+one-off cost on ordinary CPUs, but at high enough orders it becomes the dominant one: at the tenth order it already
+exceeds the sampling (Sec.~\ref{sec:results-performance}). A precision that hardly depends on the order also keeps
+the statistical errors of the highest coefficients, which carry the information on the large-order behaviour, from
+limiting the resummation; at the present orders they are already negligible there (Sec.~\ref{sec:resummation-errors}).
+
+The lower-order terms that enter a new coefficient together with its new order sums are known far more precisely
+and do not cancel them, so that the relative error of a coefficient is that of its order sums. What matters is therefore the relative error of each order sum, which no
+cancellation amplifies. Monte Carlo integration then becomes adequate: it requires no choice of variables per
+graph, it gives reliable error estimates when the weights are bounded, and it is naturally parallel. The parametric
+integrands, however, are singular on every face of $\Delta$ on which the parameters of a subgraph vanish, and the faces
+overlap at the corners; under uniform sampling the variance is already infinite on the face of a one-loop bubble. Sector
+decomposition~\cite{BinothHeinrich2000,pySecDec2018} removes these singularities, but in our tests it required $10^5$--$3\times10^5$ sectors for a six-loop
+graph and $(1$--$5)\times10^6$ for a seven-loop four-point graph, and lattice rules on the sector
+integrands~\cite{pySecDecQMC2019} remained pre-asymptotic up to $10^9$ points at 9--11 dimensions. We use instead
+tropical sampling~\cite{Borinsky2023tropical,feyntrop2024}, a recent technique, increasingly used for Feynman
+integrals~\cite{Balduf2023,feyntrop2024,Borinsky2025global}, which samples the Hepp sectors~\cite{Hepp1966} rather
+than enumerating them. A sampler of the same
+kind, with an exponent for every subset of lines and the sector drawn by a recursion over the subsets, was used
+for the forest-subtracted parametric integrands of the electron anomalous magnetic moment, on CPUs and then on
+GPUs~\cite{Volkov2017,Volkov2018,Volkov2024}; our exponents follow the forest terms of the zero-momentum subtraction
+(Sec.~\ref{sec:methods-tropical}). Each graph is sampled with its own density. Sampling a whole order with one
+density~\cite{Borinsky2025global} brings no gain for the unsubtracted integrands, which are all positive: in our tests at
+four and five loops a one-sample global sampler came within 3--4\% of the optimally stratified per-graph sampling
+described below. Its advantage lies elsewhere: it draws graphs and points together, without enumerating the graphs, in
+polynomial time and memory, and it has been applied to finite correlators of a massive super-renormalizable theory in
+three dimensions~\cite{Borinsky2025global}.
+
+\subsubsection{Forest-aware tropical sampling}
+\label{sec:methods-tropical}
+
+In the Hepp sector $x_{\sigma(1)}<\dots<x_{\sigma(\ell)}$, with $S_j=\{\sigma(1),\dots,\sigma(j)\}$ and
+$t_j=x_{\sigma(j)}/x_{\sigma(j+1)}$, the density with respect to the projective measure $\prod_j dt_j/t_j$ is
+\begin{gather}
+p(x)=\frac{1}{J(E)}\prod_{j=1}^{\ell-1}t_j^{\,\omega(S_j)},\nonumber\\
+J(S)=\sum_{e\in S}\frac{J(S\setminus e)}{\omega(S\setminus e)},\qquad J(\{e\})=1 ,
+\label{eq:tropical}
+\end{gather}
+where $J(E)$, a generalized Hepp bound~\cite{Panzer2022Hepp}, sums $\prod_j\omega(S_j)^{-1}$ over all sectors, and the
+exponents $\omega(S)$ follow the integrand. When the parameters of a set $S$ of lines go to zero together,
+$x_e\to\lambda x_e$ for $e\in S$, an atom behaves as $\lambda^{h_a(S)}$, where $h_a(S)$ is the loop number of the
+lines of $S$ that belong to it, and the term $k$ of Eq.~\eqref{eq:integrand} as $\lambda^{\deg_S k}$, with
+$\deg_S k=\sum_a p_{ka}\,h_a(S)/2+n_{k}(S)$ and $n_k(S)$ the number of its insertions on lines of $S$. The term
+converges on this face if $|S|+\deg_S k>0$. We take
+\begin{equation}
+\omega(S)=s\,\Bigl[\,|S|+\min_k\deg_S k+\delta(S)\Bigr],
+\label{eq:omega}
+\end{equation}
+with the minimum over all terms that survive the pruning, $\delta(S)=1$ where $|S|+\min_k\deg_S k\le0$ and zero
+elsewhere, and $s\in(0,1]$ a softening factor: $s=1$ gives the tropical density, and $s<1$ lowers every exponent by the
+same fraction, which tames the tails of the weights at the price of more samples in the bulk; we use $s=0.7$, chosen as
+described in point (iii) below. Both
+$\omega$ and $J$ are tabulated on the host for all $2^\ell$ subsets of lines, so that the cost grows as $2^\ell$ rather
+than as the number $\ell!$ of sectors; the two tables take 1\,MB per graph at $\ell=16$. A point is drawn by removing, from
+$S=E$ downwards, the largest line $e$ of $S$ with probability $J(S\setminus e)/[\omega(S\setminus e)\,J(S)]$, and setting
+the ratio of the largest remaining parameter to $x_e$ to $t=v^{1/\omega(S\setminus e)}$ with $v$ uniform~\cite{Borinsky2023tropical};
+a sample takes $2(\ell-1)$ uniform numbers. Its weight $w=f_G(x)\prod_e x_e/p(x)$, with $f_G$ in projective form, has expectation
+$\int_\Delta d\mu\,f_G$, and the estimator is unbiased for any positive $\omega$.
+
+Three features of Eq.~\eqref{eq:omega} adapt the tropical density to the subtracted integrands. (i) The minimum runs over
+all forest terms: a counterterm brings in the faces of its cograph, and a density built from the unsubtracted graph alone
+produced weights up to $8\times10^4$ times the mean. (ii) On faces where every term diverges, $|S|+\min_k\deg_S k\le0$, the
+sum converges only through a $t^2$ subtraction, which raises the true exponent by two units (for the sunset, $|S|+\deg_S$ goes from 0
+to 2, the measure from $\lambda^{-1}d\lambda$ to $\lambda^{+1}d\lambda$) and which the term-by-term minimum does not see; the shift $\delta=1$ keeps the density
+integrable and below the true behaviour, as we checked in extended precision on every shifted face of 280 integrands at
+four and five loops (no violation); a shift by two units changes the per-sample relative standard deviation of the order sum [$\rho$ of Eq.~\eqref{eq:rho}
+below] by less than 0.5\%. On no face is the exponent negative before the shift, for any integrand up to ten loops: the builder refuses such
+integrands, on which the double-precision evaluation of the expanded $t^2$ terms would have round-off of infinite variance,
+and it built every class of every order~\check{G5}. (iii) The tropical density falls off faster than the integrand before the
+asymptotic regime: the positive powers of atoms in the $t^2$ terms give large but bounded prefactors that it does not see,
+and it ignores the factor $(\sum_e x_e)^{-(L/2+1)}$, which plausibly explains why softening helps the unsubtracted
+integrands as well. With $s=1$ the weight distributions had tails with a Hill index~\cite{Hill1975}
+as low as 1.9 and five-loop error estimates were unreliable. Softening all exponents by $s<1$ makes the weights vanish on
+every face. The value $s=0.7$ is close to optimal for every kind of integrand at four and five loops, where it halves the
+per-sample standard deviation of both the subtracted and the unsubtracted integrands (any positive set of exponents
+gives a valid density, which can be fitted to the integrand~\cite{Salvatori2025}; the optimum found there for the
+corresponding uniform factor is 0.72); the smallest tail index is then 3.87,
+below 4, so that the fourth moment, and with it the error of the error below, is only indicative. We have not repeated
+the scan of $s$ and of the shift beyond five loops. At six and seven loops replica ensembles test the resulting error
+estimates directly (Sec.~\ref{sec:results-validation})~\check{N7}, and at eight loops the independent runs of $B_8$ and
+$H_8$ do (Table~\ref{tab:newsums}); beyond that they rest on the within-run statistics alone.
+
+\subsubsection{Estimators, error estimates and allocation}
+\label{sec:methods-estimators}
+
+Every class is sampled independently; a class is one graph, since twins (Sec.~\ref{sec:methods-construction}) were not
+merged. Its contribution to the order sum
+$X_L=\sum_G a_G\,I_G$, with $a_G=\Pi_L S_G$ and $I_G$ the integral in Eq.~\eqref{eq:BHC} summed over the positions of the insertions, is estimated as
+$a_G\bar w_G$ with variance $a_G^2\sigma_G^2/n_G$, where $\bar w_G$ and $\sigma_G$ are the mean and standard deviation of its
+$n_G$ weights. For each class we also record the kurtosis $\mathcal K_G$ of the weights, from which the relative standard error
+of $\sigma_G$, $[(\mathcal K_G-1)/4n_G]^{1/2}$, is propagated to that of the error of $X_L$ (the error of the error); the largest
+weight relative to the mean; and the largest round-off scale of a single sample (Sec.~\ref{sec:methods-rng}). An order is
+characterized by
+\begin{equation}
+\rho=\frac{\sum_G|a_G|\,\sigma_G}{|X_L|},\qquad \rho_\tau=\frac{\sum_G|a_G|\,\sigma_G\sqrt{\tau_G}}{|X_L|},
+\label{eq:rho}
+\end{equation}
+the per-sample relative standard deviation under optimal allocation, such that $n$ samples give a relative error
+$\rho/\sqrt n$, and its counterpart per unit of computing time, with $\tau_G$ the measured cost per sample.
+
+After a pilot of $2^{14}$ to $2^{16}$ samples per class in the runs of Sec.~\ref{sec:results}, the samples are allocated by Neyman's
+rule~\cite{Neyman1934}, $n_G\propto|a_G|\sigma_G$, or, in a time-boxed
+run, $n_G\propto|a_G|\sigma_G/\sqrt{\tau_G}$ with $\tau_G$ in core or device seconds, which minimizes the error at fixed
+computing time. The main phase runs in rounds (eight by default), each of which brings every class to a fixed fraction of
+its allocation; the complete state is written after every round, and a run that reaches its time limit stops at the end of
+a unit of work. Since the samples of a class always form a prefix of its random-number stream, an interrupted run is
+identical to a shorter one. At $s=0.7$ the pulls of single runs were Gaussian over 340 replica runs on CPUs at two to four loops,
+with no single run beyond three standard deviations, and over 400 replicas at three and four loops with the final code
+the mean pulls were within $\pm0.1$ of zero and their spread between 0.91 and 1.06; at $s=1$ fatter tails had been
+seen. Since the sample variance of a heavy-tailed class converges slowly, we nevertheless judge agreement over
+independent seeds rather than from the error estimate of a single run (Sec.~\ref{sec:methods-validation}).
+
+\subsubsection{Pooling the runs: the ledger}
+\label{sec:methods-ledger}
+Each class draws its random numbers from its own stream of a counter-based generator (Sec.~\ref{sec:methods-rng}),
+whose key is derived from the seed and from the class (kind, loop order, Nickel index). Two runs with different seeds therefore sample every
+class independently, whatever their hardware, allocation or duration and whenever they are contributed, and their per-class statistics pool exactly:
+with $n_i$ samples, weight mean $m_i$ and weight variance $s_i^2$ from run $i$, the pooled mean is
+$\sum_i n_i m_i/\sum_i n_i$ and the pooled sum of squares is $\sum_i [(n_i-1)s_i^2+n_i m_i^2]$. The ledger keeps,
+for every class, the registers of all its samples pooled: their number, mean and central moments up to the fourth,
+updated run by run with the pairwise formulas of Welford, Chan, Golub and LeVeque, and
+P\'ebay~\cite{Welford1962,ChanGolubLeVeque1979,Pebay2008}, together with the extremes of the weights, the round-off
+indicators and the time per sample, so that the ledger's size does not grow with the number of runs. For every run it records
+the seed, the code version and build signature, the device self-tests, the classes covered and the run's own
+statistics; every run file is kept as received in an archive outside the ledger, from which the ledger can be rebuilt
+bit for bit~\check{N5}. The per-order sums, the coefficients and their uncertainties, and the tables of this paper are
+regenerated from the ledger~\check{S2}. A run is admitted to the ledger only if its seed is new for that
+order, its build is a known one whose devices passed the start-up self-test against the host, it has no non-finite
+samples, and its classes are statistically consistent with the pooled ones (a $\chi^2$ over the classes it shares with
+the ledger, which detects a wrong build or a failing device)~\check{N5}. The ledger and the tools are public with the code; a
+refinement is one command that chooses the order with the largest relative uncertainty, allocates the time across its
+classes by their measured cost and spread, runs with a fresh seed and submits its contribution. The precision of every
+coefficient can thus be improved indefinitely, by anyone, without recomputing what exists.
+
+\subsubsection{Random numbers and arithmetic}
+\label{sec:methods-rng}
+
+The random numbers come from the counter-based generator Philox4x32-10~\cite{Salmon2011Random123}, a pure function of a
+key and a counter; our implementation reproduces its published known-answer vectors~\check{N1}. Each class has its own key, a hash of
+the seed and of a string made of the kind of integrand, the loop order and the Nickel index, and the counter is the sample
+index. The random numbers of a class therefore depend only on the seed, the kind, $L$ and the graph, not on its position in
+a list, on how an order is split into runs, or on the hardware. Runs at different loop orders are independent even with the
+same seed (the largest measured correlation between index-matched classes, $5.4\times10^{-3}$, is consistent with zero), and replicas differ by the seed.
+
+The evaluation is entirely in double precision (FP64), in logarithmic form. For each atom, the leading monomial at the
+sampled point is the product of the parameters of the chords of a minimum spanning tree, found by Kruskal's algorithm with
+the lines in increasing order of $x_e$; the loop matrix of the corresponding fundamental cycles, rescaled by the chord
+parameters, has entries that are ratios of parameters not larger than one and a determinant between one and the number of
+spanning trees, computed by an $LDL^{\mathsf T}$ factorization. Hence $\log P_a$ is obtained without overflow or underflow at
+any point the sampler can produce, however close to a face. The terms of Eq.~\eqref{eq:integrand} are added with
+Neumaier's compensated summation~\cite{Neumaier1974}, and the sums and moments of the weights are accumulated with
+compensation as well. Pruning removes the terms that cancel identically; what remains are the cancellations of the
+subtractions close to the faces they protect, where double precision loses all relative accuracy pointwise (within
+about $3\times10^{-7}$ of a sunset face). The absolute round-off of a sample remains of the order of the machine
+precision times $\sum_k|\text{terms}|$, which is negligible against $\sigma_G$: double and 80-bit extended precision at
+the same points differ by at most $1.7\times10^{-8}$ standard deviations (rms) at four and five loops, and every run
+reports the worst single-sample ratio of this scale to $\sigma_G$, with a warning above $10^{-3}$. Single precision is not
+used, as it is not adequate for subtracted integrands: already for the sunset-subtracted five-loop integrals of the
+intermediate scheme its error reaches $10^{-2}$ standard deviations per sample.
+
+\subsubsection{A single kernel for CPUs and GPUs}
+\label{sec:methods-kernel}
+
+The integrator is written in C++. The sampler and the evaluation of Eq.~\eqref{eq:integrand} are written once, as
+header code compiled both by the host C++ compiler and by the CUDA compiler; the expansion of Sec.~\ref{sec:methods-rbar} runs on the host and produces, for
+each class, a flat image of its atoms, terms and tables. The unit of computation is a chunk of 4096 consecutive samples
+of one class, evaluated by a block of 128 lanes of 32 samples each. Each lane accumulates in registers with compensated
+summation, the block reduces its lanes along a fixed binary tree, chunks are merged in index order within units of 16
+chunks, and units in order. Compensated merges are not associative bit for bit, so this order is part of the definition
+of the result: the accumulators of a class depend only on its key and on its number of samples. On CPUs they are bitwise
+identical for any number of threads; an emulator that runs the device program on the host, with the data layout of the
+device, reproduces them bitwise for any number of devices and blocks, any launch size and any order of execution. The
+kernel body is written against an executor that either loops over the lanes (CPU) or maps them onto threads (GPU), in
+phases that end with a barrier by construction; running the lanes in reverse order gives the same bits, which excludes a
+missing barrier. A GPU can therefore differ from the CPU only through the device mathematical library and the contraction
+of multiplications and additions into fused operations (the host code is compiled without contraction).
+
+This is tested on every machine by golden runs: for 13 configurations (subtracted integrands of all three kinds,
+and intermediate-scheme four-point integrands, at three to six loops), reference files computed on a CPU with fixed seeds
+and 65\,536 samples per class must be reproduced on the GPUs with identical sample counts and per-class means within 100
+units of the round-off of the per-sample terms and within $10^{-4}$ standard deviations, on one device, on each device
+separately and with the work forcibly split among all of them~\check{N2}. On the CPU, perturbing every exponential and logarithm by up
+to 2 units in the last place moves the per-class means by less than one such unit. Before production each GPU also passes
+a self-test: device exponential and logarithm within 2 units in the last place of the host, exact square root and fused
+multiply-add, the Philox known answers, a signature of all compile-time limits and data layouts, 4096 samples of each of up to
+three classes compared one by one with the host (same Hepp sector, same weight to $10^{-11}$ of the sum of the absolute values of the
+terms), and one chunk through the production kernel.
+
+On a GPU the kernel runs as persistent blocks that take chunks from an atomic counter, one class per block at a time, so
+that the threads of a warp follow the same integrand and chunks of classes with different costs balance automatically.
+Every GPU is driven by its own host thread, which takes units of 65\,536 samples from a common queue in class order and
+keeps the images of the classes it uses in device memory, with least-recently-used eviction. Launches hold about half a
+second of work but at least two full waves of the grid; their measured durations are apportioned to the classes by their
+cycle counts and give the costs $\tau_G$ of the time-based allocation. The sample count of every unit is verified, uploads
+are read back, and every wait on a device is guarded by a watchdog; a device that fails is removed and its units are
+requeued on the others. Since a unit's result depends only on its counters, the result does not depend on how the work is
+split among the devices. The kernel's limits are compile-time constants, so the larger graphs need larger builds of the
+same sources: the default one handles up to 16 lines and 768 atoms per class, enough through eight loops; a variant with
+up to 18 lines and 8192 atoms covers nine loops (17 lines for $\Gamma^{(2)}$, 18 for $\Gamma^{(4)}$), and one with up to
+20 lines, subgraphs of up to 11 loops and 16\,384 atoms covers ten. The sector table of a class has $2^\ell$ entries,
+about a million at ten loops. Each build has its own signature, and the ledger accepts runs only from known
+ones (Sec.~\ref{sec:methods-ledger}).
+
+% ---------------------------------------------------------------------------------------------------------------
+\subsection{Resummation}
+\label{sec:methods-resummation}
+
+The critical exponents follow from the RG functions at the non-trivial zero $\ubar^*$ of $\beta$: $\eta=\eta(\ubar^*)$, $\nu=\nu(\ubar^*)$ and $\omega=\beta'(\ubar^*)$. The series are asymptotic, with
+coefficients that grow like $k!$ at large order $k$~\cite{Lipatov1977,BrezinLeGuillouZinnJustin1977}, and $\ubar^*$
+is of order one, so they must be resummed. The eighth-order series of Ref.~\cite{Phi4tools2024} were not resummed
+there (``We postpone such study to a future work''), and to our knowledge they have not been resummed since; the
+standard fixed-dimension estimates rest on the shorter series analysed in
+Refs.~\cite{LeGuillouZinnJustin1977,LeGuillouZinnJustin1980,GuidaZinnJustin1998}. We resum the eighth-order series,
+from Ref.~\cite{Phi4tools2024} and from our own coefficients, and our ninth- and tenth-order series with the same
+method and the same settings, so that the effect of the new terms, and that of the more precise eighth-order
+coefficient of $\eta$, can be separated from that of the method.
+
+\subsubsection{Borel--Leroy transform and conformal mapping}
+\label{sec:resummation-method}
+
+We follow Refs.~\cite{LeGuillouZinnJustin1977,LeGuillouZinnJustin1980,GuidaZinnJustin1998} (see also
+Ref.~\cite{ZinnJustinBook}). For a series $F(\ubar)=\sum_k F_k\,\ubar^k$ the Borel--Leroy transform
+\begin{gather}
+F(\ubar)=\int_0^\infty dt\;t^{b}\,e^{-t}\,\mathcal B_F^{(b)}(\ubar t),\nonumber\\
+\mathcal B_F^{(b)}(x)=\sum_k\frac{F_k}{\Gamma(k+b+1)}\,x^k,
+\label{eq:borel}
+\end{gather}
+has a convergent expansion, since at large order~\cite{Lipatov1977,BrezinLeGuillouZinnJustin1977,BrezinParisi1978,ZinnJustinBook}
+\begin{equation}
+F_k\simeq c_F\,k!\,(-a)^k\,k^{b_F}\bigl[1+O(1/k)\bigr].
+\label{eq:largeorder}
+\end{equation}
+The constant $a=48\pi/[(N+8)A]$, fixed by the action $A=\rsInstanton$ of the instanton
+(Sec.~\ref{sec:methods-validation}), is the same for all RG functions ($a=\rsAone$ at $N=1$), while $b_F$ and $c_F$
+depend on $F$: $b_F=3+N/2$ for $\beta$, for $\eta_{\phi^2}$ and hence for $\nu$ and $1/\nu$, and $b_F=2+N/2$ for
+$\eta$~\cite{ZinnJustinBook,Ribeca2003thesis}. Assuming that $\mathcal B_F^{(b)}$ is analytic in the plane cut along
+$(-\infty,-1/a]$, the mapping
+\begin{equation}
+w(x)=\frac{\sqrt{1+a x}-1}{\sqrt{1+a x}+1}
+\label{eq:conformal}
+\end{equation}
+sends the cut plane onto the unit disk, and the series in $\ubar$ is replaced by
+\begin{equation}
+F(\ubar)\approx\sum_{k=0}^{K}d_k(\alpha,b)\int_0^\infty dt\;t^{b}\,e^{-t}\,
+\frac{[w(\ubar t)]^k}{[1-w(\ubar t)]^{\alpha}},
+\label{eq:resummed}
+\end{equation}
+where the $d_k(\alpha,b)$ are fixed by matching the expansion of the right-hand side to $F_0,\dots,F_K$. The factor
+$[1-w]^{-\alpha}$ makes the approximant of the Borel transform grow like $x^{\alpha/2}$ at large $x$ (it is the
+parameter $\lambda=\alpha/2$ of Ref.~\cite{KompanietsPanzer2017}). Dividing $F$ by $\ubar^s$ is equivalent to replacing
+$(b,\alpha)$ with $(b-s,\alpha+2s)$, so the scan over $\alpha$ below contains the shifted series of
+Ref.~\cite{GuidaZinnJustin1998}, which also used a homographic transformation of the coupling and a factor
+$1+r\ubar$ that we do not use.
+
+\subsubsection{Resummed functions, parameters and errors}
+\label{sec:resummation-criteria}
+
+The fixed point $\ubar^*$ is the zero of the resummed $\beta$, and $\omega$ is the slope of the resummed $\beta$ there;
+$\eta$ is resummed and evaluated at $\ubar^*$. For $\nu$ we resum the series of $1/\nu=2-\eta+\eta_{\phi^2}$ as a
+single series and take its inverse: the Callan--Symanzik relations~\eqref{eq:csrel} give $1/\nu$ directly, as a
+product of series, whereas the series of $\nu$ follows from it by an inversion, which turns any zero of $1/\nu$ in the
+complex $\ubar$ plane into a pole. As Ref.~\cite{GuidaZinnJustin1998} summed both $S$ and $1/S$ for each exponent,
+we also resum the series of $\nu$ itself as a second determination; the two differ by at most $\rsNuDirMax$, and the
+difference enters the error~\check{S2}.
+
+We scan $b=0,\frac12,\dots,\rsBmax$ and $\alpha=\rsAlphaMin,\dots,\rsAlphaMax$ in steps of $\frac12$; the range of $b$
+contains the large-order values $b_F$, and beyond $\alpha\approx\rsAlphaMax$ the successive truncations oscillate with
+growing amplitude (those of $\eta$ from $\alpha\approx12$; see Sec.~\ref{sec:resummation-results}). For each
+$(b,\alpha)$ we compute the results $F^{[K-2]}$, $F^{[K-1]}$ and $F^{[K]}$ of the last three truncations of
+Eq.~\eqref{eq:resummed} and, over the neighbourhood $|b'-b|\le1$, $|\alpha'-\alpha|\le1$,
+the largest change $\delta$ between successive truncations and half the range $\sigma$ of $F^{[K]}$. As in
+Ref.~\cite{GuidaZinnJustin1998}, the central parameters $(b^*,\alpha^*)$ are those for which the result depends least
+on the truncation order and on the parameters, here the minimum of $\delta+\sigma$; taking the largest change over a
+neighbourhood rather than at the point itself discards the isolated points where successive truncations cross by
+accident, which are frequent at large $\alpha$. The region of comparable stability is the set $R$ of grid points
+where $\delta+\sigma$ is at most twice its minimum. The resummation error at fixed $\ubar^*$ is the largest of
+$\delta$, $\sigma$ and $\max_R|F^{[K]}-F^{[K]}(b^*,\alpha^*)|$ (for $\nu$ also the difference from the series of $\nu$); as in
+Ref.~\cite{GuidaZinnJustin1998}, the change of the result when $\ubar^*$ moves by its own error is added to it. Every
+series is treated with the same grid and the same criteria. The truncation order is $K=8$ for the eighth-order series,
+$K=9$ for the ninth-order ones and, at tenth order, $K=10$ for $\eta$ and $1/\nu$ and $K=11$ for $\beta$.
+
+\subsubsection{Propagating the Monte Carlo uncertainties}
+\label{sec:resummation-errors}
+
+The coefficients carry statistical errors, which we propagate through the resummation and keep separate from its
+systematic error. Every per-order sum is stored class by class (Appendix~\ref{app:data}), with independent random
+numbers for every class and loop order (Sec.~\ref{sec:methods-rng}), and is linear in the class integrals: if these
+are drawn from Gaussians with their quoted errors, each sum at fixed $N$ is a Gaussian variable with the propagated
+error of Sec.~\ref{sec:results-new}, independent of the other sums. We therefore draw the sums at each $N$ (for the
+orders taken from Ref.~\cite{Phi4tools2024}, and for its own coefficients in the eighth-order row of
+Table~\ref{tab:exponents}, with their quoted errors), rebuild the coefficients through Eq.~\eqref{eq:csrel}, and resum
+every draw with the central parameters; the standard deviation over \rsDraws\ draws, with a fixed seed, is the
+statistical error. The sums at different $N$ are correlated through the shared class integrals, but no entry of
+Table~\ref{tab:exponents} combines different $N$. Drawing the class integrals themselves, for the ledger inputs of the
+eighth-order series at $N=1$, gives the same spreads within \rsClassDev, as expected from the sampling error of
+\rsDraws\ draws, and a linearized propagation agrees with the draws within \rsLinDev~\check{S2}.
+
+The statistical errors of our results are at most $\rsStatMaxUstar$ for $\ubar^*$, $\rsStatMaxNu$ for
+$\nu$, $\rsStatMaxEta$ for $\eta$ and $\rsStatMaxOmega$ for $\omega$, at most $\rsStatRatio$ times the resummation
+errors (the largest ratios, for $\ubar^*$ at $N=2$ and~3, come mostly from the coefficient of $\ubar^{11}$ in
+$\beta$). With the quoted errors of the eighth-order coefficients of Ref.~\cite{Phi4tools2024}, larger than ours, the
+ratio is at most $\rsStatRatioA$~\check{S2}. The resummed exponents are therefore limited by the resummation, not
+by the precision of the coefficients: more computing time spent on the present orders would not change them. Further
+progress needs more orders, which have so far reduced the errors only gradually (Table~\ref{tab:exponents}), and a
+better control of the non-analyticity at $\ubar^*$ (Sec.~\ref{sec:resummation-results}).
+
+% ---------------------------------------------------------------------------------------------------------------
+\subsection{Validation strategy}
+\label{sec:methods-validation}
+
+Individual subtracted integrals have no external reference; only the order sums do. The checks are therefore organized as
+follows; their results are given in Sec.~\ref{sec:results}.
+
+\paragraph{Integrands.}
+The expansion~\eqref{eq:integrand} agrees pointwise with an independent implementation in Python (to
+$1.4\times10^{-14}$ of the sum of the absolute values of the terms, on 39 graphs at two to five loops) and with an
+independent multiprecision implementation with its own forests, Kirchhoff polynomials from the matrix-tree theorem and no
+pruning (all graphs at three to five loops and 20 graphs at six loops); pruned and unpruned expansions agree to the
+round-off of extended precision~\check{I1}. The vanishing graphs, the twins
+(Sec.~\ref{sec:methods-graphs})~\checks{I2,I3} and the shifted faces
+(Sec.~\ref{sec:methods-tropical}) are checked as described above.
+
+\paragraph{Exact values and known orders.}
+The exact values of $B_1$, $B_2$, $H_2$, $C_1$ and $C_2$, and that of the subtracted integral of one three-loop graph (a
+sunset inserted in a ring), are reproduced at high statistics. The coefficients known from
+Ref.~\cite{Phi4tools2024}, $B_L$ to $L=7$ and $H_L$, $C_L$ to $L=8$, follow from its series through
+Eqs.~\eqref{eq:csrel} and~\eqref{eq:series}, with errors propagated from those quoted there~\check{S1}; a run is compared with them
+through the pull
+\begin{equation}
+z=\frac{X-X_{\mathrm{ref}}}{\sqrt{\delta X^2+\delta X_{\mathrm{ref}}^2}} ,
+\label{eq:pull}
+\end{equation}
+where $X\pm\delta X$ is our value of an order sum and $X_{\mathrm{ref}}\pm\delta X_{\mathrm{ref}}$ the reference, at
+$N=1$ and, by recombining the same integrals with their $O(N)$ polynomials, at $N=0$, 2 and 3. The unsubtracted intermediate-scheme integrals, computed by the
+same code, are compared graph by graph with the values of Ref.~\cite{Phi4tools2024} and with their order sums.
+
+\paragraph{Error bars.}
+Replica ensembles with independent seeds test the error estimates: the mean and spread of their pulls, and the scatter of
+every class among replicas against its quoted error ($\chi^2$ per degree of freedom). The same per-class $\chi^2$ over
+repeated runs tests classes with large kurtosis or large maximal weights individually. Since every class's integral is
+stored, two runs can be compared class by class, independently of any reference.
+
+\paragraph{Hardware.}
+Golden runs and device self-tests (Sec.~\ref{sec:methods-kernel}) establish that the GPUs compute the same numbers as the
+CPU, up to the round-off of the device library, before any physics run is accepted~\check{N2}.
+
+\paragraph{New orders.}
+For $B_8$--$B_{10}$, $H_9$, $H_{10}$, $C_9$ and $C_{10}$, which have no reference, and for $H_8$ and $C_8$, whose
+precision we improve, we rely on the following checks.
+\begin{enumerate}
+\item \emph{A second route} (route B). The coefficients are also obtained from the intermediate-scheme
+integrals of $\Gamma^{(4)}(0)$, $\partial\Gamma^{(2)}/\partial p^2(0)$ and $\Gamma^{(2)}(0)$, in which only the sunset
+subgraphs are subtracted, through the $Z$ factors and the reversion of the coupling series~\cite{Ribeca2003thesis}, as in
+Ref.~\cite{Phi4tools2024}. In this scheme $\Gamma^{(2,1)}(0;0)$ follows from $\Gamma^{(2)}(0)$ through the exact
+identity~\cite{Ribeca2003thesis}
+\begin{equation}
+\bigl(2-u_I\,\partial_{u_I}\bigr)\hat\Gamma^{(2)}_I(0)
+=\Bigl(2+\tfrac{N+2}{3}\,u_I-\tfrac{2(N+2)}{9}\,u_I^2\Bigr)\Gamma^{(2,1)}_I(0;0),
+\label{eq:intermediate}
+\end{equation}
+with $u_I=g_I/8\pi$, where $g_I=\lambda_0/m_I$ is the bare coupling in units of the mass $m_I$ of the intermediate
+scheme, $\hat\Gamma^{(2)}_I=\Gamma^{(2)}_I/m_I^2$ and integrals in Nickel's normalization; the same identity
+checks intermediate-scheme data order by order. Route B shares with route A only the graph lists, the weights and the sampler, and,
+because of the cancellations of Sec.~\ref{sec:methods-cs}, it reaches a lower precision at equal cost.
+The formulas are derived to all orders and reproduce every published coefficient of Ref.~\cite{Phi4tools2024}
+through eighth order from its per-graph values, at $N=0$--$4$~\check{S4}. We evaluated the intermediate-scheme
+integrals with eight to ten vertices on GPUs, in \routeBhours\ GPU hours, and took those with fewer vertices from
+Ref.~\cite{Phi4tools2024}; the ninth- and tenth-order coefficients of the two routes agree within \routeBzmax\
+standard deviations (Sec.~\ref{sec:results-new}, Table~\ref{tab:routes})~\check{S4}. Route B resolves them only to
+\routeBrelmin--\routeBrelmax\ relative, and it has no check of the coefficient of $\ubar^{11}$ in $\beta$, which would
+need the four-point graphs with eleven vertices.
+\item \emph{Sum rules}: the eight- to ten-loop lists and weights pass the zero-dimensional sum rules
+(Sec.~\ref{sec:methods-graphs})~\check{G2}.
+\item \emph{Large $N$}: the leading power of $N$ of $B_L(N)$, $H_L(N)$ and $C_L(N)$ at each order is compared with the
+$1/N$ expansion in the same scheme~\cite{ZinnJustinBook,Ribeca2003thesis}. At $N=\infty$ with $\ubar$ fixed only the
+bubble chains survive, and $\beta=-\ubar+\ubar^2$, $\eta=0$, $\eta_{\phi^2}=-\ubar$, $\nu=1/(2-\ubar)$: the terms in
+$N^L$ of $B_L$, $H_L$ and $C_L$ must vanish for $L\ge2$. No class of the ledger has an $O(N)$ weight of degree $L$, so
+they vanish identically, and in the normalization of Eq.~\eqref{eq:series-form} (Sec.~\ref{sec:results-new})
+$p_{\beta,k}$ has degree $k-2$, $p_{\eta,k}$ and
+$p_{\eta_{\phi^2},k}$ degree $k-1$, and the coefficient of $N^k$ in $p_{\nu,k}$ is $2^{-k-1}$. The terms in $N^{L-1}$
+follow from the $1/N$ corrections to $Z$, $\Gamma^{(4)}(0)$ and $\Gamma^{(2,1)}(0;0)$, one-dimensional integrals over
+the momentum of the bubble chain, which reproduce the leading coefficients of the polynomials of
+Ref.~\cite{Phi4tools2024} through eighth order to \largeNphi~\check{S5}.
+\item \emph{Large order}: every coefficient is compared with its leading large-order estimate
+$c\,(-a)^k\,\Gamma(k+b+1)$, equivalent at large $k$ to Eq.~\eqref{eq:largeorder}~\cite{Lipatov1977,BrezinLeGuillouZinnJustin1977,BrezinParisi1978,ZinnJustinBook},
+with the instanton constants of $d=3$~\cite{BrezinLeGuillouZinnJustin1977,ZinnJustinBook}, $A=113.3835$ and the
+amplitudes $c$, so that in Nickel's coupling $\ubar$ the constant is $a=48\pi/[(N+8)A]=0.147774232\times9/(N+8)$
+[Ref.~\cite{ZinnJustinBook}, Eq.~(28.73)], and $b=3+N/2$ for $\beta$ and $\eta_{\phi^2}$, $2+N/2$ for $\eta$, as
+implemented for the seven-loop computation~\cite{Ribeca2003thesis}.
+The leading estimate alone catches an error of a few per cent in a new coefficient~\check{S3}.
+\end{enumerate}
+

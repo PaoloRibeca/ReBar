@@ -1,0 +1,6 @@
+1	ee11|23|333||	0	(tadSunset*bubble[0])/24
+2	ee12|233|33||	0	tadTrianBub/8
+3	e112|e3|333||	1	(bubble[q1]*prop[q1]^2*sunset[q1])/12
+4	e112|23|33|e|	2	(bubble[q1]*bubble[q2]*prop[q1]*prop[q1 - q2]*prop[q2])/4
+5	e112|33|e33||	1	(bubble[q1]^3*prop[q1])/8
+6	e123|e23|33||	2	(bubble[q1 + q2]*prop[q1]*prop[q2]*triangle[-q1, q1 + q2, -q2])/4

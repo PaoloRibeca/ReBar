@@ -1,0 +1,227 @@
+% sections/intro_sota.tex -- Introduction and state of the art
+\section{Introduction and state of the art}
+\label{sec:intro}
+
+\subsection{Universality and field-theoretic approaches}
+\label{sec:intro-universality}
+
+Continuous phase transitions in systems with short-range interactions and an $N$-component order parameter with
+$O(N)$ symmetry fall into the universality classes of the three-dimensional $O(N)$ model: $N=0$ describes polymers
+and self-avoiding walks, $N=1$ uniaxial magnets and the liquid--vapour critical point, $N=2$ planar magnets and the
+superfluid transition of $^4$He, $N=3$ isotropic magnets~\cite{PelissettoVicari2002,ZinnJustinBook}. Their critical
+exponents are a standard benchmark both for field theory and for non-perturbative methods.
+
+Two perturbative field-theoretic approaches have been pushed to high order. In the $\varepsilon$ expansion the
+renormalization-group (RG) functions of $\phi^4$ theory are computed by minimal subtraction in $d=4-\varepsilon$ and
+the exponents are expanded in powers of $\varepsilon$~\cite{ZinnJustinBook,KleinertBook}. In fixed-dimension
+perturbation theory, proposed by Parisi~\cite{Parisi1980}, one works directly in $d=3$, where the theory is
+super-renormalizable, renormalizes it by normalization conditions at zero momentum, and obtains the exponents from
+the RG functions at the non-trivial zero of the $\beta$ function. In both approaches the series are asymptotic, with
+coefficients growing like $k!$ at large order $k$~\cite{Lipatov1977,BrezinLeGuillouZinnJustin1977}, and must be
+resummed, typically by a Borel--Leroy transform followed by a conformal mapping built on the known large-order
+behaviour~\cite{LeGuillouZinnJustin1977,LeGuillouZinnJustin1980,GuidaZinnJustin1998}. Fixed dimension has the
+advantage that Borel summability is established for the correlation functions of the $d=3$ theory~\cite{MagnenSeneor1977}, although not directly for
+the RG functions, while for the $\varepsilon$ series it has to be assumed. The precision of the resummed exponents is limited by the number of known terms, by the
+numerical uncertainty of the highest ones, and by systematic effects of the resummation; in fixed dimension these
+include the expected non-analyticity of $\beta$ at the fixed point, caused by confluent corrections to
+scaling~\cite{Nickel1991,PelissettoVicari2002}.
+
+\subsection{The fixed-dimension series: history and status}
+\label{sec:intro-fixed}
+
+We consider the Euclidean $O(N)$ $\phi^4$ theory in $d=3$ in the massive zero-momentum scheme, in which the
+renormalized mass $m$, the field normalization and the dimensionless coupling $g$ are fixed by conditions on
+$\Gamma^{(2)}_R(0)$, $\partial\Gamma^{(2)}_R/\partial p^2(0)$ and $\Gamma^{(4)}_R(0)=m\,g$. We write the series in
+$\ubar=(N+8)u/6$ with $u=g/8\pi$, i.e., in the normalized coupling of
+Refs.~\cite{BNGM1976,BNM1978,Phi4tools2024} (the $\tilde u$ of Ref.~\cite{Phi4tools2024}). The computation of the
+coefficient of $\ubar^{L+1}$ in $\beta$ requires the four-point function $\Gamma^{(4)}$ at $L$ loops; the coefficients of $\ubar^{L}$
+in $\eta$ and $\nu$ require the two-point function $\Gamma^{(2)}$, with its $p^2$ derivative or with $\phi^2$
+insertions, at $L$ loops.
+
+\paragraph{Nickel and collaborators.}
+A numerical evaluation programme was first carried out by Baker, Nickel, Green and Meiron~\cite{BNGM1976}, who took the series for
+$N=1$ from three to six loops~\cite{Ribeca2003thesis}, i.e., $\beta$ to $\ubar^{7}$ and $\eta$, $\nu$ to $\ubar^{6}$;
+Baker, Nickel and Meiron~\cite{BNM1978} analysed the corresponding series for $N=0$--$3$. The key technical ingredient was that one-loop bubbles, triangles and boxes in $d=3$
+have closed forms~\cite{Nickel1978}, so that each graph could be integrated in momentum space with these one-loop
+subgraphs replaced by effective vertices. The individual graph values were compiled, together with their weights, in
+an unpublished Guelph report~\cite{NMB1977}. The 1042 diagrams needed through six loops~\cite{Ribeca2003thesis} are
+given to ten decimals when the integral has dimension at most three and to eight decimals when it has dimension five
+or six, with errors ``generally less than $\pm5$ in the last digit quoted'' and up to $\pm20$ in exceptional
+cases. The whole evaluation took about
+20~hours on an IBM 370/155 and 3~hours on a CDC 6600~\cite{NMB1977}. The integral of each graph was set up by hand, and the
+paper on the numerical methods announced in Refs.~\cite{BNGM1976,NMB1977,BNM1978} never appeared. Because the compilation
+separates integrals from symmetry factors, it was reused for decades to build the series of other models without
+recomputing any integral, for instance for cubic anisotropy~\cite{CarmonaPelissettoVicari2000}; see
+Ref.~\cite{PelissettoVicari2002} for a review. Murray and Nickel later extended $\eta$ and $\eta_{\phi^2}$, hence
+$\nu$, to seven loops for $N=0$--$3$~\cite{MurrayNickel1991}; this report is also unpublished, its method is
+undocumented, and its coefficients are quoted, to about seven significant digits, in the appendix of
+Ref.~\cite{GuidaZinnJustin1998}. The resummation of these series by Le~Guillou and Zinn-Justin and by Guida and
+Zinn-Justin~\cite{LeGuillouZinnJustin1977,LeGuillouZinnJustin1980,GuidaZinnJustin1998} produced the standard
+fixed-dimension estimates of the $O(N)$ exponents.
+
+\paragraph{Automation.}
+By 2003 the six-loop integrals had not been reproduced by an independent group for a quarter of a century, and the
+next order involves several thousand graphs. References~\cite{Ribeca2003thesis,GuidaRibeca2006} therefore set out to automate
+the whole computation: graph generation, weights and $O(N)$ factors, and an automatic search for the cheapest
+effective-vertex parametrization of every amplitude, followed by deterministic adaptive cubature. All seven-loop
+amplitudes were parametrized with at most nine integration variables~\cite{Ribeca2003thesis}, but the seven-loop
+numerical evaluation was not completed at the time.
+
+\paragraph{Phi4tools.}
+Sberveglieri and Spada~\cite{Phi4tools2024} (the Phi4tools compilation) recomputed all zero-momentum graphs with up to eight vertices, that is,
+$\Gamma^{(4)}$ to seven loops and $\Gamma^{(2)}$ to eight. They essentially followed the strategy proposed in
+Ref.~\cite{GuidaRibeca2006}, integrating every graph in momentum space after automatically assigning effective
+vertices,
+with only slight differences in their own words: separate tools for each step, Mathematica for the integrals of
+dimension up to three and the VEGAS algorithm~\cite{Lepage1978} for the rest in place of deterministic adaptive
+cubature, some new analytic and numerical effective vertices, and a simpler search for the parametrization of the
+amplitudes. Some of the hardest graphs were cross-checked with feyntrop~\cite{feyntrop2024}, an implementation of
+tropical Monte Carlo. Their largest relative uncertainties are a few parts in $10^5$ for two- and
+four-point graphs and a few parts in $10^4$ for the $p^2$ derivatives of two-point graphs. This provided the first
+independent check of Ref.~\cite{NMB1977}: of the 585 six-loop four-point graphs renormalized in the same way, most
+values agree to $\pm1$ in the last digit quoted by Nickel et al., with few exceptions, of which only one differs by
+about 20~units. From these values
+they obtained $\beta$, $\eta$ and $\nu$ to $\ubar^{8}$ for general $N$, and the corresponding series of the cubic
+model. For $N=1$ the quoted uncertainties of the $\ubar^8$ coefficients, added linearly over the coefficients of the
+$N$ polynomials, are about $4\times10^{-6}$ ($\beta$), $5\times10^{-4}$ ($\eta$) and $5\times10^{-5}$ ($\nu$) in
+relative terms. The authors postponed the resummation to future work~\cite{Phi4tools2024}; to our knowledge the
+eighth-order fixed-dimension series have not been resummed. Table~\ref{tab:sota} summarizes this history.
+
+\begin{table*}
+\caption{\label{tab:sota}%
+Perturbative RG functions of the $O(N)$ model: highest known orders. In fixed dimension the term $\ubar^{k}$ of
+$\beta$ needs $\Gamma^{(4)}$ at $L=k-1$ loops, and that of $\eta$ and $\nu$ needs $\Gamma^{(2)}$ at $L=k$ loops; the
+graph counts are one-particle-irreducible (1PI) graphs without self-loops, one-vertex-reducible ones (with a cut vertex)
+included. The precision is the relative
+uncertainty of the highest coefficient at $N=1$ or, where no uncertainty is quoted, the number of significant digits
+printed (sig.) or the absolute accuracy of the individual integrals (int.). The $\varepsilon$-expansion coefficients are known exactly, as
+rational combinations of multiple zeta values and, at seven loops, of one further period that is conjecturally not of
+this form~\cite{Schnetz2018}.}
+\begin{ruledtabular}
+\begin{tabular}{lllll}
+Function & Term & Graphs & Reference & Precision \\
+\hline
+\multicolumn{5}{l}{\emph{Fixed dimension $d=3$, massive zero-momentum scheme}}\\
+$\beta$ & $\ubar^{7}$ & $\Gamma^{(4)}$, $L=6$ (660) & \cite{BNGM1976} ($N=1$); \cite{BNM1978,NMB1977} ($N=0$--$3$) & 6 sig.; int.\ $10^{-8}$--$10^{-10}$ \\
+        & $\ubar^{8}$ & $\Gamma^{(4)}$, $L=7$ (3986) & \cite{Phi4tools2024}, all $N$ & $4\times10^{-6}$ \\
+        & $\ubar^{9}$ & $\Gamma^{(4)}$, $L=8$ (26\,540) & this work, all $N$ & \betaNineRel \\
+        & $\ubar^{10}$ & $\Gamma^{(4)}$, $L=9$ (197\,022) & this work, all $N$ & \betaTenRel \\
+        & $\ubar^{11}$ & $\Gamma^{(4)}$, $L=10$ (1\,593\,254) & this work, all $N$ & \betaElevenRel \\
+$\eta$, $\nu$ & $\ubar^{6}$ & $\Gamma^{(2)}$, $L=6$ (75) & \cite{BNGM1976} ($N=1$); \cite{BNM1978,NMB1977} ($N=0$--$3$) & int.\ $10^{-8}$--$10^{-10}$ \\
+        & $\ubar^{7}$ & $\Gamma^{(2)}$, $L=7$ (317) & \cite{MurrayNickel1991,GuidaZinnJustin1998}, $N=0$--$3$ & $\sim7$ sig. \\
+        & $\ubar^{8}$ & $\Gamma^{(2)}$, $L=8$ (1622) & \cite{Phi4tools2024}, all $N$ & $5\times10^{-4}$ ($\eta$), $5\times10^{-5}$ ($\nu$) \\
+        & $\ubar^{9}$ & $\Gamma^{(2)}$, $L=9$ (9184) & this work, all $N$ & \etaNineRel\ ($\eta$), \nuNineRel\ ($\nu$) \\
+        & $\ubar^{10}$ & $\Gamma^{(2)}$, $L=10$ (59\,614) & this work, all $N$ & \etaTenRel\ ($\eta$), \nuTenRel\ ($\nu$) \\
+\hline
+\multicolumn{5}{l}{\emph{$\varepsilon$ expansion, minimal subtraction: $\beta$, $\gamma_{m^2}$, $\gamma_\phi$}}\\
+        & 5 loops & & \cite{ChetyrkinKataevTkachov1981,ChetyrkinGorishnyLarinTkachov1983,GorishnyLarinTkachov1984,Kleinert1991,KleinertBook}, all $N$ & exact \\
+        & 6 loops & & \cite{BatkovichChetyrkinKompaniets2016,KompanietsPanzer2017}, all $N$ & exact \\
+        & 7 loops & & \cite{Schnetz2018,Schnetz2023}, all $N$ & exact \\
+        & 8 loops & $\gamma_\phi$ only & \cite{Schnetz2023}, $N=1$ & exact \\
+\end{tabular}
+\end{ruledtabular}
+\end{table*}
+
+\subsection{The \texorpdfstring{$\varepsilon$}{epsilon} expansion and non-perturbative benchmarks}
+\label{sec:intro-eps}
+
+In the $\varepsilon$ expansion the minimal-subtraction RG functions of the $O(N)$ model were extended to five
+loops~\cite{ChetyrkinKataevTkachov1981,ChetyrkinGorishnyLarinTkachov1983,GorishnyLarinTkachov1984,Kleinert1991} and
+to six~\cite{BatkovichChetyrkinKompaniets2016,KompanietsPanzer2017}, the latter computation also estimating the graphs
+without subdivergences to eleven loops and comparing them with the large-order behaviour of $\beta$. Position-space
+methods based on graphical functions have since given the $\beta$ function and the anomalous dimensions to seven
+loops~\cite{Schnetz2018}, for the $O(N)$ model as well (published for $N=1$, the $O(N)$ results distributed with the
+author's software), and for $N=1$ the field anomalous dimension to eight~\cite{Schnetz2023}. Numerical approaches in minimal subtraction remove subdivergences by
+subtraction operators acting on the integrands, so that the RG functions follow algebraically from linear sums of
+finite integrals~\cite{AdzhemyanKompaniets2011,AdzhemyanKompaniets2014}; the zero-momentum $\Rbar$ operation used here
+(Sec.~\ref{sec:methods-rbar}) is the fixed-dimension counterpart of this idea. The six-loop $\varepsilon$ series have been resummed for general
+$N$~\cite{KompanietsPanzer2017,KompanietsWiese2020}, and for $N=1$ the seven-loop series and, for $\eta$, the eight-loop
+one~\cite{Shapoval2026}. A recent study for $N=1$~\cite{Shapoval2026} finds that the uncertainty of $\eta$ decreases
+rapidly with the loop order while those of $\nu$ and of the correction-to-scaling exponent $\omega$ do not, and
+reports a slight but systematic tension with the conformal bootstrap.
+
+The most precise determinations of the exponents are now non-perturbative. The numerical conformal bootstrap
+determines the Ising exponents with uncertainties far below those of any resummed perturbative series, and
+constrains the $O(N)$ exponents as well~\cite{KosPolandSimmonsDuffinVichi2016,PolandRychkovVichi2019}; Monte Carlo
+simulations, of the Ising model~\cite{FerrenbergXuLandau2018} and of improved lattice
+Hamiltonians~\cite{Hasenbusch2010,Hasenbusch2019,Hasenbusch2020}, also reach high precision. The conformal bootstrap gives $\nu=\rsBenchCBNuNone$ and
+$\eta=\rsBenchCBEtaNone$ for $N=1$~\cite{ChangEtAl2025}, $\nu=\rsBenchCBNuNtwo$ and
+$\eta=\rsBenchCBEtaNtwo$ for $N=2$~\cite{ChesterEtAl2020}, and $\nu=\rsBenchCBNuNthree$ and $\eta=\rsBenchCBEtaNthree$ for
+$N=3$~\cite{ChesterEtAl2021}, in agreement with the Monte Carlo values $\nu=\rsBenchMCNuNtwo$, $\eta=\rsBenchMCEtaNtwo$
+for $N=2$~\cite{Hasenbusch2019} and $\nu=\rsBenchMCNuNthree$, $\eta=\rsBenchMCEtaNthree$ for $N=3$~\cite{Hasenbusch2020}.
+For $N=1$ in particular, these results make the perturbative series a stringent test of resummation methods, a
+test that is only meaningful if the series coefficients and their uncertainties are reliable.
+
+\subsection{This work}
+\label{sec:intro-this-work}
+
+Since 1978 each fixed-dimension series has been extended by one order at a
+time~\cite{MurrayNickel1991,Phi4tools2024}. Both complete computations~\cite{NMB1977,Phi4tools2024} used one
+momentum-space representation per graph, chosen by hand or automatically and integrated to high accuracy, and
+obtained the RG functions from the vertex functions of an intermediate scheme through the $Z$ factors (Nickel et
+al.\ subtracted, according to Ref.~\cite{Phi4tools2024}, all two-point subgraphs at zero momentum, Phi4tools only the divergent tadpole and sunset
+subgraphs). The ninth and tenth orders need 26\,540 and 197\,022 four-point graphs at eight and nine loops, and
+9184 and 59\,614 two-point graphs at nine and ten loops, against 3986 and 1622 at the eighth order, each of higher
+dimension; the eleventh order of $\beta$ needs 1\,593\,254 four-point graphs at ten loops. Moreover, along this route the order-$L$
+contributions largely cancel: at four, five and six loops the intermediate-scheme four-point input to $\beta$ exceeds
+the net order-$L$ four-point coefficient $B_L$ (Sec.~\ref{sec:methods}) by factors of about 29, 50 and 74, so that its relative
+error must be smaller than the target by the same factor.
+
+In this paper we compute $\beta$, $\eta$ and $\nu$ to $\ubar^{10}$ ($\beta$ to $\ubar^{11}$) for general $N$, and
+re-evaluate all lower orders, with a method designed for this scale and for massively parallel hardware: its
+precision depends as little as possible on the order, and its cost should grow slowly with the order
+(Sec.~\ref{sec:methods-choice}); measured, from seven loops on, the cost grows by a factor of \costgrowthrange\ per loop
+(Sec.~\ref{sec:results-performance}).
+\begin{enumerate}
+\item Through the Callan--Symanzik equation, the coefficients of $\beta$, $\eta$ and $\nu$ follow algebraically from
+three functions, $\Gamma^{(4,1)}_R(0)$, $\partial\Gamma^{(2,1)}_R/\partial p^2(0)$ and $\Gamma^{(2,2)}_R(0)$, whose $L$-loop
+terms we call $B_L$, $H_L$ and $C_L$ (Sec.~\ref{sec:methods-cs}). Each is a \emph{linear} sum over graphs of finite
+integrals, subtracted at zero momentum by Zimmermann's forest
+formula~\cite{BogoliubovParasiuk1957,Hepp1966,Zimmermann1969,Zavialov1990}, the
+$\Rbar$ operation of Sec.~\ref{sec:methods-rbar}. No $Z$ factors and no series reversion are needed, and the
+cancellations that the $Z$-factor route performs between graphs take place inside each integrand. We call this
+route A.
+\item At zero external momenta and unit masses every graph, with all its forest terms, is a single parametric
+integral over a simplex, built from the Kirchhoff polynomials of the graph and of its subgraphs and quotient
+graphs~\cite{BergereZuber1974,BergereLam1976,BrownKreimer2013}. Every integrand is sampled by tropical, Hepp-sector Monte
+Carlo~\cite{Volkov2017,Borinsky2023tropical,Panzer2022Hepp,feyntrop2024,Borinsky2025global}, with a density adapted to the
+forest terms, on any number of CPUs or GPUs from the same source code.
+\item The computation is automatic, from graph generation to series coefficients: there is no per-graph choice of
+momentum routing, effective vertices or integration variables. Since every graph carries its $O(N)$ polynomial, one
+run gives every $N$.
+\item The results are checked against exact low-order values, against the published series, against the large-$N$
+limit and the large-order behaviour, and, at the ninth and tenth orders, against a second, independent route (route B)
+through the vertex functions of an intermediate scheme, its $Z$ factors and the reversion of the coupling series. The
+precision of route B, \routeBrelmin--\routeBrelmax\ relative, is far coarser than that of the new coefficients, and the
+coefficient of $\ubar^{11}$ in $\beta$ is checked only by the internal statistics, the large-$N$ limit and the
+large-order behaviour.
+\end{enumerate}
+The results are therefore an independent determination of all known orders: the renormalization route, the
+integral representation and the numerics share nothing with Refs.~\cite{NMB1977,Phi4tools2024} except the graph
+lists, which our own generator reproduces wherever both exist (Sec.~\ref{sec:methods-checks}). The published coefficients combine our new sums with, at each lower order, the more
+precise of our sum and the one derived from Ref.~\cite{Phi4tools2024}; with our own lower orders only, they change
+by at most \ledgeronlyzmax\ standard deviations (Sec.~\ref{sec:results-new}).
+
+Runs on NVIDIA H200 GPUs reproduce the known per-order sums from
+two to seven loops for all three functions within three standard deviations, with error estimates that the
+within-run statistics confirm to a few per cent (Sec.~\ref{sec:results-validation}).
+At six loops, with the computing time we allocated to it, the method reproduces the published values with similar or
+better precision. From seven loops on, where the graphs are many and their integrals of high dimension, it overtakes
+the per-graph treatment: all three seven-loop sums are now known more precisely than
+from Phi4tools, by factors of about \precBseven, \precHseven\ and \precCseven\ for $B_7$, $H_7$ and $C_7$, and the
+complete sum $H_7$, which fixes the $\ubar^7$ term of $\eta$ (209 integrands), reaches a relative uncertainty of
+$10^{-5}$ in about \costTm{h7} GPU hours, against $5.5\times10^{-5}$ for the same quantity derived from the Phi4tools
+series (Sec.~\ref{sec:results}). The new coefficients, from ninth to eleventh order, have relative uncertainties between
+\newrelmin\ and \newrelmax\ at $N=1$ (Tables~\ref{tab:newcoeff}--\ref{tab:newcoeffnu}), and the coefficient of
+$\ubar^8$ in $\eta$ is now \etaEightGain\ times more precise than before (Sec.~\ref{sec:results-new}). The
+uncertainties thus hardly grow with the order. Along the per-graph route the $p^2$ derivatives are the least precise:
+at the eighth order of Ref.~\cite{Phi4tools2024}, $5\times10^{-4}$ for $\eta$ against $4\times10^{-6}$ for $\beta$
+(Table~\ref{tab:sota}). A uniform precision ensures that the number of known orders, not their statistical errors,
+limits the resummation: at the present orders the statistical errors are already negligible there
+(Sec.~\ref{sec:resummation-errors}), while the precision of the highest coefficients matters for the large-order and
+consistency tests and for the orders still to come.
+
+The paper is organized as follows. Section~\ref{sec:methods} describes the series, the graphs, the numerical
+method and the resummation; Sec.~\ref{sec:results} gives the validation, the performance, the new coefficients and
+the exponents, compared with other determinations; Sec.~\ref{sec:summary} summarizes. Five appendices give the conventions, the graphs, the zero-dimensional sum rules, the reproducibility checks, and
+the availability of the data and the code.

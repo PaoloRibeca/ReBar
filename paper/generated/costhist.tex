@@ -1,0 +1,280 @@
+% generated/costhist.tex -- Fig. fig:costhist: histograms of log10 kappa_i, the per-graph Neyman cost weights.
+% WRITTEN BY series/costfig.py (make -C ../series): do not edit by hand.
+% \costhist<B|C|H>: the \addplot bodies of one panel (step histograms, per cent of the order's graphs per quarter decade, colours colL<L> defined by the paper, legend entries included);
+% \costN{order}, \costmedian{order}, \costsum{order}, \costT{order}, \costninety{order}: the numbers quoted in the text;
+% \costcurves: the \addplot bodies of Fig. fig:cost (CPU hours of the class build, GPU hours of the sampling at 1e-5, per order), \costcpu{order}.
+
+\newcommand*{\costhistB}{%
+  \addplot[const plot, thick, mark=none, color=colL6] coordinates {(-8.00,0.3984) (-7.75,1.1952) (-7.50,2.1912) (-7.25,3.1873) (-7.00,7.5697) (-6.75,12.7490) (-6.50,20.1195) (-6.25,22.9084) (-6.00,17.5299) (-5.75,8.5657) (-5.50,3.3865) (-5.25,0.1992) (-5.00,0)};
+  \addlegendentry{$L=6$ (502 classes)}
+  \addplot[const plot, thick, mark=none, color=colL7] coordinates {(-9.75,0.0317) (-9.50,0.1905) (-9.25,0.0635) (-9.00,0.0635) (-8.75,0.1587) (-8.50,0.6984) (-8.25,1.0159) (-8.00,3.1111) (-7.75,4.7937) (-7.50,8.1905) (-7.25,14.1905) (-7.00,20.2857) (-6.75,23.4603) (-6.50,14.2540) (-6.25,7.4603) (-6.00,1.7778) (-5.75,0.2540) (-5.50,0)};
+  \addlegendentry{$L=7$ (3\,150 classes)}
+  \addplot[const plot, thick, mark=none, color=colL8] coordinates {(-11.50,0.0046) (-11.25,0.0046) (-11.00,0.0046) (-10.75,0.0000) (-10.50,0.0092) (-10.25,0.0092) (-10.00,0.0184) (-9.75,0.0830) (-9.50,0.1245) (-9.25,0.4518) (-9.00,0.6732) (-8.75,1.8350) (-8.50,3.5686) (-8.25,6.1967) (-8.00,9.9175) (-7.75,15.9390) (-7.50,25.2248) (-7.25,20.3467) (-7.00,10.5491) (-6.75,4.0159) (-6.50,1.0143) (-6.25,0.0092) (-6.00,0)};
+  \addlegendentry{$L=8$ (21\,689 classes)}
+  \addplot[const plot, thick, mark=none, color=colL9] coordinates {(-15.25,0.0006) (-15.00,0.0000) (-14.75,0.0000) (-14.50,0.0006) (-14.25,0.0018) (-14.00,0.0006) (-13.75,0.0030) (-13.50,0.0024) (-13.25,0.0030) (-13.00,0.0012) (-12.75,0.0048) (-12.50,0.0084) (-12.25,0.0066) (-12.00,0.0175) (-11.75,0.0181) (-11.50,0.0175) (-11.25,0.0331) (-11.00,0.0512) (-10.75,0.1006) (-10.50,0.1734) (-10.25,0.2108) (-10.00,0.3595) (-9.75,0.6920) (-9.50,1.4833) (-9.25,3.0582) (-9.00,5.6598) (-8.75,8.8939) (-8.50,13.9051) (-8.25,24.1685) (-8.00,21.6613) (-7.75,12.5808) (-7.50,5.4467) (-7.25,1.3255) (-7.00,0.1096) (-6.75,0.0006) (-6.50,0)};
+  \addlegendentry{$L=9$ (166\,047 classes)}
+  \addplot[const plot, thick, mark=none, color=colL10] coordinates {(-15.50,0.0001) (-15.25,0.0005) (-15.00,0.0006) (-14.75,0.0012) (-14.50,0.0026) (-14.25,0.0023) (-14.00,0.0038) (-13.75,0.0049) (-13.50,0.0086) (-13.25,0.0084) (-13.00,0.0126) (-12.75,0.0143) (-12.50,0.0207) (-12.25,0.0290) (-12.00,0.0459) (-11.75,0.0722) (-11.50,0.1232) (-11.25,0.2061) (-11.00,0.3378) (-10.75,0.5428) (-10.50,0.9252) (-10.25,1.5897) (-10.00,2.8883) (-9.75,5.4316) (-9.50,8.0674) (-9.25,13.4840) (-9.00,22.0255) (-8.75,21.2039) (-8.50,13.8772) (-8.25,6.8916) (-8.00,1.8954) (-7.75,0.2770) (-7.50,0.0054) (-7.25,0.0001) (-7.00,0)};
+  \addlegendentry{$L=10$ (1\,377\,678 classes)}
+}
+\newcommand*{\costhistH}{%
+  \addplot[const plot, thick, mark=none, color=colL6] coordinates {(-7.00,4.0000) (-6.75,2.0000) (-6.50,0.0000) (-6.25,2.0000) (-6.00,2.0000) (-5.75,12.0000) (-5.50,12.0000) (-5.25,18.0000) (-5.00,16.0000) (-4.75,20.0000) (-4.50,10.0000) (-4.25,2.0000) (-4.00,0)};
+  \addlegendentry{$L=6$ (50 classes)}
+  \addplot[const plot, thick, mark=none, color=colL7] coordinates {(-7.25,0.9569) (-7.00,1.4354) (-6.75,2.8708) (-6.50,1.9139) (-6.25,5.2632) (-6.00,9.5694) (-5.75,14.8325) (-5.50,14.8325) (-5.25,22.0096) (-5.00,20.0957) (-4.75,4.3062) (-4.50,1.9139) (-4.25,0)};
+  \addlegendentry{$L=7$ (209 classes)}
+  \addplot[const plot, thick, mark=none, color=colL8] coordinates {(-9.25,0.0864) (-9.00,0.0000) (-8.75,0.2593) (-8.50,0.3457) (-8.25,0.0000) (-8.00,0.2593) (-7.75,0.5186) (-7.50,2.0743) (-7.25,2.3336) (-7.00,3.1115) (-6.75,7.6059) (-6.50,9.8531) (-6.25,12.9646) (-6.00,17.0268) (-5.75,23.0769) (-5.50,14.1746) (-5.25,4.9265) (-5.00,1.2100) (-4.75,0.1729) (-4.50,0)};
+  \addlegendentry{$L=8$ (1\,157 classes)}
+  \addplot[const plot, thick, mark=none, color=colL9] coordinates {(-10.75,0.0148) (-10.50,0.0148) (-10.25,0.0000) (-10.00,0.0148) (-9.75,0.0295) (-9.50,0.0590) (-9.25,0.0738) (-9.00,0.1919) (-8.75,0.2804) (-8.50,0.3247) (-8.25,0.6789) (-8.00,1.6086) (-7.75,2.6712) (-7.50,5.0915) (-7.25,8.1021) (-7.00,10.5519) (-6.75,14.0496) (-6.50,23.6275) (-6.25,18.9935) (-6.00,8.6924) (-5.75,4.1913) (-5.50,0.6789) (-5.25,0.0590) (-5.00,0)};
+  \addlegendentry{$L=9$ (6\,776 classes)}
+  \addplot[const plot, thick, mark=none, color=colL10] coordinates {(-13.50,0.0022) (-13.25,0.0000) (-13.00,0.0043) (-12.75,0.0043) (-12.50,0.0065) (-12.25,0.0130) (-12.00,0.0174) (-11.75,0.0130) (-11.50,0.0304) (-11.25,0.0347) (-11.00,0.0477) (-10.75,0.0499) (-10.50,0.0672) (-10.25,0.1171) (-10.00,0.0911) (-9.75,0.1367) (-9.50,0.2061) (-9.25,0.2798) (-9.00,0.5900) (-8.75,1.1778) (-8.50,1.9305) (-8.25,3.4988) (-8.00,6.8132) (-7.75,9.3553) (-7.50,11.6134) (-7.25,21.8125) (-7.00,21.9643) (-6.75,12.5960) (-6.50,5.6917) (-6.25,1.4446) (-6.00,0.3904) (-5.75,0)};
+  \addlegendentry{$L=10$ (46\,102 classes)}
+}
+\newcommand*{\costhistC}{%
+  \addplot[const plot, thick, mark=none, color=colL6] coordinates {(-6.50,1.6129) (-6.25,1.6129) (-6.00,6.4516) (-5.75,8.0645) (-5.50,11.2903) (-5.25,17.7419) (-5.00,22.5806) (-4.75,12.9032) (-4.50,14.5161) (-4.25,1.6129) (-4.00,1.6129) (-3.75,0)};
+  \addlegendentry{$L=6$ (62 classes)}
+  \addplot[const plot, thick, mark=none, color=colL7] coordinates {(-7.50,0.3774) (-7.25,0.7547) (-7.00,0.7547) (-6.75,1.8868) (-6.50,3.7736) (-6.25,4.9057) (-6.00,9.4340) (-5.75,16.9811) (-5.50,16.9811) (-5.25,20.7547) (-5.00,14.3396) (-4.75,5.2830) (-4.50,3.0189) (-4.25,0.7547) (-4.00,0)};
+  \addlegendentry{$L=7$ (265 classes)}
+  \addplot[const plot, thick, mark=none, color=colL8] coordinates {(-8.50,0.0721) (-8.25,0.0000) (-8.00,0.1442) (-7.75,0.5768) (-7.50,1.5141) (-7.25,2.4513) (-7.00,3.1723) (-6.75,5.8399) (-6.50,10.6705) (-6.25,13.9149) (-6.00,16.3663) (-5.75,21.1247) (-5.50,13.6265) (-5.25,5.7678) (-5.00,3.7491) (-4.75,0.8652) (-4.50,0.1442) (-4.25,0)};
+  \addlegendentry{$L=8$ (1\,387 classes)}
+  \addplot[const plot, thick, mark=none, color=colL9] coordinates {(-11.00,0.0124) (-10.75,0.0000) (-10.50,0.0000) (-10.25,0.0000) (-10.00,0.0124) (-9.75,0.0249) (-9.50,0.0249) (-9.25,0.0249) (-9.00,0.0249) (-8.75,0.0249) (-8.50,0.2364) (-8.25,0.4105) (-8.00,1.2565) (-7.75,2.0030) (-7.50,3.3590) (-7.25,7.4272) (-7.00,10.7489) (-6.75,13.8592) (-6.50,22.2568) (-6.25,18.3255) (-6.00,11.3834) (-5.75,5.2501) (-5.50,2.6001) (-5.25,0.6842) (-5.00,0.0498) (-4.75,0)};
+  \addlegendentry{$L=9$ (8\,038 classes)}
+  \addplot[const plot, thick, mark=none, color=colL10] coordinates {(-13.25,0.0037) (-13.00,0.0019) (-12.75,0.0019) (-12.50,0.0019) (-12.25,0.0019) (-12.00,0.0000) (-11.75,0.0019) (-11.50,0.0037) (-11.25,0.0037) (-11.00,0.0150) (-10.75,0.0225) (-10.50,0.0243) (-10.25,0.0562) (-10.00,0.0449) (-9.75,0.1011) (-9.50,0.1461) (-9.25,0.2622) (-9.00,0.3502) (-8.75,0.6836) (-8.50,1.2473) (-8.25,2.2323) (-8.00,4.6688) (-7.75,8.6203) (-7.50,10.5100) (-7.25,17.6752) (-7.00,23.1492) (-6.75,16.2912) (-6.50,7.6914) (-6.25,4.7943) (-6.00,0.9345) (-5.75,0.4438) (-5.50,0.0150) (-5.25,0)};
+  \addlegendentry{$L=10$ (53\,397 classes)}
+}
+\newcommand*{\costcurves}{%
+  \addplot[color=blue, thick, mark=*] coordinates {(4,0.03669) (5,0.1516) (6,0.5248) (7,1.612) (8,4.603) (9,10.92) (10,31.56)};
+  \addlegendentry{$B_L$, GPU}
+  \addplot[color=blue, thick, dashed, mark=o] coordinates {(4,4.301e-06) (5,3.9e-05) (6,0.0008205) (7,0.02598) (8,0.9889) (9,59.33) (10,2968)};
+  \addlegendentry{$B_L$, CPU}
+  \addplot[color=red, thick, mark=square*] coordinates {(4,0.03804) (5,1.32) (6,1.497) (7,6.625) (8,16.9) (9,39.65) (10,87.95)};
+  \addlegendentry{$H_L$, GPU}
+  \addplot[color=red, thick, dashed, mark=square] coordinates {(4,9.276e-07) (5,6.168e-06) (6,0.0001107) (7,0.00193) (8,0.06192) (9,2.259) (10,137.8)};
+  \addlegendentry{$H_L$, CPU}
+  \addplot[color=brown!60!black, thick, mark=triangle*] coordinates {(4,0.1171) (5,0.6977) (6,3.22) (7,12.21) (8,37.72) (9,97.74) (10,287.6)};
+  \addlegendentry{$C_L$, GPU}
+  \addplot[color=brown!60!black, thick, dashed, mark=triangle] coordinates {(4,1.461e-06) (5,1.477e-05) (6,0.0002546) (7,0.00653) (8,0.2355) (9,9.797) (10,975.1)};
+  \addlegendentry{$C_L$, CPU}
+}
+\newcommand*{\costcpu}[1]{\csname costcpu@#1\endcsname}
+\expandafter\def\csname costcpu@b10\endcsname{2.97e+03}
+\expandafter\def\csname costcpu@b4\endcsname{4.3e-06}
+\expandafter\def\csname costcpu@b5\endcsname{3.9e-05}
+\expandafter\def\csname costcpu@b6\endcsname{0.00082}
+\expandafter\def\csname costcpu@b7\endcsname{0.026}
+\expandafter\def\csname costcpu@b8\endcsname{0.989}
+\expandafter\def\csname costcpu@b9\endcsname{59.3}
+\expandafter\def\csname costcpu@c10\endcsname{975}
+\expandafter\def\csname costcpu@c4\endcsname{1.46e-06}
+\expandafter\def\csname costcpu@c5\endcsname{1.48e-05}
+\expandafter\def\csname costcpu@c6\endcsname{0.000255}
+\expandafter\def\csname costcpu@c7\endcsname{0.00653}
+\expandafter\def\csname costcpu@c8\endcsname{0.235}
+\expandafter\def\csname costcpu@c9\endcsname{9.8}
+\expandafter\def\csname costcpu@h10\endcsname{138}
+\expandafter\def\csname costcpu@h4\endcsname{9.28e-07}
+\expandafter\def\csname costcpu@h5\endcsname{6.17e-06}
+\expandafter\def\csname costcpu@h6\endcsname{0.000111}
+\expandafter\def\csname costcpu@h7\endcsname{0.00193}
+\expandafter\def\csname costcpu@h8\endcsname{0.0619}
+\expandafter\def\csname costcpu@h9\endcsname{2.26}
+\newcommand*{\costcpus}[1]{\csname costcpus@#1\endcsname}
+\newcommand*{\buildpc}[1]{\csname buildpc@#1\endcsname}
+\expandafter\def\csname costcpus@b10\endcsname{11\,000\,000}
+\expandafter\def\csname buildpc@b10\endcsname{7.8}
+\expandafter\def\csname costcpus@b4\endcsname{0}
+\expandafter\def\csname buildpc@b4\endcsname{0.00081}
+\expandafter\def\csname costcpus@b5\endcsname{0}
+\expandafter\def\csname buildpc@b5\endcsname{0.0015}
+\expandafter\def\csname costcpus@b6\endcsname{3}
+\expandafter\def\csname buildpc@b6\endcsname{0.0059}
+\expandafter\def\csname costcpus@b7\endcsname{94}
+\expandafter\def\csname buildpc@b7\endcsname{0.03}
+\expandafter\def\csname costcpus@b8\endcsname{3\,600}
+\expandafter\def\csname buildpc@b8\endcsname{0.16}
+\expandafter\def\csname costcpus@b9\endcsname{210\,000}
+\expandafter\def\csname buildpc@b9\endcsname{1.3}
+\expandafter\def\csname costcpus@c10\endcsname{3\,500\,000}
+\expandafter\def\csname buildpc@c10\endcsname{66}
+\expandafter\def\csname costcpus@c4\endcsname{0}
+\expandafter\def\csname buildpc@c4\endcsname{0.0011}
+\expandafter\def\csname costcpus@c5\endcsname{0}
+\expandafter\def\csname buildpc@c5\endcsname{0.0033}
+\expandafter\def\csname costcpus@c6\endcsname{0}
+\expandafter\def\csname buildpc@c6\endcsname{0.015}
+\expandafter\def\csname costcpus@c7\endcsname{24}
+\expandafter\def\csname buildpc@c7\endcsname{0.089}
+\expandafter\def\csname costcpus@c8\endcsname{850}
+\expandafter\def\csname buildpc@c8\endcsname{0.61}
+\expandafter\def\csname costcpus@c9\endcsname{35\,000}
+\expandafter\def\csname buildpc@c9\endcsname{4.4}
+\expandafter\def\csname costcpus@h10\endcsname{500\,000}
+\expandafter\def\csname buildpc@h10\endcsname{11}
+\expandafter\def\csname costcpus@h4\endcsname{0}
+\expandafter\def\csname buildpc@h4\endcsname{0.00083}
+\expandafter\def\csname costcpus@h5\endcsname{0}
+\expandafter\def\csname buildpc@h5\endcsname{0.002}
+\expandafter\def\csname costcpus@h6\endcsname{0}
+\expandafter\def\csname buildpc@h6\endcsname{0.008}
+\expandafter\def\csname costcpus@h7\endcsname{6}
+\expandafter\def\csname buildpc@h7\endcsname{0.033}
+\expandafter\def\csname costcpus@h8\endcsname{220}
+\expandafter\def\csname buildpc@h8\endcsname{0.19}
+\expandafter\def\csname costcpus@h9\endcsname{8\,100}
+\expandafter\def\csname buildpc@h9\endcsname{1.2}
+\newcommand*{\costtablerows}{%
+  $B_L$ & 4 & 0.07 & 1.15 & 0.037 & 3.47 & 0.12 \\
+        & 5 & 0.06 & 2.34 & 0.15 & 5.44 & 0.30 \\
+        & 6 & 0.14 & 4.35 & 0.52 & 7.89 & 0.62 \\
+        & 7 & 0.28 & 7.62 & 1.6 & 11.5 & 1.3 \\
+        & 8 & 0.25 & 12.9 & 4.6 & 15.6 & 2.4 \\
+        & 9 & 0.98 & 19.8 & 11 & 20.8 & 4.3 \\
+        & 10 & 1.15 & 33.7 & 32 & 28.6 & 8.2 \\
+  $H_L$ & 4 & 0.07 & 1.17 & 0.038 & 2.80 & 0.079 \\
+        & 5 & 0.42 & 6.89 & 1.3 & 11.8 & 1.4 \\
+        & 6 & 0.45 & 7.34 & 1.5 & 9.36 & 0.88 \\
+        & 7 & 0.49 & 15.4 & 6.6 & 15.2 & 2.3 \\
+        & 8 & 0.44 & 24.7 & 17 & 19.7 & 3.9 \\
+        & 9 & 0.99 & 37.8 & 40 & 27.5 & 7.5 \\
+        & 10 & 1.42 & 56.3 & 88 & 34.2 & 12 \\
+  $C_L$ & 4 & 0.08 & 2.05 & 0.12 & 3.72 & 0.14 \\
+        & 5 & 0.12 & 5.01 & 0.70 & 5.92 & 0.35 \\
+        & 6 & 0.28 & 10.8 & 3.2 & 8.83 & 0.78 \\
+        & 7 & 0.49 & 21.0 & 12 & 12.5 & 1.6 \\
+        & 8 & 0.99 & 36.9 & 38 & 17.4 & 3.0 \\
+        & 9 & 1.00 & 59.3 & 98 & 23.0 & 5.3 \\
+        & 10 & 2.89 & 102 & 288 & 32.1 & 10 \\
+}
+\newcommand*{\effortrows}{%
+  This work, six to ten loops & \begin{tabular}[t]{@{}l@{}}$B_{6}$, $H_{6}$, $C_{6}$: 614 classes \\ $B_{7}$, $H_{7}$, $C_{7}$: 3\,624 classes \\ $B_{8}$, $H_{8}$, $C_{8}$: 24\,233 classes \\ $B_{9}$, $H_{9}$, $C_{9}$: 180\,861 classes \\ $B_{10}$, $H_{10}$, $C_{10}$: 1\,477\,177 classes\end{tabular} & NVIDIA H200 GPUs, Intel Xeon Platinum 8568Y+ CPUs & \begin{tabular}[t]{@{}l@{}}0.52, 1.5, 3.2 GPU h \\ 1.6, 6.6, 12 GPU h \\ 4.6, 17, 38 GPU h; 1.3 CPU h \\ 11, 40, 98 GPU h; 71 CPU h \\ 32, 88, 288 GPU h; 4\,100 CPU h\end{tabular} & $10^{-5}$ relative, per order sum \\
+}
+\newcommand*{\costTm}[1]{\csname costTm@#1\endcsname}
+\expandafter\def\csname costTm@b10\endcsname{32}
+\expandafter\def\csname costTm@b2\endcsname{0.00065}
+\expandafter\def\csname costTm@b3\endcsname{0.0066}
+\expandafter\def\csname costTm@b4\endcsname{0.037}
+\expandafter\def\csname costTm@b5\endcsname{0.15}
+\expandafter\def\csname costTm@b6\endcsname{0.52}
+\expandafter\def\csname costTm@b7\endcsname{1.6}
+\expandafter\def\csname costTm@b8\endcsname{4.6}
+\expandafter\def\csname costTm@b9\endcsname{11}
+\expandafter\def\csname costTm@c10\endcsname{288}
+\expandafter\def\csname costTm@c2\endcsname{0.00068}
+\expandafter\def\csname costTm@c3\endcsname{0.0070}
+\expandafter\def\csname costTm@c4\endcsname{0.12}
+\expandafter\def\csname costTm@c5\endcsname{0.70}
+\expandafter\def\csname costTm@c6\endcsname{3.2}
+\expandafter\def\csname costTm@c7\endcsname{12}
+\expandafter\def\csname costTm@c8\endcsname{38}
+\expandafter\def\csname costTm@c9\endcsname{98}
+\expandafter\def\csname costTm@h10\endcsname{88}
+\expandafter\def\csname costTm@h2\endcsname{0.000059}
+\expandafter\def\csname costTm@h3\endcsname{0.041}
+\expandafter\def\csname costTm@h4\endcsname{0.038}
+\expandafter\def\csname costTm@h5\endcsname{1.3}
+\expandafter\def\csname costTm@h6\endcsname{1.5}
+\expandafter\def\csname costTm@h7\endcsname{6.6}
+\expandafter\def\csname costTm@h8\endcsname{17}
+\expandafter\def\csname costTm@h9\endcsname{40}
+\expandafter\def\csname costgrowth@b\endcsname{2.7}
+\expandafter\def\csname costratios@b\endcsname{4.1, 3.5, 3.1, 2.9, 2.4 and 2.9}
+\expandafter\def\csname costratiorange@b\endcsname{four to ten}
+\expandafter\def\csname costgrowth@h\endcsname{2.4}
+\expandafter\def\csname costratios@h\endcsname{35, 1.1, 4.4, 2.6, 2.3 and 2.2}
+\expandafter\def\csname costratiorange@h\endcsname{four to ten}
+\expandafter\def\csname costgrowth@c\endcsname{2.9}
+\expandafter\def\csname costratios@c\endcsname{6, 4.6, 3.8, 3.1, 2.6 and 2.9}
+\expandafter\def\csname costratiorange@c\endcsname{four to ten}
+\newcommand*{\costgrowth}[1]{\csname costgrowth@#1\endcsname}
+\newcommand*{\costratios}[1]{\csname costratios@#1\endcsname}
+\newcommand*{\costratiorange}[1]{\csname costratiorange@#1\endcsname}
+\newcommand*{\costgrowthrange}{2.4--2.9}
+\newcommand*{\evalgrowthrange}{1.7--1.9}
+\newcommand*{\costTsevenmin}{1.6}\newcommand*{\costTsevenmax}{12}
+\newcommand*{\costrefbsix}{1.1}\newcommand*{\costmatchbsix}{41}\newcommand*{\costmatchbsixfour}{10}
+\newcommand*{\costkappadev}{11}
+\newcommand*{\cpugrowthrange}{32 to 100}
+\newcommand*{\kappagrowthrange}{1.5 to 2.1}
+\newcommand*{\graphgrowthrange}{4.2 to 8.3}
+\newcommand*{\kappashift}{0.6}
+\newcommand*{\costtenthgpu}{89}\newcommand*{\costtenthcpu}{1\,200}
+\newcommand*{\costtenthnodecpu}{37}\newcommand*{\costtenthnodegpu}{11}
+\newcommand*{\costN}[1]{\csname costN@#1\endcsname}
+\newcommand*{\costmedian}[1]{\csname costmedian@#1\endcsname}
+\newcommand*{\costsum}[1]{\csname costsum@#1\endcsname}
+\newcommand*{\costT}[1]{\csname costT@#1\endcsname}
+\newcommand*{\costninety}[1]{\csname costninety@#1\endcsname}
+\newcommand*{\costninetyrange}{54--62}
+\expandafter\def\csname costN@b10\endcsname{1377678}
+\expandafter\def\csname costmedian@b10\endcsname{1.54 \times 10^{-9}}
+\expandafter\def\csname costsum@b10\endcsname{3.22 \times 10^{-3}}
+\expandafter\def\csname costT@b10\endcsname{28.9}
+\expandafter\def\csname costninety@b10\endcsname{59}
+\expandafter\def\csname costN@b6\endcsname{502}
+\expandafter\def\csname costmedian@b6\endcsname{5.93 \times 10^{-7}}
+\expandafter\def\csname costsum@b6\endcsname{4.37 \times 10^{-4}}
+\expandafter\def\csname costT@b6\endcsname{0.53}
+\expandafter\def\csname costninety@b6\endcsname{62}
+\expandafter\def\csname costN@b7\endcsname{3150}
+\expandafter\def\csname costmedian@b7\endcsname{1.67 \times 10^{-7}}
+\expandafter\def\csname costsum@b7\endcsname{7.56 \times 10^{-4}}
+\expandafter\def\csname costT@b7\endcsname{1.59}
+\expandafter\def\csname costninety@b7\endcsname{61}
+\expandafter\def\csname costN@b8\endcsname{21689}
+\expandafter\def\csname costmedian@b8\endcsname{4.05 \times 10^{-8}}
+\expandafter\def\csname costsum@b8\endcsname{1.28 \times 10^{-3}}
+\expandafter\def\csname costT@b8\endcsname{4.54}
+\expandafter\def\csname costninety@b8\endcsname{62}
+\expandafter\def\csname costN@b9\endcsname{166047}
+\expandafter\def\csname costmedian@b9\endcsname{8.12 \times 10^{-9}}
+\expandafter\def\csname costsum@b9\endcsname{1.97 \times 10^{-3}}
+\expandafter\def\csname costT@b9\endcsname{10.8}
+\expandafter\def\csname costninety@b9\endcsname{61}
+\expandafter\def\csname costN@c10\endcsname{53397}
+\expandafter\def\csname costmedian@c10\endcsname{1.09 \times 10^{-7}}
+\expandafter\def\csname costsum@c10\endcsname{9.58 \times 10^{-3}}
+\expandafter\def\csname costT@c10\endcsname{255}
+\expandafter\def\csname costninety@c10\endcsname{57}
+\expandafter\def\csname costN@c6\endcsname{62}
+\expandafter\def\csname costmedian@c6\endcsname{1.03 \times 10^{-5}}
+\expandafter\def\csname costsum@c6\endcsname{1.08 \times 10^{-3}}
+\expandafter\def\csname costT@c6\endcsname{3.27}
+\expandafter\def\csname costninety@c6\endcsname{58}
+\expandafter\def\csname costN@c7\endcsname{265}
+\expandafter\def\csname costmedian@c7\endcsname{4.59 \times 10^{-6}}
+\expandafter\def\csname costsum@c7\endcsname{2.09 \times 10^{-3}}
+\expandafter\def\csname costT@c7\endcsname{12.1}
+\expandafter\def\csname costninety@c7\endcsname{56}
+\expandafter\def\csname costN@c8\endcsname{1387}
+\expandafter\def\csname costmedian@c8\endcsname{1.54 \times 10^{-6}}
+\expandafter\def\csname costsum@c8\endcsname{3.64 \times 10^{-3}}
+\expandafter\def\csname costT@c8\endcsname{36.8}
+\expandafter\def\csname costninety@c8\endcsname{54}
+\expandafter\def\csname costN@c9\endcsname{8038}
+\expandafter\def\csname costmedian@c9\endcsname{4.24 \times 10^{-7}}
+\expandafter\def\csname costsum@c9\endcsname{5.84 \times 10^{-3}}
+\expandafter\def\csname costT@c9\endcsname{94.6}
+\expandafter\def\csname costninety@c9\endcsname{56}
+\expandafter\def\csname costN@h10\endcsname{46102}
+\expandafter\def\csname costmedian@h10\endcsname{8.46 \times 10^{-8}}
+\expandafter\def\csname costsum@h10\endcsname{5.60 \times 10^{-3}}
+\expandafter\def\csname costT@h10\endcsname{87.3}
+\expandafter\def\csname costninety@h10\endcsname{58}
+\expandafter\def\csname costN@h6\endcsname{50}
+\expandafter\def\csname costmedian@h6\endcsname{9.73 \times 10^{-6}}
+\expandafter\def\csname costsum@h6\endcsname{7.34 \times 10^{-4}}
+\expandafter\def\csname costT@h6\endcsname{1.5}
+\expandafter\def\csname costninety@h6\endcsname{58}
+\expandafter\def\csname costN@h7\endcsname{209}
+\expandafter\def\csname costmedian@h7\endcsname{5.05 \times 10^{-6}}
+\expandafter\def\csname costsum@h7\endcsname{1.54 \times 10^{-3}}
+\expandafter\def\csname costT@h7\endcsname{6.55}
+\expandafter\def\csname costninety@h7\endcsname{58}
+\expandafter\def\csname costN@h8\endcsname{1157}
+\expandafter\def\csname costmedian@h8\endcsname{1.45 \times 10^{-6}}
+\expandafter\def\csname costsum@h8\endcsname{2.44 \times 10^{-3}}
+\expandafter\def\csname costT@h8\endcsname{16.5}
+\expandafter\def\csname costninety@h8\endcsname{57}
+\expandafter\def\csname costN@h9\endcsname{6776}
+\expandafter\def\csname costmedian@h9\endcsname{3.75 \times 10^{-7}}
+\expandafter\def\csname costsum@h9\endcsname{3.66 \times 10^{-3}}
+\expandafter\def\csname costT@h9\endcsname{37.1}
+\expandafter\def\csname costninety@h9\endcsname{57}

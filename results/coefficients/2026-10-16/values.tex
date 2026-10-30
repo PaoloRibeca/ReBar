@@ -1,0 +1,132 @@
+% generated/values.tex -- numbers of the paper, as LaTeX macros. WRITTEN BY series/tables.py
+% (make -C ../series) from the ledger (ledger/orders.json) and series/generated/*.json: do not edit by hand.
+%
+% Macro contract (every name is always defined; "---" when the value is absent).  Per order X in B7 B8 B9 H7 H8 H9 H10
+% C7 C8 C9 C10 (digits spelled out: \valBeight, \valHten, \valCnine): \valX value(error), \relX relative error,
+% \nclX classes, \ncontribX contributions, \samplesX samples.  Coefficients at N = 1 (ubar normalisation):
+% \etaEight \etaNine \betaNine \betaTen \nuEight \nuNine \etaPhiEight \etaPhiNine, and the same at N = 0..4 with the
+% suffix Nzero .. Nfour (\betaNineNzero).  Large order: \ratioEight \ratioNine (|beta_(k+1)/beta_k| / a(k+b+1) at
+% N = 1, k = 8, 9), \rawratioEight \rawratioNine (|beta_(k+1)/beta_k|).  \ledgerDate: date of the latest run in the
+% ledger.  Negative and scientific values carry their own $...$ (the macros are used in text mode).
+%
+\newcommand{\ledgerDate}{16 October 2026}
+%
+\newcommand{\valBseven}{\provisional{10.91758(11)}}
+\newcommand{\relBseven}{\provisional{$1.0\times10^{-5}$}}
+\newcommand{\nclBseven}{3150}
+\newcommand{\ncontribBseven}{1}
+\newcommand{\samplesBseven}{\provisional{$1.2\times10^{12}$}}
+\newcommand{\valBeight}{\provisional{30.469859(76)}}
+\newcommand{\relBeight}{\provisional{$2.5\times10^{-6}$}}
+\newcommand{\nclBeight}{21\,689}
+\newcommand{\ncontribBeight}{3}
+\newcommand{\samplesBeight}{\provisional{$3.9\times10^{13}$}}
+\newcommand{\valBnine}{---}
+\newcommand{\relBnine}{---}
+\newcommand{\nclBnine}{---}
+\newcommand{\ncontribBnine}{0}
+\newcommand{\samplesBnine}{---}
+%
+\newcommand{\valHseven}{\provisional{0.01454958(57)}}
+\newcommand{\relHseven}{\provisional{$3.9\times10^{-5}$}}
+\newcommand{\nclHseven}{209}
+\newcommand{\ncontribHseven}{1}
+\newcommand{\samplesHseven}{\provisional{$1.5\times10^{11}$}}
+\newcommand{\valHeight}{\provisional{0.03750774(17)}}
+\newcommand{\relHeight}{\provisional{$4.4\times10^{-6}$}}
+\newcommand{\nclHeight}{1157}
+\newcommand{\ncontribHeight}{3}
+\newcommand{\samplesHeight}{\provisional{$2.0\times10^{13}$}}
+\newcommand{\valHnine}{0.0984527(28)}
+\newcommand{\relHnine}{$2.9\times10^{-5}$}
+\newcommand{\nclHnine}{6776}
+\newcommand{\ncontribHnine}{1}
+\newcommand{\samplesHnine}{$9.1\times10^{11}$}
+\newcommand{\valHten}{---}
+\newcommand{\relHten}{---}
+\newcommand{\nclHten}{---}
+\newcommand{\ncontribHten}{0}
+\newcommand{\samplesHten}{---}
+%
+\newcommand{\valCseven}{\provisional{0.801104(31)}}
+\newcommand{\relCseven}{\provisional{$3.9\times10^{-5}$}}
+\newcommand{\nclCseven}{265}
+\newcommand{\ncontribCseven}{1}
+\newcommand{\samplesCseven}{\provisional{$1.1\times10^{11}$}}
+\newcommand{\valCeight}{2.070192(21)}
+\newcommand{\relCeight}{$9.9\times10^{-6}$}
+\newcommand{\nclCeight}{1387}
+\newcommand{\ncontribCeight}{1}
+\newcommand{\samplesCeight}{$3.1\times10^{12}$}
+\newcommand{\valCnine}{5.85896(17)}
+\newcommand{\relCnine}{$3.0\times10^{-5}$}
+\newcommand{\nclCnine}{8038}
+\newcommand{\ncontribCnine}{1}
+\newcommand{\samplesCnine}{$6.1\times10^{11}$}
+\newcommand{\valCten}{---}
+\newcommand{\relCten}{---}
+\newcommand{\nclCten}{---}
+\newcommand{\ncontribCten}{0}
+\newcommand{\samplesCten}{---}
+%
+% etaEight: ledger inputs h7, h8
+\newcommand{\etaEight}{\provisional{0.00291057(1)}}
+\newcommand{\etaEightNzero}{\provisional{0.00347588(1)}}
+\newcommand{\etaEightNone}{\provisional{0.00291057(1)}}
+\newcommand{\etaEightNtwo}{\provisional{0.00226484(1)}}
+\newcommand{\etaEightNthree}{\provisional{0.00172134(1)}}
+\newcommand{\etaEightNfour}{\provisional{0.00130252(1)}}
+% etaNine: ledger inputs h7, h8, h9
+\newcommand{\etaNine}{\provisional{$-0.0051034(1)$}}
+\newcommand{\etaNineNzero}{\provisional{$-0.0066192(1)$}}
+\newcommand{\etaNineNone}{\provisional{$-0.0051034(1)$}}
+\newcommand{\etaNineNtwo}{\provisional{$-0.0036816(1)$}}
+\newcommand{\etaNineNthree}{\provisional{$-0.0026089(1)$}}
+\newcommand{\etaNineNfour}{\provisional{$-0.0018498(1)$}}
+% betaNine: ledger inputs b8, h7, h8
+\newcommand{\betaNine}{\provisional{$-2.366420(6)$}}
+\newcommand{\betaNineNzero}{\provisional{$-3.834306(8)$}}
+\newcommand{\betaNineNone}{\provisional{$-2.366420(6)$}}
+\newcommand{\betaNineNtwo}{\provisional{$-1.510105(5)$}}
+\newcommand{\betaNineNthree}{\provisional{$-0.995275(4)$}}
+\newcommand{\betaNineNfour}{\provisional{$-0.675610(3)$}}
+% betaTen: absent
+\newcommand{\betaTen}{---}
+\newcommand{\betaTenNzero}{---}
+\newcommand{\betaTenNone}{---}
+\newcommand{\betaTenNtwo}{---}
+\newcommand{\betaTenNthree}{---}
+\newcommand{\betaTenNfour}{---}
+% nuEight: ledger inputs h7, h8, c8
+\newcommand{\nuEight}{\provisional{$-0.0317869(4)$}}
+\newcommand{\nuEightNzero}{\provisional{$-0.0389149(4)$}}
+\newcommand{\nuEightNone}{\provisional{$-0.0317869(4)$}}
+\newcommand{\nuEightNtwo}{\provisional{$-0.0241429(4)$}}
+\newcommand{\nuEightNthree}{\provisional{$-0.0179058(4)$}}
+\newcommand{\nuEightNfour}{\provisional{$-0.0132057(4)$}}
+% nuNine: ledger inputs h7, h8, h9, c8, c9
+\newcommand{\nuNine}{\provisional{0.061330(2)}}
+\newcommand{\nuNineNzero}{\provisional{0.080888(2)}}
+\newcommand{\nuNineNone}{\provisional{0.061330(2)}}
+\newcommand{\nuNineNtwo}{\provisional{0.043588(2)}}
+\newcommand{\nuNineNthree}{\provisional{0.030484(2)}}
+\newcommand{\nuNineNfour}{\provisional{0.021375(2)}}
+% etaPhiEight: ledger inputs h7, h8, c8
+\newcommand{\etaPhiEight}{\provisional{0.160853(2)}}
+\newcommand{\etaPhiEightNzero}{\provisional{0.184992(1)}}
+\newcommand{\etaPhiEightNone}{\provisional{0.160853(2)}}
+\newcommand{\etaPhiEightNtwo}{\provisional{0.129332(2)}}
+\newcommand{\etaPhiEightNthree}{\provisional{0.101164(2)}}
+\newcommand{\etaPhiEightNfour}{\provisional{0.078534(1)}}
+% etaPhiNine: ledger inputs h7, h8, h9, c8, c9
+\newcommand{\etaPhiNine}{\provisional{$-0.303690(9)$}}
+\newcommand{\etaPhiNineNzero}{\provisional{$-0.378247(9)$}}
+\newcommand{\etaPhiNineNone}{\provisional{$-0.303690(9)$}}
+\newcommand{\etaPhiNineNtwo}{\provisional{$-0.227360(9)$}}
+\newcommand{\etaPhiNineNthree}{\provisional{$-0.166762(8)$}}
+\newcommand{\etaPhiNineNfour}{\provisional{$-0.122130(8)$}}
+% Large order (a = 0.14777422 * 9/(N+8), b = 3 + N/2, provisional: to be confirmed from Le Guillou-Zinn-Justin 1980)
+\newcommand{\ratioEight}{\provisional{1.008}}
+\newcommand{\rawratioEight}{\provisional{1.862}}
+\newcommand{\ratioNine}{---}
+\newcommand{\rawratioNine}{---}

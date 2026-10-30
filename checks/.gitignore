@@ -1,0 +1,3 @@
+# made by the checks: compiled helpers, the cache of their outputs and the logs (make clean)
+build/
+__pycache__/

@@ -1,0 +1,13 @@
+# What a release archive holds: the source in the tree (the binaries under integrator/bin and graphs/bin, once
+# built) and its name in the archive.  A leading '?' marks a file that may be absent (the GPU binaries, when the
+# package is built on a machine without CUDA); a trailing '/' a directory, copied whole.  tools/release reads it.
+LICENSE	LICENSE
+releases/ARCHIVE-README.md	README.md
+integrator/bin/rebar_cpu	rebar_cpu
+integrator/bin/rebar_cpu-e18	rebar_cpu-e18
+integrator/bin/rebar_cpu-e20	rebar_cpu-e20
+?integrator/bin/rebar_gpu	rebar_gpu
+?integrator/bin/rebar_gpu-e18	rebar_gpu-e18
+?integrator/bin/rebar_gpu-e20	rebar_gpu-e20
+graphs/bin/topologies	topologies
+integrator/data/lists/	lists/

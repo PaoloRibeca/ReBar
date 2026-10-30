@@ -1,0 +1,389 @@
+% sections/appendices.tex -- Technical appendices: conventions, graphs, zero-dimensional sum rules, reproducibility,
+% data and code
+% \appendix is issued here (main.tex does not issue it).
+\appendix
+
+% =================================================================================================================
+\section{Conventions and normalizations}
+\label{app:conventions}
+% A Markdown summary of this appendix is kept in ../doc/CONVENTIONS.md; change both together.
+
+These conventions are also summarized, with the names used by the code, in the file \texttt{doc/CONVENTIONS.md} of
+the code repository (Appendix~\ref{app:data}).
+
+\paragraph{Couplings.}
+The renormalized coupling $g$ is defined by $\Gamma^{(4)}_R(0)=m\,g$ [Eq.~\eqref{eq:normcond}], with the $O(N)$ tensor
+$(\delta_{ij}\delta_{kl}+\delta_{ik}\delta_{jl}+\delta_{il}\delta_{jk})/3$ factored out. The integrals are expanded in
+$u=g/8\pi$ and the RG functions are quoted in
+\begin{gather}
+\ubar=\frac{N+8}{6}\,u=\frac{N+8}{48\pi}\,g ,\nonumber\\
+\beta(\ubar)\equiv m\frac{\partial\ubar}{\partial m}=\frac{N+8}{6}\,\beta_u ,
+\label{eq:ubar}
+\end{gather}
+the normalized coupling of Refs.~\cite{BNGM1976,BNM1978}, which is the $\tilde u$ of Ref.~\cite{Phi4tools2024}. With
+it $\beta(\ubar)=-\ubar+\ubar^2+O(\ubar^3)$ for every $N$. We write $\eta_{\phi^2}$ for the anomalous dimension of $\phi^2$ ($\eta_2$ in
+Ref.~\cite{Ribeca2003thesis}), so that $1/\nu=2-\eta+\eta_{\phi^2}$, as in Ref.~\cite{Phi4tools2024}.
+
+\paragraph{Integrals.}
+Our integrals have one $d^3k/\pi^2$ per loop~\cite{NMB1977}, that is $8\pi$ times the measure $d^3k/(2\pi)^3$; with
+this choice each loop comes with one power of $u$, the one-loop bubble at zero momentum equals one, and the low-order
+coefficients are rational. (In Ref.~\cite{Ribeca2003thesis} ``Nickel's normalization'' refers to the coupling
+$\ubar$ rather than to the measure; integrals normalized with $d^3k/(2\pi)^3$ per loop are $(8\pi)^{-L}$ times ours.)
+The propagators of $B_L$, $H_L$ and $C_L$ have the renormalized mass, $m=1$, whereas those of
+Refs.~\cite{NMB1977,Ribeca2003thesis,Phi4tools2024}, and of the intermediate-scheme integrals we use for comparison,
+have the mass of the intermediate scheme, $m_I=1$. Individual integrals in the two conventions differ by powers of
+$m^2/m_I^2$; the RG functions do not. Reference~\cite{Phi4tools2024} quotes graph values $V_G$ that include its weight
+factor and a factor $(16\pi)^{L}$ per graph with $L$ loops, with the measure $d^3k/(2\pi)^3$. At $N=1$ the sum of
+its intermediate-scheme four-point values at $L$ loops equals $(2^{L}/3)\sum_G S_G I_G$, where $I_G$ is the integral of
+$G$ in our normalization, in the same scheme and with $m_I=1$; this is the relation behind the comparisons of
+intermediate-scheme order sums in Sec.~\ref{sec:results-validation}.
+
+\paragraph{Weights.}
+The weight $S_G=T_G(N)\,E!/|\mathrm{Aut}\,G|$ of Sec.~\ref{sec:methods-graphs} includes the $O(N)$ factor $T_G(N)$,
+normalized to $T_G(1)=1$ as are the symmetry factors of Ref.~\cite{Phi4tools2024}. The insertion of $\tfrac12\phi^2$ is
+normalized by $\Gamma^{(2,1)}_R(0;0)=1$, and $\partial\Gamma^{(a,b)}/\partial m_0^2=\Gamma^{(a,b+1)}$ at zero insertion
+momentum, so that, e.g., $C_1>0$.
+
+\paragraph{From the per-order sums to the series.}
+Writing $[\ubar^k]F$ for the coefficient of $\ubar^k$ in $F$, Eqs.~\eqref{eq:csrel}, \eqref{eq:series}
+and~\eqref{eq:ubar} give, at each order,
+\begin{align}
+[\ubar^{L+1}]\beta&=2(-1)^{L+1}\Bigl(\frac{6}{N+8}\Bigr)^{L}\bigl(B_L-2H_L\bigr)+\dots,\nonumber\\
+[\ubar^{L}]\eta&=2(-1)^{L}\Bigl(\frac{6}{N+8}\Bigr)^{L}H_L+\dots,\nonumber\\
+[\ubar^{L}]\eta_{\phi^2}&=2(-1)^{L}\Bigl(\frac{6}{N+8}\Bigr)^{L}C_L+\dots,\label{eq:linear}\\
+[\ubar^{L}]\nu&=\frac{(-1)^{L+1}}{2}\Bigl(\frac{6}{N+8}\Bigr)^{L}\bigl(C_L-H_L\bigr)+\dots,\nonumber
+\end{align}
+where the dots stand for products of sums of lower order ($H_1=0$). The coefficient of $\ubar^{L+1}$ in $\beta$ thus
+depends on $B_L$ and $H_L$, those of $\ubar^{L}$ in $\eta$ on $H_L$, and in $\nu$ on $C_L$ and $H_L$; the errors of the
+new sums enter linearly, with the prefactors of Eq.~\eqref{eq:linear}. The reference values of $B_L$, $H_L$, $C_L$ used
+in Sec.~\ref{sec:results} are obtained by solving these relations order by order for the sums, starting from the
+series of Ref.~\cite{Phi4tools2024}~\check{S1}.
+
+At the lowest orders the sums are known exactly,
+\begin{gather}
+B_1=\frac{N+8}{12},\qquad B_2=\frac{5N+22}{54},\qquad H_2=\frac{N+2}{243},\nonumber\\
+C_1=\frac{N+2}{12},\qquad C_2=\frac{N+2}{36},
+\label{eq:exactsums}
+\end{gather}
+that is $3/4$, $1/2$, $1/81$, $1/4$ and $1/12$ at $N=1$, and give
+\begin{align}
+\beta(\ubar)&=-\ubar+\ubar^2-\frac{4(41N+190)}{27(N+8)^2}\,\ubar^3+O(\ubar^4),\nonumber\\
+\eta(\ubar)&=\frac{8(N+2)}{27(N+8)^2}\,\ubar^2+O(\ubar^3),\nonumber\\
+\eta_{\phi^2}(\ubar)&=-\frac{N+2}{N+8}\,\ubar+\frac{2(N+2)}{(N+8)^2}\,\ubar^2+O(\ubar^3),\label{eq:lowseries}\\
+\nu(\ubar)&=\frac12+\frac{N+2}{4(N+8)}\,\ubar\nonumber\\
+&\quad+\frac{(N+2)(27N-38)}{216(N+8)^2}\,\ubar^2+O(\ubar^3),\nonumber
+\end{align}
+in agreement with Ref.~\cite{Phi4tools2024}. At $N=1$ the coefficients are $-308/729$ ($\ubar^3$ in $\beta$),
+$8/729$ ($\ubar^2$ in $\eta$), $-1/3$ and $2/27$ ($\eta_{\phi^2}$), and $1/12$ and $-11/5832$ ($\nu$). In the notation of
+Eq.~\eqref{eq:series-form}, $p_{\beta,3}=-4(41N+190)/27$, $p_{\eta,2}=8(N+2)/27$, $p_{\nu,1}=(N+2)/4$ and
+$p_{\nu,2}=(N+2)(27N-38)/216$.
+
+% =================================================================================================================
+\section{Graphs}
+\label{app:graphs}
+
+\paragraph{Counts.}
+Table~\ref{tab:graphcounts} gives, for every loop order, the numbers of 1PI graphs and of the integrands of
+Eq.~\eqref{eq:BHC} that do not vanish identically. One-vertex-reducible (1VR)
+graphs vanish for all three kinds, and so do, for $H_L$, the graphs with both external legs on one vertex
+(Sec.~\ref{sec:methods-rbar})~\check{I2}; through seven loops no other graph vanishes, so that the numbers of integrands are the
+numbers of the remaining graphs; at eight and nine loops the expansion confirmed that every remaining graph has a
+non-vanishing integrand (no class was dropped at the build). At ten loops the table gives the numbers of remaining
+graphs~\check{G5}. In the runs reported in Sec.~\ref{sec:results} each class is a single graph.
+
+\begin{table*}
+\caption{\label{tab:graphcounts}%
+Numbers of 1PI graphs per loop order $L$ and of non-vanishing integrands. $|\mathcal G_4(L)|$, $|\mathcal G_2(L)|$:
+graphs without self-loops, one-vertex-reducible ones included; 1VR: one-vertex-reducible graphs among them; one vertex:
+two-point graphs with both legs on one vertex (generalized tadpoles), 1VR ones included; $B$, $H$, $C$: integrands of
+Eq.~\eqref{eq:BHC} that survive the algebraic pruning, i.e.\ graphs that are not 1VR and, for $H$, do not have both
+legs on one vertex; with self-loops: complete two-point lists including graphs with self-loops, used only for
+checks. \check{G1}}
+\begin{ruledtabular}
+\begin{tabular}{rrrrrrrrrr}
+$L$ & $|\mathcal G_4(L)|$ & 1VR & $B$ & $|\mathcal G_2(L)|$ & 1VR & one vertex & $H$ & $C$ & with self-loops \\
+\hline
+1 & 1        & 0    & 1                      & 0    & --   & --   & --                    & 1\footnotemark[1]     & 1    \\
+2 & 2        & 1    & 1                      & 1    & 0    & 0    & 1                     & 1                     & 2    \\
+3 & 8        & 2    & 6                      & 2    & 0    & 1    & 1                     & 2                     & 5    \\
+4 & 27       & 8    & 19                     & 6    & 1    & 2    & 4                     & 5                     & 17   \\
+5 & 129      & 33   & 96                     & 19   & 3    & 7    & 11                    & 16                    & 68   \\
+6 & 660      & 158  & 502                    & 75   & 13   & 21   & 50                    & 62                    & 313  \\
+7 & 3986     & 836  & 3150                   & 317  & 52   & 85   & 209                   & 265                   & 1632 \\
+8 & 26\,540  & 4851 & 21\,689 & 1622 & 235  & 356  & 1157  & 1387  & 9685 \\
+9 & 197\,022 & 30\,975 & 166\,047\footnotemark[2] & 9184 & 1146 & 1804 & 6776  & 8038  & 63\,774 \\
+10 & 1\,593\,254 & 215\,576 & 1\,377\,678\footnotemark[2] & 59\,614 & 6217 & 10\,064 & 46\,102\footnotemark[2] & 53\,397\footnotemark[2] & 463\,933 \\
+\end{tabular}
+\end{ruledtabular}
+\footnotetext[1]{The one-loop tadpole with two insertions.}
+\footnotetext[2]{Graphs that are not 1VR (and, for $H$, do not have both legs on one vertex); all their integrands
+survive the pruning, and every one of them was sampled~\check{G5}.}
+\end{table*}
+
+\paragraph{Generator.}
+The generation is described in Sec.~\ref{sec:methods-generation}. At eight loops the
+26\,540 four-point graphs have their legs distributed as $(2,2)$ (2254 graphs), $(2,1,1)$ (14\,614) and $(1,1,1,1)$
+(9672); at nine loops the 9184 two-point graphs as $(2)$ (1804) and $(1,1)$ (7380)~\check{G1}.
+
+\paragraph{Twins.}
+Besides the seven-loop numbers of Sec.~\ref{sec:methods-construction}, the four-point lists at five and six loops contain
+104 and 518 distinct unsubtracted integrals for 129 and 660 graphs, and the eight-loop two-point list 1512 for 1622.
+Merging twins, after a pointwise check of their subtracted integrands, would save the corresponding samples.
+
+\paragraph{Notation.}
+A Nickel index~\cite{NMB1977} lists, for each vertex in turn, an \texttt{e} for every external leg and the labels of the
+vertices with equal or higher label to which it is joined, once per line, followed by a bar; the canonical index is the
+lexicographic minimum over the labellings of the vertices, with $|<\texttt{e}<0<1<\dots$. For example, the one-loop
+four-point bubble is \texttt{ee11|ee|} and the two-loop sunset \texttt{e111|e|}. Our generator, like the one of
+Ref.~\cite{Ribeca2003thesis} and the programs built on it~\cite{GuidaRibeca2006}, writes a graph instead as its number
+of vertices followed by the run-length-coded upper triangle of its symmetric matrix of line multiplicities, with
+optional sections for vertex colours (external legs) and self-loops. Those programs canonicalized it as a
+lexicographically minimal adjacency matrix, and their labels such as D40L5N78 (a four-point graph with five loops,
+line 78 of their list) are list positions, not graph invariants. For instance, the string \texttt{6(.2 1\^{}2.2 1\^{}6.1 1\^{}2)} of D40L5N78
+is the graph \texttt{ee12|345|345|e4|5|e|}. A table that maps every historical label to its Nickel index accompanies
+the graph lists (Appendix~\ref{app:data}).
+
+% =================================================================================================================
+\section{Zero-dimensional sum rules}
+\label{app:sumrules}
+
+In zero dimensions every Feynman integral with unit propagators equals one. The sum $\sum_G S_G$ of the weights over a
+complete list is therefore the corresponding coefficient of the vertex functions of the zero-dimensional $O(N)$
+model~\cite{CvitanovicLautrupPearson1978,Ribeca2003thesis,Borinsky2017}, with partition function
+\begin{equation}
+Z=\int d^N\phi\;\exp\Bigl[-\frac{m_0^2}{2}\,\phi^2-\frac{g}{24}\,(\phi^2)^2\Bigr].
+\label{eq:zerod}
+\end{equation}
+With $Q=\langle\phi^2\rangle/N$ and $A=\langle(\phi^2)^2\rangle/[N(N+2)]$ one has $\Gamma^{(2)}_0=1/Q$ and
+$\Gamma^{(4)}_0=-3(A-Q^2)/Q^4$, and, as formal power series in $g$,
+\begin{equation}
+\langle(\phi^2)^k\rangle=\frac{I_k}{I_0},\quad
+I_k=\sum_{n\ge0}\frac{(-g/24)^n}{n!}\,\frac{P_{k+2n}(N)}{m_0^{2(k+2n)}},
+\label{eq:zerodmoments}
+\end{equation}
+with $P_j(N)=N(N+2)\cdots(N+2j-2)$. For the lists without self-loops (one-vertex-reducible graphs included), the bare
+mass is shifted, $m_0^2=1-(N+2)g/6$, so that every graph with a self-loop cancels against a graph with a mass
+counterterm; then
+\begin{gather}
+\Gamma^{(2)}_0=1+\sum_{L\ge2}(-1)^{L+1}\Sigma_{2,L}\,g^L,\nonumber\\
+\Gamma^{(4)}_0=\sum_{L\ge0}(-1)^{L}\Sigma_{4,L}\,g^{L+1},
+\label{eq:sumrule}
+\end{gather}
+with $\Sigma_{E,L}=\sum_{G\in\mathcal G_E(L)}S_G$. With $m_0^2=1$ the same expansion gives the sums over all 1PI graphs,
+self-loops included. Table~\ref{tab:sumrules} gives the polynomials $\Sigma_{E,L}(N)$. Through eight loops they are those
+of the zero-dimensional computation of Ref.~\cite{Ribeca2003thesis}, whose table stops at $\Gamma^{(4)}$ with seven
+loops and $\Gamma^{(2)}$ with seven, and whose original output extends to eight loops in both. The printed table has two
+sign misprints, absent from the original output: the last four terms of the six-loop $\Gamma^{(2)}$ numerator and the
+term in $N^3$ of the three-loop $\Gamma^{(2,1)}$ numerator have the same sign as the other terms. The nine- and
+ten-loop rows were obtained here from Eqs.~\eqref{eq:zerod}--\eqref{eq:sumrule}, which reproduce every coefficient
+of the original computation at lower orders.
+
+The lists used here reproduce every row of Table~\ref{tab:sumrules} exactly, as polynomials in $N$, through ten
+loops for both $\Gamma^{(4)}$ and $\Gamma^{(2)}$, up to the 1\,593\,254 ten-loop four-point graphs; the $O(N)$ factor of
+every graph is counted exactly by carrying the partial pairings of its vertices from vertex to vertex, which agrees
+graph by graph with the enumeration of all $3^V$ pairings wherever both run~\check{G2}. The lists with self-loops reproduce the bare series,
+whose coefficients at $N=1$ are $1/2$, $5/12$, $5/6$, $115/48$, $625/72$, $10\,775/288$, $80\,275/432$,
+$21\,615\,925/20\,736$, $67\,531\,025/10\,368$ and $620\,085\,875/13\,824$ at $L=1$--10. They also reproduce the sum rules of
+$\Gamma^{(2,1)}$ of Ref.~\cite{Ribeca2003thesis}, obtained by inserting $\phi^2$ on any line of a graph without
+self-loops and on the self-loop of a graph with exactly one, at five and six loops for all $N$, the seven-loop
+polynomial of the original output, and its eight-loop value at $N=1$.
+
+\begin{table*}
+\caption{\label{tab:sumrules}%
+Zero-dimensional sum rules: $\Sigma_{E,L}(N)=\sum_{G\in\mathcal G_E(L)}S_G$ over the $L$-loop 1PI graphs without self-loops,
+one-vertex-reducible graphs included [Eq.~\eqref{eq:sumrule}], written as a numerator polynomial over a denominator
+$D$, and its value at $N=1$. Rows to eight loops: Ref.~\cite{Ribeca2003thesis} (printed table and original output);
+the nine- and ten-loop rows: this work, from the lists and from the exact zero-dimensional series, which agree.
+\check{G2}}
+\footnotesize
+\begin{ruledtabular}
+\begin{tabular}{llp{0.62\textwidth}rr}
+$E$ & $L$ & Numerator & $D$ & $N=1$ \\
+\hline
+4 & 1 & $8+N$ & 6 & $3/2$ \\
+  & 2 & $108+26N+N^2$ & 36 & $15/4$ \\
+  & 3 & $2048+724N+62N^2+N^3$ & 216 & $105/8$ \\
+  & 4 & $47648+21632N+2928N^2+124N^3+N^4$ & 1296 & $893/16$ \\
+  & 5 & $1297664+702864N+127392N^2+9044N^3+220N^4+N^5$ & 7776 & $8795/32$ \\
+  & 6 & $40362304+24950944N+5549104N^2+546408N^3+23404N^4+358N^5+N^6$ & 46656 & $97987/64$ \\
+  & 7 & $1410726400+966932160N+250483648N^2+31004768N^3+1898240N^4+53312N^5+546N^6+N^7$ & 279936 & $10951025/1152$ \\
+  & 8 & $54747705344+40784744192N+11897634304N^2+1746112576N^3+137234272N^4+5654416N^5+110208N^6+792N^7+N^8$ & 1679616 & $49985915/768$ \\
+  & 9 & $2336870225920+1865178040064N+598669644160N^2+100305560704N^3+9494392864N^4+511500848N^5+14961264N^6+211032N^7+1104N^8+N^9$ & 10077696 & $2245562203/4608$ \\
+  & 10 & $108856221154304+92103242480128N+31990963159296N^2+5962312144640N^3+652186499392N^4+42906530592N^5+1667820720N^6+36012864N^7+379788N^8+1490N^9+N^{10}$ & 60466176 & $4057808535/1024$ \\
+\hline
+2 & 2 & $2+N$ & 18 & $1/6$ \\
+  & 3 & $10+7N+N^2$ & 54 & $1/3$ \\
+  & 4 & $280+232N+52N^2+3N^3$ & 648 & $7/8$ \\
+  & 5 & $2552+2384N+688N^2+71N^3+2N^4$ & 1944 & $211/72$ \\
+  & 6 & $113888+116608N+39952N^2+5680N^3+320N^4+5N^5$ & 23328 & $3413/288$ \\
+  & 7 & $1498912+1650832N+641936N^2+112904N^3+9260N^4+316N^5+3N^6$ & 69984 & $48323/864$ \\
+  & 8 & $90828928+106190272N+45557472N^2+9353504N^3+982000N^4+51060N^5+1134N^6+7N^7$ & 839808 & $3123017/10368$ \\
+  & 9 & $778012480+956252384N+444020448N^2+102678120N^3+12884816N^4+882730N^5+31028N^6+473N^7+2N^8$ & 1259712 & $9443467/5184$ \\
+  & 10 & $118963074560+152597681664N+75647848448N^2+19237783296N^3+2767156512N^4+231239968N^5+10977808N^6+273456N^7+2982N^8+9N^9$ & 30233088 & $506798407/41472$ \\
+\end{tabular}
+\end{ruledtabular}
+\end{table*}
+
+% =================================================================================================================
+\section{Reproducibility}
+\label{app:reproducibility}
+
+Every claim of this paper that a script can verify is marked in the text with the identifier of its check, as in
+\check{G2}. The checks are part of the code repository (Appendix~\ref{app:data}), in its directory \texttt{checks/}: one
+script per identifier, which states the claim as it is made here, its inputs in the repository and the expected result,
+prints the numbers it obtains, and ends with \texttt{PASS} or \texttt{FAIL}. Table~\ref{tab:checks} lists them. The
+command
+\begin{verbatim}
+make -C checks
+\end{verbatim}
+runs them all and writes a report, \texttt{checks/REPORT.md}; \texttt{make -C checks quick} runs those that take less
+than about a minute, and \texttt{python3 checks/run.py G2} runs one. They need Python~3.6 or later with its standard
+library, GNU make and a C++17 compiler with OpenMP, which build the CPU integrator and the compiled helpers on first
+use. Where a check needs what the machine lacks, a
+GPU for the live part of N2 or the \textsc{mpmath} library for I1, it reports \texttt{SKIP} for that part and verifies
+instead the stored outputs of the runs that did it, which the repository keeps (\texttt{results/}).
+
+The numbers that describe the pooled Monte Carlo data are not typed in the sources of the paper. The bodies of
+Tables~\ref{tab:validation}, \ref{tab:cost}, \ref{tab:newsums}--\ref{tab:newcoeffnu}, \ref{tab:routes},
+\ref{tab:exponents} and~\ref{tab:largeorder}, the rows of this work in Table~\ref{tab:effort}, Figs.~\ref{fig:cost}
+and~\ref{fig:costhist}, and the values quoted from them in the text are written by \texttt{make -C series} from the
+ledger of pooled per-class statistics (Sec.~\ref{sec:methods-ledger}) and from the stored runs of route B. Check S2
+regenerates all of them except Table~\ref{tab:routes}, which check S4 regenerates, and both verify that they are
+identical to those printed here. The exceptions are the numbers of individual early runs and tests in
+Sec.~\ref{sec:results-validation} (the round-off example of $H_4$ and the test of fused multiply-add contraction),
+which are historical; where a check exists, it verifies them from their stored outputs.
+
+\begin{table*}
+\caption{\label{tab:checks}%
+The reproducibility checks of the repository (directory \texttt{checks/}). Where: the sections and appendices whose
+claims cite the check. Needs: CPU, a computation on a CPU with the graph tools or the CPU build of the integrator; GPU,
+a computation on a GPU; stored, only the stored outputs of the repository (the ledger and the reference data of the
+checks).}
+\begin{ruledtabular}
+\begin{tabular}{lp{0.2\textwidth}p{0.55\textwidth}l}
+Id & Where & Claim & Needs \\
+\hline
+\checkid{G1} & \ref{sec:methods-generation}, \ref{sec:methods-checks}, App.~\ref{app:graphs} &
+  Every graph list holds distinct, connected 1PI graphs in canonical Nickel form, in the numbers of
+  Tables~\ref{tab:generation} and~\ref{tab:graphcounts} & CPU \\
+\checkid{G2} & \ref{sec:methods-checks}, \ref{sec:methods-validation}, App.~\ref{app:sumrules} &
+  The lists satisfy the zero-dimensional sum rules exactly, as polynomials in $N$, through ten loops, and reproduce
+  every row of Table~\ref{tab:sumrules} & CPU \\
+\checkid{G3} & \ref{sec:methods-checks} &
+  The lists equal those of Ref.~\cite{Phi4tools2024} as sets: $\Gamma^{(4)}$ to seven loops, $\Gamma^{(2)}$ to eight
+  & CPU \\
+\checkid{G4} & \ref{sec:methods-checks} &
+  The weights and $O(N)$ polynomials equal those of Refs.~\cite{Ribeca2003thesis,GuidaRibeca2006} on all graphs with
+  $L\le5$ and on the four-loop tables & CPU \\
+\checkid{G5} & \ref{sec:methods-tropical}, App.~\ref{app:graphs} &
+  The counts of Table~\ref{tab:graphcounts} follow from the lists (1VR by a cut-vertex test, checked against the
+  lists' flags), and the ledger holds that many classes for every order with data & CPU \\
+\checkid{I1} & \ref{sec:methods-checks}, \ref{sec:methods-validation} &
+  The expanded forest formula, Eq.~\eqref{eq:integrand}, agrees pointwise with an independent evaluation in 100-digit
+  arithmetic & CPU\footnotemark[1] \\
+\checkid{I2} & \ref{sec:methods-construction}, \ref{sec:methods-checks}, \ref{sec:methods-validation},
+  App.~\ref{app:graphs} &
+  One-vertex-reducible graphs, graphs with self-loops and generalized tadpoles vanish after the pruning & CPU \\
+\checkid{I3} & \ref{sec:methods-construction}, \ref{sec:methods-checks}, \ref{sec:methods-validation} &
+  Twins (2-isomorphic graphs) have pointwise equal subtracted integrands & CPU \\
+\checkid{I4} & \ref{sec:methods-construction} &
+  A run that loads the built classes from the cache is bitwise identical to one that builds them & CPU \\
+\checkid{N1} & \ref{sec:methods-rng} &
+  Our Philox4x32-10 reproduces the known-answer vectors of Ref.~\cite{Salmon2011Random123} & CPU \\
+\checkid{N2} & \ref{sec:methods-kernel}, \ref{sec:methods-validation}, \ref{sec:results-validation} &
+  On identical random numbers the GPUs reproduce the per-class means of the CPU to round-off (golden runs)
+  & CPU, GPU\footnotemark[2] \\
+\checkid{N3} & \ref{sec:methods-checks}, \ref{sec:results-validation} &
+  The exact two-loop sums $B_2=1/2$, $H_2=1/81$ and $C_2=1/12$ are reproduced within the errors & stored \\
+\checkid{N4} & \ref{sec:results-validation} &
+  The sums at three to seven loops agree within the errors with those derived from Ref.~\cite{Phi4tools2024}; the
+  statistics of the pulls & stored \\
+\checkid{N5} & \ref{sec:methods-ledger}, \ref{sec:results-validation} &
+  The ledger is rebuilt bit for bit from the archive of its runs, and every run is consistent class by class with
+  the pool of the runs before it (per-class $\chi^2$) & stored\footnotemark[3] \\
+\checkid{N6} & \ref{sec:results-validation} &
+  FP64 round-off does not bias the order sums: paired double and extended-precision evaluation of 55 classes (the 43 most exposed of $B_8$, $H_8$,
+  $C_8$, $H_9$, $C_9$ and $C_{10}$, and 12 controls) finds no significant difference, and at most $4\times10^{-6}$ of an order's error summed over its classes & CPU \\
+\checkid{N7} & \ref{sec:methods-tropical}, \ref{sec:results-validation} &
+  Eight replicas of each of $B_6$, $H_6$, $C_6$, $B_7$, $H_7$ and $C_7$ scatter as their quoted errors say, order
+  sums and class by class & stored \\
+\checkid{N8} & \ref{sec:results-validation} &
+  The round-off scales of the four classes of $H_4$ quoted as an example in Sec.~\ref{sec:results-validation}
+  & stored \\
+\checkid{S1} & \ref{sec:methods-validation}, \ref{sec:results}, App.~\ref{app:conventions} &
+  The Callan--Symanzik relations map the sums derived from Ref.~\cite{Phi4tools2024} back to its coefficients, to
+  $10^{-15}$ & stored \\
+\checkid{S2} & \ref{sec:methods-ledger}, \ref{sec:resummation-criteria}, \ref{sec:resummation-errors},
+  \ref{sec:methods-validation}, \ref{sec:results-validation}, \ref{sec:results-performance}, \ref{sec:results-new},
+  \ref{sec:resummation-results} &
+  Every number of the generated tables and values is regenerated from the ledger by \texttt{make -C series} & stored \\
+\checkid{S3} & \ref{sec:methods-checks}, \ref{sec:methods-validation} &
+  The large-order ratios of Table~\ref{tab:largeorder} follow from the coefficients and the constants of
+  Sec.~\ref{sec:methods-validation} & stored \\
+\checkid{S4} & \ref{sec:methods-validation}, \ref{sec:results-new} &
+  Route B reproduces the coefficients of Ref.~\cite{Phi4tools2024} from its per-graph values, its eight-vertex
+  sums agree with those of Ref.~\cite{Phi4tools2024} and its ninth- and tenth-order coefficients with route A
+  (Table~\ref{tab:routes}) & stored \\
+\checkid{S5} & \ref{sec:methods-validation}, \ref{sec:results-new} &
+  The terms in $N^L$ of every order sum vanish class by class, as the limit $N\to\infty$ requires, and those in
+  $N^{L-1}$ of every order of the ledger agree with the $1/N$ expansion, which reproduces the leading coefficients of
+  Ref.~\cite{Phi4tools2024}; the polynomials $p_{X,k}(N)$ have the degrees and leading coefficients that follow
+  & stored \\
+\end{tabular}
+\end{ruledtabular}
+\footnotetext[1]{With the \textsc{mpmath} library; without it, the check verifies the stored values
+(\texttt{results/checks/}).}
+\footnotetext[2]{Without a GPU, the check verifies the stored GPU outputs (\texttt{results/checks/}).}
+\footnotetext[3]{The replay needs the archive of the runs (\texttt{ledger-archive/}, outside the repository);
+without it, the check verifies the invariants of the ledger and reports the replay as skipped.}
+\end{table*}
+
+% =================================================================================================================
+\section{Data and code availability}
+\label{app:data}
+
+The code, the data and the checks are in the repository ReBar, \url{https://github.com/PaoloRibeca/ReBar},
+whose release 0.4.3 is archived at Zenodo, \url{https://doi.org/10.5281/zenodo.23750242}; this paper is
+arXiv:2610.39307. The
+code under the GNU General Public License, version~3 or later, the data and the documentation under the Creative
+Commons Attribution 4.0 International licence, and the text of this paper under the Creative Commons
+Attribution-NonCommercial-NoDerivatives 4.0 International licence. The repository is the Supplemental Material of this paper; its file
+\texttt{SUPPLEMENTAL.md} says where each of the following items is.
+\begin{enumerate}
+\item \emph{Graph lists}: $\Gamma^{(4)}$ and $\Gamma^{(2)}$ to ten loops, in the notation of
+Refs.~\cite{Ribeca2003thesis,GuidaRibeca2006} (\texttt{graphs/lists/}) and, in the form the integrator reads
+(\texttt{integrator/data/lists/}), with the canonical Nickel index, the weight $E!/|\mathrm{Aut}\,G|$ at $N=1$ and
+the one-vertex-reducible and self-loop flags of every graph; the $O(N)$ weight polynomials are in the ledger, class by
+class, with the SHA-256 of every list the integrator ran on. The lists to seven ($\Gamma^{(4)}$) and eight
+($\Gamma^{(2)}$) loops coincide with those of Ref.~\cite{Phi4tools2024}, version~1.0.2 (check G3), and the four
+six- and seven-loop lists of the integrator are its files, with its columns, reproduced under its MIT licence; the
+$\Gamma^{(4)}$ lists from eight loops and the $\Gamma^{(2)}$ lists from nine loops on are new.
+\item \emph{Per-class results} (\texttt{ledger/}): the statistics of every class pooled over the runs (number of
+samples, mean and central moments to the fourth, extremes, round-off indicators, time per sample), the exact weight
+polynomials, the per-order sums with the reference values and the pulls, and a record of every run with its own
+statistics (Sec.~\ref{sec:methods-ledger}); and, in the archive deposited with the release (too large for the
+repository), the output of every run as received, with the integral, error, samples and diagnostics of every class. With them the coefficients can be recombined for any $N$, the error propagation of
+Sec.~\ref{sec:resummation-errors} can be repeated, and two runs can be compared class by class.
+\item \emph{Run records}: dated snapshots of the series and tables derived from the ledger
+(\texttt{results/coefficients/}), and the reference data and inputs of the checks (\texttt{results/checks/}). The
+complete records of the campaigns of Sec.~\ref{sec:results} (reports, logs and environment records) are kept outside
+the repository; the run files of the ledger's contributions are deposited with its archive.
+\item \emph{Series} (\texttt{series/}): the tools that validate and pool the runs and derive from the ledger the
+polynomials $B_L(N)$, $H_L(N)$, $C_L(N)$ and $p_{X,k}(N)$, the coefficients and the generated tables of this paper; the
+polynomials $p_{X,k}(N)$ with the full covariance of their coefficients (Sec.~\ref{sec:results-new}), in
+\texttt{series/generated/polynomials.json} and, one row per coefficient, \texttt{polynomials.tsv}, with a dated copy
+in \texttt{results/coefficients/}.
+\item \emph{Checks} (\texttt{checks/}): the scripts of Appendix~\ref{app:reproducibility}.
+\item \emph{Code} (\texttt{integrator/}, \texttt{graphs/}): the program that builds and integrates the subtracted integrands (C++17 and CUDA from a single
+source; versions 0.3.0 to 0.4.3 for the runs of Sec.~\ref{sec:results}, each recorded with its build signature in
+the ledger), with
+its self-tests and validation driver, and, in \texttt{results/checks/}, the golden reference files of
+Sec.~\ref{sec:methods-kernel}; the graph generator of
+Sec.~\ref{sec:methods-generation}; and the scripts that convert the graphs to Nickel indices and evaluate the sum
+rules of Appendix~\ref{app:sumrules}.
+\end{enumerate}
+Every results archive records the hardware, driver and compiler versions and the checksums of all sources. Since the
+random numbers of a class depend only on the seed, the kind of integrand, the loop order and the Nickel index
+(Sec.~\ref{sec:methods-rng}), any class of any run can be recomputed independently: bit for bit with the same build
+on CPUs, for any number of threads, and within round-off with other compilers and libraries and on GPUs
+(Sec.~\ref{sec:methods-kernel}).

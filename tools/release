@@ -1,0 +1,151 @@
+#!/bin/bash
+# release -- build and package a binary release of ReBar, and drive the GitHub workflow that builds it on a clean
+# machine.  The version is the one in releases/CURRENT; what ships is listed in releases/MANIFEST.
+#
+#   tools/release package [<ver>]   build the binaries afresh with the release flags and assemble
+#                                   releases/ReBar-<ver>-<os>-<arch>.tar.xz.  <ver> is N.N.N; given, it replaces
+#                                   releases/CURRENT (the old one is kept as CURRENT~); omitted, CURRENT is used.
+#                                   Without a CUDA toolkit the archive holds the CPU binaries only.
+#   tools/release ci-begin          tag v<CURRENT> on HEAD and push the tag, which starts the workflow
+#                                   .github/workflows/build-binaries.yml: it builds the CPU and GPU binaries on a
+#                                   GitHub runner and attaches the archive to the GitHub release of the tag.
+#                                   Refuses unless HEAD commits the CURRENT of the working tree.
+#   tools/release ci-end            wait for that workflow and download the archive it attached into releases/.
+#                                   Needs an authenticated gh (GitHub CLI).
+#
+# Release flags: the CPU binaries and the generator are built with -O3 -march=x86-64-v2 and linked statically, so
+# that they run on any x86-64 Linux; the GPU binaries with the same host flags, machine code for sm_80 and sm_90 and
+# PTX for sm_90, with the CUDA and C++ runtimes linked statically, so that at run time they need only the NVIDIA
+# driver and the glibc of the machine they were built on or newer (2.34 on the GitHub runner).
+# RELEASE_CXXFLAGS, RELEASE_LDFLAGS and RELEASE_CUDA_ARCH override them (RELEASE_LDFLAGS="" links dynamically).
+set -eu
+
+self=$(basename "$0")
+root=$(cd "$(dirname "$0")/.." && pwd)
+manifest=$root/releases/MANIFEST
+current=$root/releases/CURRENT
+name=ReBar
+version_re='^[0-9]+\.[0-9]+\.[0-9]+$'
+
+die() { echo "($self $action): $*" >&2; exit 1; }
+usage() { sed -n '2,20p' "$0" | sed 's/^# \{0,1\}//' >&2; exit 1; }
+
+action=${1:-}; [ -n "$action" ] || usage; shift
+case "$action" in package|ci-begin|ci-end) ;; *) usage ;; esac
+version_arg=${1:-}
+[ "$action" = package ] || [ -z "$version_arg" ] || usage
+
+# The version: CURRENT's, or the one given, which replaces it.
+resolve_version() {
+  if [ -n "$version_arg" ]; then
+    [[ "$version_arg" =~ $version_re ]] || die "'$version_arg' is not a version (N.N.N)"
+    version=$version_arg
+    [ -f "$current" ] && mv -f "$current" "$current~"
+    printf '%s\n' "$version" > "$current"
+  else
+    [ -f "$current" ] || die "releases/CURRENT not found and no version given"
+    version=$(sed -n 1p "$current")
+    [[ "$version" =~ $version_re ]] || die "releases/CURRENT does not hold a version (N.N.N)"
+  fi
+}
+
+do_package() {
+  command -v xz > /dev/null 2>&1 || die "xz not found"
+  [ -f "$manifest" ] || die "releases/MANIFEST not found"
+  resolve_version
+  local cxxflags=${RELEASE_CXXFLAGS--O3 -march=x86-64-v2} ldflags=${RELEASE_LDFLAGS--static}
+  local cuda_arch=${RELEASE_CUDA_ARCH-80 90} variants="e16 e18 e20"
+  # Always rebuilt: the binaries carry the version and the build stamp, and only a build made now is known to be
+  # this tree with these flags.
+  echo "($self package): building the CPU binaries ($cxxflags; link: ${ldflags:-dynamic}) ..."
+  make -C "$root/integrator" -s clean
+  make -C "$root/integrator" -s cpu VARIANTS="$variants" CXXFLAGS="$cxxflags" LDFLAGS="$ldflags"
+  make -C "$root/integrator" -s config > /dev/null
+  if [ -n "$(sed -n 's/^NVCC *:= *//p' "$root/integrator/build/config.mk")" ]; then
+    echo "($self package): building the GPU binaries (CUDA_ARCH=\"$cuda_arch\") ..."
+    make -C "$root/integrator" -s gpu VARIANTS="$variants" CUDA_ARCH="$cuda_arch" HOSTFLAGS="$cxxflags" \
+      NVCC_EXTRA="-Xcompiler -static-libstdc++ -Xcompiler -static-libgcc"
+  else
+    echo "($self package): no CUDA toolkit found: the archive holds the CPU binaries only"
+  fi
+  echo "($self package): building the generator ..."
+  make -C "$root/graphs" -s clean
+  make -C "$root/graphs" -s bin/topologies CXXFLAGS="-O2 -Wall -Wextra $cxxflags" LDFLAGS="$ldflags"
+
+  local platform pkg dir
+  platform=$(uname -s)-$(uname -m)
+  pkg=$name-$version-$platform
+  dir=$root/releases/$pkg
+  echo "($self package): assembling $pkg ..."
+  [ -n "$pkg" ] && [ "$dir" != "$root/releases/" ] || die "empty package name"
+  rm -rf "$dir"
+  mkdir -p "$dir"
+  local src dst optional
+  while read -r src dst; do
+    [ -z "$src" ] && continue
+    case "$src" in \#*) continue ;; esac
+    [ -n "$dst" ] || die "malformed MANIFEST line for '$src' (two columns needed)"
+    optional=0
+    case "$src" in \?*) optional=1; src=${src#?} ;; esac
+    if [ ! -e "$root/$src" ]; then
+      [ "$optional" = 1 ] && { echo "($self package): $src absent, left out"; continue; }
+      die "'$src' not found"
+    fi
+    case "$src" in
+      */) mkdir -p "$dir/$dst" && cp -pr "$root/$src." "$dir/$dst" ;;
+      *) cp -p "$root/$src" "$dir/$dst"; case "$src" in */bin/*) chmod +x "$dir/$dst" ;; esac ;;
+    esac
+  done < "$manifest"
+  "$dir/rebar_cpu" version > "$dir/VERSION"
+  echo "($self package): creating $pkg.tar.xz ..."
+  ( cd "$root/releases" && tar cf "$pkg.tar" "$pkg" && xz -f "$pkg.tar" )
+  echo "($self package): done: releases/$pkg.tar.xz ($(cut -d' ' -f2-6 < "$dir/VERSION"))"
+}
+
+do_ci_begin() {
+  resolve_version
+  local tag=v$version head committed
+  head=$(git -C "$root" rev-parse HEAD)
+  committed=$(git -C "$root" show HEAD:releases/CURRENT 2>/dev/null | sed -n 1p)
+  [ "$committed" = "$version" ] \
+    || die "releases/CURRENT holds $version but HEAD commits '${committed:-nothing}': commit it first"
+  git -C "$root" diff --quiet HEAD || die "the working tree has uncommitted changes: commit them first"
+  if git -C "$root" rev-parse -q --verify "refs/tags/$tag" > /dev/null; then
+    [ "$(git -C "$root" rev-parse "$tag^{commit}")" = "$head" ] \
+      || die "tag $tag already exists on another commit: not moving it"
+    echo "($self ci-begin): tag $tag already on HEAD"
+  else
+    echo "($self ci-begin): tagging HEAD as $tag ..."
+    git -C "$root" tag "$tag"
+  fi
+  echo "($self ci-begin): pushing $tag (starts the workflow) ..."
+  git -C "$root" push origin "$tag"
+  echo "($self ci-begin): done; 'tools/release ci-end' waits for the build and downloads the archive"
+}
+
+do_ci_end() {
+  command -v gh > /dev/null 2>&1 || die "gh (GitHub CLI) not found"
+  gh auth status > /dev/null 2>&1 || die "gh is not authenticated: run 'gh auth login'"
+  resolve_version
+  local tag=v$version repo run_id="" i
+  repo=$(gh repo view --json nameWithOwner --jq .nameWithOwner)
+  echo "($self ci-end): looking for the workflow run of $tag ..."
+  for ((i = 0; i < 30; i++)); do
+    run_id=$(gh run list --repo "$repo" --workflow build-binaries.yml --event push --branch "$tag" \
+      --limit 1 --json databaseId --jq '.[0].databaseId // empty' 2>/dev/null || true)
+    [ -n "$run_id" ] && break
+    sleep 5
+  done
+  [ -n "$run_id" ] || die "no workflow run found for $tag: did 'ci-begin' run?"
+  echo "($self ci-end): waiting for run $run_id ..."
+  gh run watch "$run_id" --exit-status
+  echo "($self ci-end): downloading the archive of release $tag ..."
+  gh release download "$tag" --repo "$repo" --pattern "$name-$version-*.tar.xz" --dir "$root/releases" --clobber
+  ls -l "$root/releases/$name-$version-"*.tar.xz
+}
+
+case "$action" in
+  package) do_package ;;
+  ci-begin) do_ci_begin ;;
+  ci-end) do_ci_end ;;
+esac

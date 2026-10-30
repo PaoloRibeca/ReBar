@@ -1,0 +1,370 @@
+Sources (policy best): b1 exact, b2 exact, b3 refs, b4 refs, b5 refs, b6 refs, b7 ledger, b8 ledger, b9 ledger, b10 ledger, h2 exact, h3 refs, h4 refs, h5 ledger, h6 ledger, h7 ledger, h8 ledger, h9 ledger, h10 ledger, c1 exact, c2 exact, c3 refs, c4 refs, c5 refs, c6 refs, c7 ledger, c8 ledger, c9 ledger, c10 ledger
+
+Ledger orders: classes, distinct weight polynomials (exact fractions recovered for all but the number shown), degree in N of the sum
+  b2          1 classes      1 weights (0 inexact) degree 1  [not used: exact]
+  b3          6 classes      6 weights (0 inexact) degree 2  [not used: refs]
+  b4         19 classes     14 weights (0 inexact) degree 3  [not used: refs]
+  b5         96 classes     56 weights (0 inexact) degree 4  [not used: refs]
+  b6        502 classes    148 weights (0 inexact) degree 5  [not used: refs]
+  b7       3150 classes    603 weights (0 inexact) degree 6
+  b8      21689 classes   2116 weights (0 inexact) degree 7
+  b9     166047 classes  10582 weights (0 inexact) degree 8
+  b10   1377678 classes  58086 weights (0 inexact) degree 9
+  h2          1 classes      1 weights (0 inexact) degree 1  [not used: exact]
+  h3          1 classes      1 weights (0 inexact) degree 2  [not used: refs]
+  h4          4 classes      3 weights (0 inexact) degree 3  [not used: refs]
+  h5         11 classes      9 weights (0 inexact) degree 4
+  h6         50 classes     29 weights (0 inexact) degree 5
+  h7        209 classes     77 weights (0 inexact) degree 6
+  h8       1157 classes    258 weights (0 inexact) degree 7
+  h9       6776 classes    817 weights (0 inexact) degree 8
+  h10     46102 classes   3266 weights (0 inexact) degree 9
+  c2          1 classes      1 weights (0 inexact) degree 1  [not used: exact]
+  c3          2 classes      2 weights (0 inexact) degree 2  [not used: refs]
+  c4          5 classes      4 weights (0 inexact) degree 3  [not used: refs]
+  c5         16 classes     13 weights (0 inexact) degree 4  [not used: refs]
+  c6         62 classes     38 weights (0 inexact) degree 5  [not used: refs]
+  c7        265 classes    106 weights (0 inexact) degree 6
+  c8       1387 classes    328 weights (0 inexact) degree 7
+  c9       8038 classes   1051 weights (0 inexact) degree 8
+  c10     53397 classes   4017 weights (0 inexact) degree 9
+
+Verification:
+  values at N = 0..4 against coefficients.py (its rg on its at-N inputs): max relative difference 3.1e-14; the same inputs in exact arithmetic differ from coefficients.py by up to 8.9e-16 (its floating point) and from these polynomials by up to 3.1e-14 (its at-N sums)
+  errors at N = 0..4, total     part: this / coefficients.py between 0.415908 (nu_4, N=0) and 1.000004 (eta_4, N=1)
+  errors at N = 0..4, ledger    part: this / coefficients.py between 1.000000 (beta_7, N=0) and 1.000000 (beta_6, N=0)
+  errors at N = 0..4, phi4tools part: this / coefficients.py between 0.415908 (nu_4, N=0) and 1.023957 (eta_9, N=1)
+  the algebra in floating point against exact rational arithmetic: max relative difference 2.1e-15
+  complex-step Jacobian against exact central differences (step: the input's error): largest difference 2.2e-16 of an output's error
+  Phi4tools round trip in exact arithmetic (refs.py's sums -> rg -> numerators): 24 of 24 polynomials of refs.py reproduced exactly
+  coefficients.py's interpolation (numerator) against these polynomials, for the terms of the table:
+    beta_9      largest deviation 5.8e-07 (of the error; of the value where exact), an ulp of its values moves a coefficient by 5.7e-07 relative
+    beta_10     largest deviation 3.8e-07 (of the error; of the value where exact), an ulp of its values moves a coefficient by 1.2e-06 relative
+    beta_11     largest deviation 7.1e-07 (of the error; of the value where exact), an ulp of its values moves a coefficient by 1.3e-05 relative
+    eta_8       largest deviation 3.5e-07 (of the error; of the value where exact), an ulp of its values moves a coefficient by 3.9e-09 relative
+    eta_9       largest deviation 2.7e-07 (of the error; of the value where exact), an ulp of its values moves a coefficient by 1.3e-08 relative
+    eta_10      largest deviation 8.7e-07 (of the error; of the value where exact), an ulp of its values moves a coefficient by 1.1e-07 relative
+    eta_phi2_8  largest deviation 1.3e-06 (of the error; of the value where exact), an ulp of its values moves a coefficient by 7.2e-08 relative; its N^8 term +8.1e-12 (absent here)
+    eta_phi2_9  largest deviation 4.2e-07 (of the error; of the value where exact), an ulp of its values moves a coefficient by 6.0e-07 relative; its N^9 term -4.8e-12 (absent here)
+    eta_phi2_10 largest deviation 6.7e-07 (of the error; of the value where exact), an ulp of its values moves a coefficient by 5.9e-06 relative; its N^10 term +5.4e-11 (absent here)
+    nu_8        largest deviation 4.1e-07 (of the error; of the value where exact), an ulp of its values moves a coefficient by 4.3e-09 relative
+    nu_9        largest deviation 8.5e-07 (of the error; of the value where exact), an ulp of its values moves a coefficient by 6.5e-08 relative
+    nu_10       largest deviation 1.1e-06 (of the error; of the value where exact), an ulp of its values moves a coefficient by 4.6e-07 relative
+
+Polynomials p_X,k(N) = sum_j a_j N^j: a_j(error) [error from the ledger / from Phi4tools]
+  beta_3 / (N+8)^2, degree 1
+    j=0  -2.8148148148148149e+01 (exactly -760/27)
+    j=1  -6.0740740740740744e+00 (exactly -164/27)
+  beta_4 / (N+8)^3, degree 2
+    j=0  +1.9964041722110591e+02 (no error)
+    j=1  +5.4940377049302199e+01 (no error)
+    j=2  +1.3489427608664779e+00 (no error)
+  beta_5 / (N+8)^4, degree 3
+    j=0  -1.832206728178e+03 +- 1.400e-09  [0.00e+00 / 1.40e-09]
+    j=1  -6.025212285602e+02 +- 6.000e-10  [0.00e+00 / 6.00e-10]
+    j=2  -3.582020347182e+01 +- 7.000e-11  [0.00e+00 / 7.00e-11]
+    j=3  +1.5564590758520100e-01 (no error)
+  beta_6 / (N+8)^5, degree 4
+    j=0  +2.077018290550e+04 +- 5.006e-03  [1.52e-04 / 5.00e-03]
+    j=1  +7.819567230061e+03 +- 2.008e-03  [1.30e-04 / 2.00e-03]
+    j=2  +6.685545552676e+02 +- 2.430e-04  [3.27e-05 / 2.41e-04]
+    j=3  +3.237875406688e+00 +- 1.152e-05  [3.43e-06 / 1.10e-05]
+    j=4  +5.123618038038e-02 +- 2.451e-07  [2.45e-07 / 0.00e+00]
+  beta_7 / (N+8)^6, degree 5
+    j=0  -2.713006129023e+05 +- 2.801e-01  [2.99e-03 / 2.80e-01]
+    j=1  -1.141817923874e+05 +- 1.302e-01  [2.86e-03 / 1.30e-01]
+    j=2  -1.266929557539e+04 +- 2.407e-02  [8.92e-04 / 2.41e-02]
+    j=3  -2.658412292746e+02 +- 2.009e-03  [1.26e-04 / 2.00e-03]
+    j=4  +1.071800996676e+00 +- 8.093e-05  [1.22e-05 / 8.00e-05]
+    j=5  +2.342281343826e-02 +- 7.707e-07  [7.71e-07 / 0.00e+00]
+  beta_8 / (N+8)^7, degree 6
+    j=0  +3.981629739179e+06 +- 9.090e+00  [9.09e+00 / 1.48e-03]
+    j=1  +1.841004335520e+06 +- 6.277e+00  [6.28e+00 / 1.33e-03]
+    j=2  +2.469740841002e+05 +- 1.721e+00  [1.72e+00 / 3.68e-04]
+    j=3  +8.828745413497e+03 +- 2.569e-01  [2.57e-01 / 3.89e-05]
+    j=4  -1.441959830170e+01 +- 2.629e-02  [2.63e-02 / 1.63e-06]
+    j=5  +5.415490220320e-01 +- 2.001e-03  [2.00e-03 / 0.00e+00]
+    j=6  +1.267179811879e-02 +- 9.364e-05  [9.36e-05 / 0.00e+00]
+  beta_9 / (N+8)^8, degree 7  (table)
+    j=0  -6.432898511231e+07 +- 1.271e+02  [1.27e+02 / 8.30e-02]
+    j=1  -3.225258242790e+07 +- 9.574e+01  [9.57e+01 / 8.01e-02]
+    j=2  -5.029558287707e+06 +- 2.993e+01  [2.99e+01 / 2.64e-02]
+    j=3  -2.537549618654e+05 +- 5.322e+00  [5.32e+00 / 4.16e-03]
+    j=4  -1.755712707049e+03 +- 6.577e-01  [6.58e-01 / 3.21e-04]
+    j=5  +5.637101777329e-01 +- 6.405e-02  [6.40e-02 / 1.19e-05]
+    j=6  +3.306264513221e-01 +- 4.647e-03  [4.65e-03 / 0.00e+00]
+    j=7  +7.556503171158e-03 +- 2.019e-04  [2.02e-04 / 0.00e+00]
+  beta_10 / (N+8)^9, degree 8  (table)
+    j=0  +1.130030981197e+09 +- 8.636e+03  [8.64e+03 / 5.77e-02]
+    j=1  +6.080324101736e+08 +- 6.983e+03  [6.98e+03 / 6.29e-02]
+    j=2  +1.072329711630e+08 +- 2.408e+03  [2.41e+03 / 2.53e-02]
+    j=3  +6.910030118755e+06 +- 4.847e+02  [4.85e+02 / 5.13e-03]
+    j=4  +1.101745274597e+05 +- 6.843e+01  [6.84e+01 / 5.69e-04]
+    j=5  -3.918800426239e+02 +- 7.739e+00  [7.74e+00 / 3.47e-05]
+    j=6  +2.517623814752e+00 +- 7.096e-01  [7.10e-01 / 9.88e-07]
+    j=7  +2.350066825218e-01 +- 4.822e-02  [4.82e-02 / 0.00e+00]
+    j=8  +6.964395862252e-03 +- 1.946e-03  [1.95e-03 / 0.00e+00]
+  beta_11 / (N+8)^10, degree 9  (table)
+    j=0  -2.138589164384e+10 +- 1.864e+05  [1.86e+05 / 9.14e-01]
+    j=1  -1.224608890495e+10 +- 1.625e+05  [1.62e+05 / 1.07e+00]
+    j=2  -2.394874285866e+09 +- 6.191e+04  [6.19e+04 / 4.72e-01]
+    j=3  -1.862956411595e+08 +- 1.403e+04  [1.40e+04 / 1.05e-01]
+    j=4  -4.715203830808e+06 +- 2.219e+03  [2.22e+03 / 1.26e-02]
+    j=5  -4.070260697729e+03 +- 2.781e+02  [2.78e+02 / 8.02e-04]
+    j=6  -1.079420393643e+02 +- 2.918e+01  [2.92e+01 / 2.24e-05]
+    j=7  +2.478481134855e+00 +- 2.483e+00  [2.48e+00 / 1.76e-07]
+    j=8  +1.808089750238e-01 +- 1.580e-01  [1.58e-01 / 0.00e+00]
+    j=9  +9.100168723393e-03 +- 5.958e-03  [5.96e-03 / 0.00e+00]
+  eta_2 / (N+8)^2, degree 1
+    j=0  +5.9259259259259256e-01 (exactly 16/27)
+    j=1  +2.9629629629629628e-01 (exactly 8/27)
+  eta_3 / (N+8)^3, degree 2
+    j=0  +3.9494401481494879e-01 (no error)
+    j=1  +2.4684000925934299e-01 (no error)
+    j=2  +2.4684000925934299e-02 (no error)
+  eta_4 / (N+8)^4, degree 3
+    j=0  +6.512109863560e+00 +- 1.800e-10  [0.00e+00 / 1.80e-10]
+    j=1  +4.609221006850e+00 +- 3.000e-11  [0.00e+00 / 3.00e-11]
+    j=2  +6.679859108680e-01 +- 2.000e-11  [0.00e+00 / 2.00e-11]
+    j=3  -4.2985633333409998e-03 (no error)
+  eta_5 / (N+8)^5, degree 4
+    j=0  -2.164704724795e+01 +- 7.603e-05  [7.60e-05 / 0.00e+00]
+    j=1  -1.518797496933e+01 +- 6.512e-05  [6.51e-05 / 0.00e+00]
+    j=2  -1.891118366185e+00 +- 1.633e-05  [1.63e-05 / 0.00e+00]
+    j=3  +1.324517747439e-01 +- 1.714e-06  [1.71e-06 / 0.00e+00]
+    j=4  -6.550939250775e-03 +- 1.225e-07  [1.23e-07 / 0.00e+00]
+  eta_6 / (N+8)^6, degree 5
+    j=0  +3.697124543376e+02 +- 1.485e-03  [1.48e-03 / 1.07e-10]
+    j=1  +3.007205245487e+02 +- 1.421e-03  [1.42e-03 / 7.11e-11]
+    j=2  +6.407739883148e+01 +- 4.432e-04  [4.43e-04 / 2.07e-11]
+    j=3  +3.054006177845e+00 +- 6.240e-05  [6.24e-05 / 5.93e-12]
+    j=4  -2.040870865733e-02 +- 6.074e-06  [6.07e-06 / 0.00e+00]
+    j=5  -5.549631097078e-03 +- 3.841e-07  [3.84e-07 / 0.00e+00]
+  eta_7 / (N+8)^7, degree 6
+    j=0  -3.988541306533e+03 +- 1.615e-02  [1.61e-02 / 7.11e-11]
+    j=1  -3.345643256264e+03 +- 1.680e-02  [1.68e-02 / 5.63e-11]
+    j=2  -7.518070681541e+02 +- 6.106e-03  [6.11e-03 / 1.97e-11]
+    j=3  -3.530839802264e+01 +- 1.067e-03  [1.07e-03 / 5.68e-12]
+    j=4  +1.271175153177e+00 +- 1.230e-04  [1.23e-04 / 4.94e-13]
+    j=5  -6.118993021353e-02 +- 1.135e-05  [1.13e-05 / 0.00e+00]
+    j=6  -4.390590266502e-03 +- 6.470e-07  [6.47e-07 / 0.00e+00]
+  eta_8 / (N+8)^8, degree 7  (table)
+    j=0  +5.831556174218e+04 +- 2.100e-01  [2.10e-01 / 1.16e-09]
+    j=1  +5.216401610934e+04 +- 2.356e-01  [2.36e-01 / 1.01e-09]
+    j=2  +1.368533869559e+04 +- 9.747e-02  [9.75e-02 / 3.80e-10]
+    j=3  +1.113672984047e+03 +- 2.044e-02  [2.04e-02 / 1.09e-10]
+    j=4  +1.184724339320e+01 +- 2.754e-03  [2.75e-03 / 1.28e-11]
+    j=5  +1.561106524479e-01 +- 2.989e-04  [2.99e-04 / 8.60e-14]
+    j=6  -7.039332375861e-02 +- 2.525e-05  [2.52e-05 / 0.00e+00]
+    j=7  -3.471764282426e-03 +- 1.289e-06  [1.29e-06 / 0.00e+00]
+  eta_9 / (N+8)^9, degree 8  (table)
+    j=0  -8.884144372930e+05 +- 6.840e+00  [6.84e+00 / 3.92e-09]
+    j=1  -8.288809157383e+05 +- 8.218e+00  [8.22e+00 / 3.41e-09]
+    j=2  -2.365728859719e+05 +- 3.801e+00  [3.80e+00 / 1.24e-09]
+    j=3  -2.292233291378e+04 +- 9.330e-01  [9.33e-01 / 3.41e-10]
+    j=4  -3.790203151152e+02 +- 1.473e-01  [1.47e-01 / 3.60e-11]
+    j=5  +1.103605203156e+01 +- 1.801e-02  [1.80e-02 / 2.38e-12]
+    j=6  -3.952807628697e-01 +- 1.825e-03  [1.83e-03 / 1.31e-13]
+    j=7  -7.013571071897e-02 +- 1.467e-04  [1.47e-04 / 0.00e+00]
+    j=8  -2.790240532513e-03 +- 7.033e-06  [7.03e-06 / 0.00e+00]
+  eta_10 / (N+8)^10, degree 9  (table)
+    j=0  +1.499964718046e+07 +- 1.646e+02  [1.65e+02 / 6.62e-08]
+    j=1  +1.461138465014e+07 +- 2.051e+02  [2.05e+02 / 6.47e-08]
+    j=2  +4.545341980979e+06 +- 1.006e+02  [1.01e+02 / 2.77e-08]
+    j=3  +5.314368240097e+05 +- 2.686e+01  [2.69e+01 / 8.39e-09]
+    j=4  +1.822355175023e+04 +- 4.710e+00  [4.71e+00 / 1.35e-09]
+    j=5  -4.170164103140e+01 +- 6.444e-01  [6.44e-01 / 5.75e-11]
+    j=6  +4.150117241014e+00 +- 7.561e-02  [7.56e-02 / 5.65e-13]
+    j=7  -6.871960326238e-01 +- 7.453e-03  [7.45e-03 / 1.11e-13]
+    j=8  -6.730024705450e-02 +- 5.576e-04  [5.58e-04 / 0.00e+00]
+    j=9  -2.280738637266e-03 +- 2.407e-05  [2.41e-05 / 0.00e+00]
+  eta_phi2_1 / (N+8)^1, degree 1
+    j=0  -2.0000000000000000e+00 (exactly -2)
+    j=1  -1.0000000000000000e+00 (exactly -1)
+  eta_phi2_2 / (N+8)^2, degree 1
+    j=0  +4.0000000000000000e+00 (exactly 4)
+    j=1  +2.0000000000000000e+00 (exactly 2)
+  eta_phi2_3 / (N+8)^3, degree 2
+    j=0  -1.8312843748818501e+01 (no error)
+    j=1  -1.2378361149990592e+01 (no error)
+    j=2  -1.6109696377906852e+00 (no error)
+  eta_phi2_4 / (N+8)^4, degree 3
+    j=0  +1.407993712614e+02 +- 2.408e-10  [0.00e+00 / 2.41e-10]
+    j=1  +1.029475526335e+02 +- 1.315e-10  [0.00e+00 / 1.31e-10]
+    j=2  +1.578528907946e+01 +- 2.828e-11  [0.00e+00 / 2.83e-11]
+    j=3  -2.4432221099064322e-01 (no error)
+  eta_phi2_5 / (N+8)^5, degree 4
+    j=0  -1.340074765876e+03 +- 6.067e-04  [0.00e+00 / 6.07e-04]
+    j=1  -1.062006071603e+03 +- 4.441e-04  [0.00e+00 / 4.44e-04]
+    j=2  -2.116043410962e+02 +- 7.269e-05  [0.00e+00 / 7.27e-05]
+    j=3  -8.010684260848e+00 +- 3.600e-06  [0.00e+00 / 3.60e-06]
+    j=4  -1.0034249937142903e-01 (no error)
+  eta_phi2_6 / (N+8)^6, degree 5
+    j=0  +1.565131763471e+04 +- 3.227e-02  [7.60e-05 / 3.23e-02]
+    j=1  +1.321941621044e+04 +- 2.824e-02  [1.03e-04 / 2.82e-02]
+    j=2  +3.044317531731e+03 +- 7.665e-03  [4.87e-05 / 7.66e-03]
+    j=3  +1.677124687965e+02 +- 7.674e-04  [9.63e-06 / 7.67e-04]
+    j=4  -3.113544317235e+00 +- 2.034e-05  [9.49e-07 / 2.03e-05]
+    j=5  -5.512906940948e-02 +- 6.127e-08  [6.13e-08 / 0.00e+00]
+  eta_phi2_7 / (N+8)^7, degree 6
+    j=0  -2.082154259488e+05 +- 8.670e-01  [8.67e-01 / 1.80e-04]
+    j=1  -1.855850089432e+05 +- 9.284e-01  [9.28e-01 / 2.21e-04]
+    j=2  -4.831515261402e+04 +- 3.598e-01  [3.60e-01 / 8.73e-05]
+    j=3  -3.855131904109e+03 +- 6.901e-02  [6.90e-02 / 1.18e-05]
+    j=4  -3.677520679334e+01 +- 8.144e-03  [8.14e-03 / 5.33e-07]
+    j=5  -1.737362156134e+00 +- 7.436e-04  [7.44e-04 / 0.00e+00]
+    j=6  -3.482804195872e-02 +- 4.251e-05  [4.25e-05 / 0.00e+00]
+  eta_phi2_8 / (N+8)^8, degree 7  (table)
+    j=0  +3.103644173575e+06 +- 2.505e+01  [2.50e+01 / 9.56e-03]
+    j=1  +2.902123548801e+06 +- 2.897e+01  [2.90e+01 / 1.31e-02]
+    j=2  +8.338256731183e+05 +- 1.271e+01  [1.27e+01 / 6.45e-03]
+    j=3  +8.291717288140e+04 +- 2.898e+00  [2.90e+00 / 1.36e-03]
+    j=4  +1.734114653875e+03 +- 4.093e-01  [4.09e-01 / 1.20e-04]
+    j=5  -3.007984583345e+01 +- 4.375e-02  [4.38e-02 / 3.00e-06]
+    j=6  -1.153727025899e+00 +- 3.681e-03  [3.68e-03 / 0.00e+00]
+    j=7  -2.393441831012e-02 +- 1.880e-04  [1.88e-04 / 0.00e+00]
+  eta_phi2_9 / (N+8)^9, degree 8  (table)
+    j=0  -5.076831970233e+07 +- 4.007e+02  [4.01e+02 / 6.60e-03]
+    j=1  -4.953005418098e+07 +- 4.907e+02  [4.91e+02 / 9.85e-03]
+    j=2  -1.546610591311e+07 +- 2.363e+02  [2.36e+02 / 5.51e-03]
+    j=3  -1.827871679575e+06 +- 6.164e+01  [6.16e+01 / 1.46e-03]
+    j=4  -6.550660720833e+04 +- 1.026e+01  [1.03e+01 / 1.93e-04]
+    j=5  +2.805280177262e+01 +- 1.282e+00  [1.28e+00 / 1.19e-05]
+    j=6  -2.246201215527e+01 +- 1.314e-01  [1.31e-01 / 2.52e-07]
+    j=7  -8.347509172198e-01 +- 1.014e-02  [1.01e-02 / 0.00e+00]
+    j=8  -1.686776071429e-02 +- 4.645e-04  [4.65e-04 / 0.00e+00]
+  eta_phi2_10 / (N+8)^10, degree 9  (table)
+    j=0  +9.013618105382e+08 +- 1.978e+04  [1.98e+04 / 1.06e-01]
+    j=1  +9.136714599692e+08 +- 2.578e+04  [2.58e+04 / 1.67e-01]
+    j=2  +3.064568652156e+08 +- 1.364e+04  [1.36e+04 / 1.01e-01]
+    j=3  +4.148247309216e+07 +- 4.036e+03  [4.04e+03 / 2.96e-02]
+    j=4  +2.028507847908e+06 +- 7.756e+02  [7.76e+02 / 4.34e-03]
+    j=5  +1.348915823082e+04 +- 1.096e+02  [1.10e+02 / 2.86e-04]
+    j=6  -2.049462764112e+02 +- 1.270e+01  [1.27e+01 / 5.15e-06]
+    j=7  -1.745425536887e+01 +- 1.239e+00  [1.24e+00 / 4.32e-08]
+    j=8  -6.373261364824e-01 +- 9.376e-02  [9.38e-02 / 0.00e+00]
+    j=9  -1.239138984946e-02 +- 4.091e-03  [4.09e-03 / 0.00e+00]
+  nu_1 / (N+8)^1, degree 1
+    j=0  +5.0000000000000000e-01 (exactly 1/2)
+    j=1  +2.5000000000000000e-01 (exactly 1/4)
+  nu_2 / (N+8)^2, degree 2
+    j=0  -3.5185185185185186e-01 (exactly -19/54)
+    j=1  +7.4074074074074070e-02 (exactly 2/27)
+    j=2  +1.2500000000000000e-01 (exactly 1/8)
+  nu_3 / (N+8)^3, degree 3
+    j=0  +3.4732432372046591e+00 (no error)
+    j=1  +2.2025965861087800e+00 (no error)
+    j=2  +3.5798748375322897e-01 (no error)
+    j=3  +6.2500000000000000e-02 (exactly 1/16)
+  nu_4 / (N+8)^4, degree 4
+    j=0  -2.482217386818e+01 +- 4.000e-11  [0.00e+00 / 4.00e-11]
+    j=1  -1.497706556447e+01 +- 3.200e-11  [0.00e+00 / 3.20e-11]
+    j=2  -6.090395608910e-01 +- 5.000e-12  [0.00e+00 / 5.00e-12]
+    j=3  +3.9947487714903601e-01 (no error)
+    j=4  +3.1250000000000000e-02 (exactly 1/32)
+  nu_5 / (N+8)^5, degree 5
+    j=0  +2.620043781880e+02 +- 1.529e-04  [1.90e-05 / 1.52e-04]
+    j=1  +1.847064012577e+02 +- 1.122e-04  [1.63e-05 / 1.11e-04]
+    j=2  +2.712200840845e+01 +- 1.863e-05  [4.08e-06 / 1.82e-05]
+    j=3  +7.393031758360e-01 +- 9.968e-07  [4.29e-07 / 9.00e-07]
+    j=4  +3.334258962409e-01 +- 3.064e-08  [3.06e-08 / 0.00e+00]
+    j=5  +1.5625000000000000e-02 (exactly 1/64)
+  nu_6 / (N+8)^6, degree 6
+    j=0  -3.130387398228e+03 +- 8.071e-03  [3.72e-04 / 8.06e-03]
+    j=1  -2.385941333511e+03 +- 7.060e-03  [3.56e-04 / 7.05e-03]
+    j=2  -4.177907802548e+02 +- 1.914e-03  [1.11e-04 / 1.91e-03]
+    j=3  -8.786260754758e-01 +- 1.915e-04  [1.58e-05 / 1.91e-04]
+    j=4  +1.875534744300e+00 +- 5.231e-06  [1.54e-06 / 5.00e-06]
+    j=5  +2.459520365317e-01 +- 9.725e-08  [9.72e-08 / 0.00e+00]
+    j=6  +7.8125000000000000e-03 (exactly 1/128)
+  nu_7 / (N+8)^7, degree 7
+    j=0  +4.296221887904e+04 +- 2.174e-01  [2.17e-01 / 1.61e-02]
+    j=1  +3.518017298323e+04 +- 2.332e-01  [2.32e-01 / 2.22e-02]
+    j=2  +7.521775554145e+03 +- 9.062e-02  [9.00e-02 / 1.09e-02]
+    j=3  +3.284975635383e+02 +- 1.741e-02  [1.73e-02 / 2.29e-03]
+    j=4  +1.344389855570e-01 +- 2.046e-03  [2.04e-03 / 2.01e-04]
+    j=5  +2.298086245104e+00 +- 1.860e-04  [1.86e-04 / 5.01e-06]
+    j=6  +1.702049253946e-01 +- 1.063e-05  [1.06e-05 / 0.00e+00]
+    j=7  +3.9062500000000000e-03 (exactly 1/256)
+  nu_8 / (N+8)^8, degree 8  (table)
+    j=0  -6.528845076689e+05 +- 6.278e+00  [6.28e+00 / 6.01e-03]
+    j=1  -5.674244248943e+05 +- 7.274e+00  [7.27e+00 / 4.91e-03]
+    j=2  -1.390655579963e+05 +- 3.205e+00  [3.20e+00 / 1.28e-02]
+    j=3  -9.076344875346e+03 +- 7.350e-01  [7.35e-01 / 7.35e-03]
+    j=4  +1.158655651888e+02 +- 1.044e-01  [1.04e-01 / 1.65e-03]
+    j=5  +9.237955228678e+00 +- 1.119e-02  [1.12e-02 / 1.49e-04]
+    j=6  +2.233858706960e+00 +- 9.424e-04  [9.42e-04 / 3.76e-06]
+    j=7  +1.138325797686e-01 +- 4.818e-05  [4.82e-05 / 0.00e+00]
+    j=8  +1.9531250000000000e-03 (exactly 1/512)
+  nu_9 / (N+8)^9, degree 9  (table)
+    j=0  +1.085686123673e+07 +- 1.010e+02  [1.01e+02 / 9.58e-02]
+    j=1  +9.937747116790e+06 +- 1.244e+02  [1.24e+02 / 1.46e-01]
+    j=2  +2.724293953328e+06 +- 6.060e+01  [6.06e+01 / 9.28e-02]
+    j=3  +2.397425637630e+05 +- 1.608e+01  [1.61e+01 / 3.46e-02]
+    j=4  +2.450318458984e+03 +- 2.725e+00  [2.73e+00 / 8.72e-03]
+    j=5  +2.060976116448e+01 +- 3.431e-01  [3.43e-01 / 1.36e-03]
+    j=6  +1.690398112876e+01 +- 3.520e-02  [3.52e-02 / 1.05e-04]
+    j=7  +1.940571280990e+00 +- 2.729e-03  [2.73e-03 / 2.51e-06]
+    j=8  +7.480072846536e-02 +- 1.255e-04  [1.26e-04 / 0.00e+00]
+    j=9  +9.7656250000000000e-04 (exactly 1/1024)
+  nu_10 / (N+8)^10, degree 10  (table)
+    j=0  -1.952865365945e+08 +- 4.950e+03  [4.95e+03 / 7.33e-01]
+    j=1  -1.870876257144e+08 +- 6.454e+03  [6.45e+03 / 1.04e+00]
+    j=2  -5.622413079370e+07 +- 3.418e+03  [3.42e+03 / 5.02e-01]
+    j=3  -6.065156928170e+06 +- 1.013e+03  [1.01e+03 / 7.73e-02]
+    j=4  -1.518053906388e+05 +- 1.950e+02  [1.95e+02 / 1.51e-02]
+    j=5  +2.667814879103e+03 +- 2.758e+01  [2.76e+01 / 7.19e-03]
+    j=6  +4.852671897512e+01 +- 3.200e+00  [3.20e+00 / 1.09e-03]
+    j=7  +2.091858053130e+01 +- 3.121e-01  [3.12e-01 / 7.22e-05]
+    j=8  +1.584497377331e+00 +- 2.361e-02  [2.36e-02 / 1.57e-06]
+    j=9  +4.887024632627e-02 +- 1.030e-03  [1.03e-03 / 0.00e+00]
+    j=10 +4.8828125000000000e-04 (exactly 1/2048)
+
+Large N (check S5): the 1/N expansion against Phi4tools' leading coefficients (largest relative difference 3.4e-10, degrees and exact coefficients as predicted) and the exact low orders (3.8e-15); the ledger's orders, the degree of their weight polynomials and their N^(L-1) coefficient:
+  b2   degree 1  N^1 +9.2592603538e-02 +- 6.17e-08  1/N expansion +9.2592592593e-02  pull +0.18
+  b3   degree 2  N^2 +3.3512070436e-03 +- 5.69e-09  1/N expansion +3.3512104332e-03  pull -0.60
+  b4   degree 3  N^3 -6.8125366519e-05 +- 1.62e-09  1/N expansion -6.8126942405e-05  pull +0.97
+  b5   degree 4  N^4 +3.9988803034e-06 +- 3.61e-10  1/N expansion +3.9987639670e-06  pull +0.32
+  b6   degree 5  N^5 -3.3514778856e-07 +- 2.35e-10  1/N expansion -3.3486160417e-07  pull -1.22
+  b7   degree 6  N^6 +3.3361488167e-08 +- 1.67e-10  1/N expansion +3.3307262501e-08  pull +0.32
+  b8   degree 7  N^7 -3.6629612372e-09 +- 6.01e-11  1/N expansion -3.6705759004e-09  pull +0.13
+  b9   degree 8  N^8 +5.3628303464e-10 +- 9.65e-11  1/N expansion +4.3323231124e-10  pull +1.07
+  b10  degree 9  N^9 -1.0143295428e-10 +- 4.93e-11  1/N expansion -5.3715810018e-11  pull -0.97
+  h2   degree 1  N^1 +4.1152269434e-03 +- 8.09e-10  1/N expansion +4.1152263374e-03  pull +0.75
+  h3   degree 2  N^2 -5.7138841030e-05 +- 4.58e-11  1/N expansion -5.7138891032e-05  pull +1.09
+  h4   degree 3  N^3 -1.6583736972e-06 +- 1.78e-11  1/N expansion -1.6583963477e-06  pull +1.27
+  h5   degree 4  N^4 +4.2122808968e-07 +- 7.88e-12  1/N expansion +4.2122704702e-07  pull +0.13
+  h6   degree 5  N^5 -5.9473927223e-08 +- 4.12e-12  1/N expansion -5.9466314487e-08  pull -1.85
+  h7   degree 6  N^6 +7.8421322490e-09 +- 1.16e-12  1/N expansion +7.8425262484e-09  pull -0.34
+  h8   degree 7  N^7 -1.0334994077e-09 +- 3.84e-13  1/N expansion -1.0339914828e-09  pull +1.28
+  h9   degree 8  N^8 +1.3843643093e-10 +- 3.49e-13  1/N expansion +1.3829219171e-10  pull +0.41
+  h10  degree 9  N^9 -1.8859623579e-11 +- 1.99e-13  1/N expansion -1.8809715892e-11  pull -0.25
+  c2   degree 1  N^1 +2.7777798361e-02 +- 1.88e-08  1/N expansion +2.7777777778e-02  pull +1.09
+  c3   degree 2  N^2 +4.0720369176e-03 +- 2.21e-09  1/N expansion +4.0720319119e-03  pull +2.27
+  c4   degree 3  N^3 -9.9022045119e-05 +- 4.60e-10  1/N expansion -9.9021686518e-05  pull -0.78
+  c5   degree 4  N^4 +6.3138007282e-06 +- 1.93e-10  1/N expansion +6.3138643071e-06  pull -0.33
+  c6   degree 5  N^5 -5.5579950872e-07 +- 1.35e-10  1/N expansion -5.5570130084e-07  pull -0.73
+  c7   degree 6  N^6 +5.7250990245e-08 +- 7.59e-11  1/N expansion +5.7180829389e-08  pull +0.92
+  c8   degree 7  N^7 -6.4714563260e-09 +- 5.60e-11  1/N expansion -6.4580971450e-09  pull -0.24
+  c9   degree 8  N^8 +7.5076081741e-10 +- 2.30e-11  1/N expansion +7.7641732239e-10  pull -1.11
+  c10  degree 9  N^9 -9.0929097147e-11 +- 3.38e-11  1/N expansion -9.7647661330e-11  pull +0.20
+  chi^2 = 23.68 for 27 orders (p = 0.648), largest |pull| 2.27; every class of degree <= L-1: True; the polynomials' degrees and exact leading coefficients: True
+  1/N coefficients of ubar^k, k = 0..11:
+    beta     +0.000000000000e+00 +0.000000000000e+00 +0.000000000000e+00 -6.074074074074e+00 +1.348942760866e+00 +1.556459075850e-01 +5.123621281155e-02 +2.342422605125e-02 +1.264064232841e-02 +7.578886897612e-03 +4.894009029570e-03 +3.340239545828e-03
+    eta      -0.000000000000e+00 +2.249478776728e-16 +2.962962962963e-01 +2.468400092593e-02 -4.298563333342e-03 -6.550923035200e-03 -5.548920737431e-03 -4.390810855758e-03 -3.473417276626e-03 -2.787333334418e-03 -2.274703183250e-03 -1.886372706180e-03
+    eta_phi2 +0.000000000000e+00 +6.000000000000e+00 +2.000000000000e+00 -1.610969637791e+00 -2.443222109906e-01 -1.003424993713e-01 -5.512906130138e-02 -3.478840568061e-02 -2.388965201658e-02 -1.738570412675e-02 -1.320242801913e-02 -1.035770007563e-02
+    nu       -0.000000000000e+00 -1.500000000000e+00 -1.925925925926e+00 -1.142012516247e+00 -6.005251228510e-01 -2.915740997053e-01 -1.290477838515e-01 -4.855486021900e-02 -1.118885557113e-02 +4.599452181701e-03 +1.012859728345e-02 +1.109656608039e-02
+
+At N = 1 (from the polynomials and the covariance): value, error, and the share of the variance from Phi4tools
+  beta_9      -2.3664203274e+00 +- 5.915e-06   Phi4tools 5.8e-07 of the variance
+  beta_10     +4.7811518251e+00 +- 4.715e-05   Phi4tools 6.9e-11 of the variance
+  beta_11     -1.0387183631e+01 +- 1.203e-04   Phi4tools 3.8e-11 of the variance
+  eta_8       +2.9105705640e-03 +- 1.300e-08   Phi4tools 2.3e-17 of the variance
+  eta_9       -5.1033930330e-03 +- 5.081e-08   Phi4tools 2.1e-19 of the variance
+  eta_10      +9.9535824094e-03 +- 1.421e-07   Phi4tools 1.2e-19 of the variance
+  eta_phi2_8  +1.6085344632e-01 +- 1.600e-06   Phi4tools 2.0e-07 of the variance
+  eta_phi2_9  -3.0369548510e-01 +- 3.041e-06   Phi4tools 4.0e-10 of the variance
+  eta_phi2_10 +6.2092006095e-01 +- 1.802e-05   Phi4tools 4.2e-11 of the variance
+  nu_8        -3.1786936391e-02 +- 4.019e-07   Phi4tools 1.5e-06 of the variance
+  nu_9        +6.1331641960e-02 +- 7.721e-07   Phi4tools 1.6e-06 of the variance
+  nu_10       -1.2757098386e-01 +- 4.512e-06   Phi4tools 2.2e-08 of the variance

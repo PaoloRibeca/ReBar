@@ -1,0 +1,1 @@
+1	ee0|	0.5	1VR=0	selfloop=1

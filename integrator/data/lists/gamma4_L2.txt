@@ -1,0 +1,2 @@
+1	ee11|22|ee|	0.75	1VR=1	selfloop=0
+2	ee12|e22|e|	3	1VR=0	selfloop=0

@@ -1,0 +1,10 @@
+PASS selftest b 5 (every device: FP64 libm, Philox, build signature, 4096 samples/class vs host)
+PASS selftest h 5 (every device: FP64 libm, Philox, build signature, 4096 samples/class vs host)
+PASS selftest c 4 (every device: FP64 libm, Philox, build signature, 4096 samples/class vs host)
+PASS selftest b 5 with the e18 variant (its own build signature on the device)
+PASS golden_b_L5: 96 classes, 0 failing; worst 0.0154 ulp of the term scale, 5.86e-10 sigma; max rel d(sd_w) 9.38e-14, d(maxw) 5.59e-11; order sum differs by 2.12e-12 sigma  -> PASS
+PASS golden_h_L5: 11 classes, 0 failing; worst 0.0031 ulp of the term scale, 3.38e-12 sigma; max rel d(sd_w) 1.02e-15, d(maxw) 2.44e-13; order sum differs by 3.81e-13 sigma  -> PASS
+PASS golden_c_L4: 5 classes, 0 failing; worst 0.00126 ulp of the term scale, 1.07e-13 sigma; max rel d(sd_w) 1.68e-16, d(maxw) 1.36e-15; order sum differs by 3.38e-14 sigma  -> PASS
+PASS golden_b_L5_e18: 96 classes, 0 failing; worst 0.0154 ulp of the term scale, 5.86e-10 sigma; max rel d(sd_w) 9.38e-14, d(maxw) 5.59e-11; order sum differs by 2.12e-12 sigma  -> PASS
+PASS val_b4: B_4 = 0.967197127156 +- 3.817e-06 (ref 0.967192687, pull +1.16) backend cuda fallback 0 dead 0 nbad 0 samples 7.73431e+11 in 120 s
+-> self-test passed (13:30:01Z): production starts

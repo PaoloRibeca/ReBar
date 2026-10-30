@@ -1,0 +1,19 @@
+1	ee11|22|34|444||	0	(tadSunset*bubble[0]^2)/48
+2	ee11|23|344|44||	0	(tadTrianBub*bubble[0])/16
+3	ee12|223|4|444||	2	(bubble[-q1 + q2]*prop[q1]^2*prop[q2]^2*sunset[q1])/24
+4	ee12|233|44|44||	1	(bubble[q1]^3*triangle[0, -q1, q1])/16
+5	ee12|234|34|44||	2	(bubble[q1]*square[0, -q1 - q2, q1, q2]*triangle[q1 + q2, -q1, -q2])/8
+6	ee12|333|444|4||	1	(prop[q1]^3*sunset[q1]^2)/72
+7	ee12|334|344|4||	2	(bubble[q1]*square[0, -q2, q1 + q2, -q1]*triangle[q2, -q1 - q2, q1])/8
+8	e112|e2|34|444||	1	(tadSunset*bubble[q1]*prop[q1]^2)/24
+9	e112|e3|344|44||	2	(bubble[q1]*bubble[q1 - q2]*bubble[-q1 + q2]*prop[q1]^2*prop[q2])/8
+10	e112|23|e4|444||	2	(bubble[q2]*prop[q1]^2*prop[q2]*prop[-q1 + q2]*sunset[q1])/6
+11	e112|23|34|44|e|	2	(bubble[q1]*bubble[q2]*prop[q1]*prop[q2]*triangle[-q1, q1 + q2, -q2])/4
+12	e112|23|44|e44||	2	(bubble[q1]^2*bubble[q2]*prop[q1]*prop[q2]*prop[-q1 + q2])/4
+13	e112|33|e44|44||	1	(bubble[q1]^4*prop[q1])/16
+14	e112|33|444|e4||	1	(bubble[q1]^2*prop[q1]^2*sunset[q1])/24
+15	e112|34|e34|44||	2	(bubble[q1]*bubble[q2]*prop[q1]*square[-q1, -q2, q1, q2])/4
+16	e112|34|334|4|e|	2	(bubble[q1]*bubble[q1 - q2]*prop[q1]*prop[q2]*triangle[-q2, -q1 + q2, q1])/2
+17	e123|e23|44|44||	2	(bubble[q1 - q2]*bubble[-q1 + q2]*prop[q1]*prop[q2]*triangle[-q2, q1, -q1 + q2])/8
+18	e123|e24|34|44||	2	(bubble[q2]*prop[q1]*triangle[-q1, q1 + q2, -q2]*triangle[q1, -q1 - q2, q2])/2
+19	e123|234|34|4|e|	3	(prop[q1]*prop[q2]*square[q2 + q3, q1, -q1 - q3, -q2]*triangle[q1 + q3, -q1 + q2, -q2 - q3])/6

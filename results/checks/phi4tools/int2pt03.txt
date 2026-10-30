@@ -1,0 +1,2 @@
+1	ee12|222||	0	tadSunset/12
+2	e112|22|e|	1	(bubble[q1]^2*prop[q1])/4

@@ -1,0 +1,8 @@
+1	ee11|22|33|ee|	0	bubble[0]^3/8
+2	ee11|23|e33|e|	1	(bubble[0]*bubble[q1]*prop[q1]^2)/2
+3	ee12|ee3|333||	1	(prop[q1]^3*sunset[q1])/6
+4	ee12|e23|33|e|	1	2*bubble[q1]*prop[q1]*triangle[0, -q1, q1]
+5	ee12|e33|e33||	1	(bubble[q1]^2*prop[q1]^2)/2
+6	ee12|223|3|ee|	1	(bubble[q1]*square[0, -q1, 0, q1])/4
+7	e112|e3|e33|e|	1	(bubble[q1]^2*prop[q1]^2)/2
+8	e123|e23|e3|e|	2	(prop[q1]*prop[q2]*prop[q1 + q2]*triangle[-q1, q1 + q2, -q2])/3

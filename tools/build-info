@@ -1,0 +1,25 @@
+#!/bin/bash
+# build-info -- the build stamp of this tree, from the release in releases/CURRENT and the git history:
+#
+#   tools/build-info [--root DIR]        prints "<release>-<count> <date> <commit>[+]"
+#
+# <count> is the number of files committed over the whole history, which grows with every commit and so tells two
+# builds of one release apart; <date> is that of the last commit; <commit> its short hash, with '+' when the working
+# tree has uncommitted changes.  The integrator's Makefile passes the stamp to the compiler (RB_BUILD_INFO), and
+# `rebar_cpu version` prints it.  Outside a git checkout, or in a shallow clone, or without releases/CURRENT, it
+# prints nothing and exits 1: a wrong stamp is worse than none.  Needs bash, git and gawk.
+set -eu
+root=.
+[ "${1:-}" = "--root" ] && root=$2
+cd "$root"
+git rev-parse --is-inside-work-tree > /dev/null 2>&1 || exit 1
+[ -f releases/CURRENT ] || exit 1
+release=$(sed -n 1p releases/CURRENT)
+[[ "$release" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || exit 1
+[ -f "$(git rev-parse --git-dir)/shallow" ] && exit 1
+count=$(git log --pretty=format: --name-only | gawk 'NF { n++ } END { print n + 0 }')
+[ "$count" -gt 0 ] || exit 1
+date=$(git log -1 --format=%cd --date=format:%Y-%m-%d)
+commit=$(git rev-parse --short HEAD)
+git diff --quiet HEAD -- . ':!releases/CURRENT~' 2>/dev/null || commit="$commit+"
+echo "$release-$count $date $commit"

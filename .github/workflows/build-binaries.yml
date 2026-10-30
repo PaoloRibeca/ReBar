@@ -1,0 +1,73 @@
+name: Build binaries
+
+# Builds the binary release of ReBar on a GitHub runner and attaches it to the GitHub release of the tag that
+# triggered it (a manual run only uploads it as an artifact).  What is built and packaged is decided by
+# tools/release and releases/MANIFEST; the version is releases/CURRENT's; releases/README.md explains the process.
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+
+concurrency:
+  group: build-binaries-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  linux:
+    name: Linux x86_64
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Check out (full history, for the build stamp)
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Install the CUDA 12.4 compiler and runtime
+        # nvcc and the static CUDA runtime are enough to build the GPU binaries; no driver and no GPU are needed.
+        run: |
+          wget -q https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb
+          sudo dpkg -i cuda-keyring_1.1-1_all.deb
+          sudo apt-get update -q
+          sudo apt-get install -y -q --no-install-recommends cuda-nvcc-12-4 cuda-cudart-dev-12-4
+          /usr/local/cuda-12.4/bin/nvcc --version | tail -1
+
+      - name: Build and package
+        env:
+          NVCC: /usr/local/cuda-12.4/bin/nvcc
+        run: bash tools/release package
+
+      - name: Run the binaries once
+        run: |
+          set -e
+          dir=$(ls -d releases/ReBar-*-Linux-x86_64)
+          cat "$dir/VERSION"
+          "$dir/rebar_gpu" version
+          mkdir -p /tmp/topologies-test && "$dir/topologies" -E 4 -V 3 -N -o /tmp/topologies-test | head -3
+          "$dir/rebar_cpu" run --kind b --loops 3 --gen --pilot 4096 --samples 1e6 --seed 1 --out /tmp/b3.json > /dev/null
+          grep -o '"version": *"[^"]*"\|"build": *"[^"]*"' /tmp/b3.json | head -2
+          ls -l releases/*.tar.xz
+
+      - name: Upload the archive as an artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: ReBar-Linux-x86_64
+          path: releases/*.tar.xz
+          if-no-files-found: error
+
+      - name: Attach the archive to the release of the tag
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag=${GITHUB_REF_NAME}
+          if gh release view "$tag" > /dev/null 2>&1; then
+            gh release upload "$tag" releases/*.tar.xz --clobber
+          else
+            gh release create "$tag" releases/*.tar.xz --verify-tag --title "ReBar $tag" \
+              --notes "Binary release $tag: the integrator for CPUs and NVIDIA GPUs, the graph generator and the graph lists, for x86-64 Linux. See the README inside the archive."
+          fi

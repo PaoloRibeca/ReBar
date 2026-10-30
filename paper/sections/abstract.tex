@@ -1,0 +1,25 @@
+% sections/abstract.tex -- abstract draft (includes the abstract environment; \input it before \maketitle)
+\begin{abstract}
+The renormalization-group functions $\beta$, $\eta$ and $\nu$ of the three-dimensional $O(N)$ model in fixed
+dimension, in the massive zero-momentum scheme, were known to eighth order in the coupling. Here we extend them to
+tenth order, and $\beta$ to eleventh, for general $N$---which requires the four-point and two-point functions to ten
+loops, 1\,593\,254 graphs at the last order---and we re-evaluate all lower orders independently. Through the
+Callan--Symanzik equation every coefficient follows algebraically from per-order sums that are linear in finite,
+zero-momentum $\Rbar$-subtracted parametric integrals, one per graph; we numerically sample them on GPUs by tropical Monte Carlo, with densities adapted to the
+forest terms. The computation reproduces the known per-order sums from two to seven loops within three standard
+deviations, and agrees at ninth and tenth order, at lower precision, with an independent route through the vertex
+functions of an intermediate scheme. The new
+coefficients have relative uncertainties of a few $10^{-5}$ or better, and the eighth-order coefficients of $\eta$ and
+$\nu$ improve by factors of \etaEightGain\ and \nuEightGain. An encouraging result concerns the cost: with this strategy,
+the time needed to integrate an order to a fixed relative precision grows from seven loops on by a factor of only
+\costgrowthrange\ per loop on average. However, the construction of the integrands still grows factorially, and at tenth order it costs more than the
+integration: \costtenthcpu\ CPU core-hours against \costtenthgpu\ GPU hours. Resummed, the tenth-order series give
+$\nu=\rsNuDNone$, $\eta=\rsEtaDNone$ and $\omega=\rsOmegaDNone$ for $N=1$, against $\rsBenchCBNuNone$,
+$\rsBenchCBEtaNone$ and $\rsBenchCBOmegaNone$ from the conformal bootstrap; for $N=2$ and 3 the deviation of $\nu$ grows, to
+\rsPullNuNthree\ standard deviations at $N=3$, where $\omega$ lies \rsPullOmegaNthree\ standard deviations from the
+Monte Carlo value, so that the uncertainty is now dominated by the resummation
+rather than by the coefficients. Our computational strategy is cooperative
+and distributed, and thus open to future improvement: every result presented here is generated automatically from, or
+checked against, a public ledger of independent, exactly pooled runs, hosted on GitHub, to which anyone is welcome to contribute
+computing time.
+\end{abstract}

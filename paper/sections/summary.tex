@@ -1,0 +1,27 @@
+% sections/summary.tex -- Summary and outlook
+\section{Summary and outlook}
+\label{sec:summary}
+
+We have extended the fixed-dimension RG functions $\beta$, $\eta$ and $\nu$ of the three-dimensional $O(N)$ model to
+tenth order, and $\beta$ to eleventh, for general $N$, and re-evaluated all lower orders, by sampling on GPUs the
+$\Rbar$-subtracted parametric integral of every graph. At $N=1$ the new coefficients have relative uncertainties between
+\newrelmin\ and \newrelmax; they agree with the large-$N$ limit and with the large-order behaviour, and at the ninth and
+tenth orders with the independent route B, within its coarser precision. Through seven loops the per-order sums
+reproduce the published ones, and the eighth-order coefficients of $\eta$ and $\nu$ are now \etaEightGain\ and
+\nuEightGain\ times more precise than before.
+
+The design goal, a cost that grows slowly with the order, is met: from seven loops on, the time needed to integrate an
+order to a fixed relative precision grows by a factor of \costgrowthrange\ per loop on average, whereas the number of graphs grows
+factorially. The bottleneck is now the construction of the integrands, which grows faster than the number of graphs and at the
+tenth order already costs more than the sampling. A sampler that draws graphs and points together, without enumerating
+the graphs, as the global tropical sampler of Ref.~\cite{Borinsky2025global} does for unsubtracted integrands, would
+remove it once extended to the forest-subtracted integrands used here.
+
+The resummed exponents are limited by the resummation, not by the coefficients: the statistical errors are at most
+\rsStatRatio\ times the resummation errors, and the remaining deviations from the non-perturbative values, largest
+for $\omega$ at $N=3$, point to the non-analyticity of the RG functions at the fixed point. More orders, or resummations
+that account for this non-analyticity, are needed to go further.
+
+Every per-class result is pooled in a public ledger, from which the generated numbers of this paper are rebuilt and
+checked (Appendix~\ref{app:reproducibility}). Further runs can be contributed and folded into it exactly, and a new
+order needs only its graph list and computing time.

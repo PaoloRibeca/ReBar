@@ -1,0 +1,53 @@
+% generated/newpoly.tex -- the coefficients a_j of the numerator polynomials p_X,k(N) = sum_j a_j N^j
+% (Eq. series-form) of the new and improved terms, with their errors: \newpolybetaeta (beta_9-11, eta_8-10)
+% and \newpolyphinu (eta_phi2,8-10, nu_8-10), each the body of a table.  Exact coefficients (no Monte Carlo
+% input: the top coefficients of p_nu,k, 2^-(k+1)) are printed as such; powers beyond a polynomial's degree are
+% empty.  The coefficients are correlated: their covariance is in results/coefficients/<date>/polynomials.json.
+% WRITTEN BY series/polynomials.py --tex from the ledger and integrator/tools/refs.py: do not edit by hand.
+\newcommand*{\newpolybetaeta}{%
+\begin{ruledtabular}
+\begin{tabular}{rllllll}
+$j$ & $p_{\beta,9}$ & $p_{\beta,10}$ & $p_{\beta,11}$ & $p_{\eta,8}$ & $p_{\eta,9}$ & $p_{\eta,10}$ \\
+\hline
+0 & $-6.432899(13)\times10^{7}$ & $1.130031(9)\times10^{9}$ & $-2.138589(19)\times10^{10}$ & 58315.6(2) & $-8.88414(7)\times10^{5}$ & $1.499965(16)\times10^{7}$ \\
+1 & $-3.225258(10)\times10^{7}$ & $6.08032(7)\times10^{8}$ & $-1.224609(16)\times10^{10}$ & 52164.0(2) & $-8.28881(8)\times10^{5}$ & $1.46114(2)\times10^{7}$ \\
+2 & $-5.02956(3)\times10^{6}$ & $1.07233(2)\times10^{8}$ & $-2.39487(6)\times10^{9}$ & 13685.34(10) & $-2.36573(4)\times10^{5}$ & $4.54534(10)\times10^{6}$ \\
+3 & $-2.53755(5)\times10^{5}$ & $6.9100(5)\times10^{6}$ & $-1.86296(14)\times10^{8}$ & 1113.67(2) & $-22922.3(9)$ & $5.3144(3)\times10^{5}$ \\
+4 & $-1755.7(7)$ & $1.1017(7)\times10^{5}$ & $-4.715(2)\times10^{6}$ & 11.847(3) & $-379.02(15)$ & 18224(5) \\
+5 & 0.56(6) & $-392(8)$ & $-4.1(3)\times10^{3}$ & 0.1561(3) & 11.036(18) & $-41.7(6)$ \\
+6 & 0.331(5) & 2.5(7) & $-1.1(3)\times10^{2}$ & $-0.07039(3)$ & $-0.3953(18)$ & 4.15(8) \\
+7 & 0.0076(2) & 0.24(5) & 2(2) & $-0.0034718(13)$ & $-0.07014(15)$ & $-0.687(7)$ \\
+8 &  & 0.0070(19) & 0.18(16) &  & $-0.002790(7)$ & $-0.0673(6)$ \\
+9 &  &  & 0.009(6) &  &  & $-0.00228(2)$ \\
+\end{tabular}
+\end{ruledtabular}
+}
+\newcommand*{\newpolyphinu}{%
+\begin{ruledtabular}
+\begin{tabular}{rllllll}
+$j$ & $p_{\eta_{\phi^2},8}$ & $p_{\eta_{\phi^2},9}$ & $p_{\eta_{\phi^2},10}$ & $p_{\nu,8}$ & $p_{\nu,9}$ & $p_{\nu,10}$ \\
+\hline
+0 & $3.10364(3)\times10^{6}$ & $-5.07683(4)\times10^{7}$ & $9.0136(2)\times10^{8}$ & $-6.52885(6)\times10^{5}$ & $1.085686(10)\times10^{7}$ & $-1.95287(5)\times10^{8}$ \\
+1 & $2.90212(3)\times10^{6}$ & $-4.95301(5)\times10^{7}$ & $9.1367(3)\times10^{8}$ & $-5.67424(7)\times10^{5}$ & $9.93775(12)\times10^{6}$ & $-1.87088(6)\times10^{8}$ \\
+2 & $8.33826(13)\times10^{5}$ & $-1.54661(2)\times10^{7}$ & $3.06457(14)\times10^{8}$ & $-1.39066(3)\times10^{5}$ & $2.72429(6)\times10^{6}$ & $-5.6224(3)\times10^{7}$ \\
+3 & 82917(3) & $-1.82787(6)\times10^{6}$ & $4.1482(4)\times10^{7}$ & $-9076.3(7)$ & $2.39743(16)\times10^{5}$ & $-6.0652(10)\times10^{6}$ \\
+4 & 1734.1(4) & $-6.5507(10)\times10^{4}$ & $2.0285(8)\times10^{6}$ & 115.87(10) & 2450(3) & $-1.5181(19)\times10^{5}$ \\
+5 & $-30.08(4)$ & 28.1(13) & $1.349(11)\times10^{4}$ & 9.238(11) & 20.6(3) & $2.67(3)\times10^{3}$ \\
+6 & $-1.154(4)$ & $-22.46(13)$ & $-2.05(13)\times10^{2}$ & 2.2339(9) & 16.90(4) & 49(3) \\
+7 & $-0.02393(19)$ & $-0.835(10)$ & $-17.5(12)$ & 0.11383(5) & 1.941(3) & 20.9(3) \\
+8 &  & $-0.0169(5)$ & $-0.64(9)$ & $2^{-9}$ & 0.07480(13) & 1.58(2) \\
+9 &  &  & $-0.012(4)$ &  & $2^{-10}$ & 0.0489(10) \\
+10 &  &  &  &  &  & $2^{-11}$ \\
+\end{tabular}
+\end{ruledtabular}
+}
+% The large-N test of the sums (methods.tex, item "Large N"; check S5): the orders of the ledger compared,
+% their range of L, chi^2 and its probability, the largest |pull|, and the largest relative difference of the
+% 1/N expansion from the leading coefficients of Phi4tools' polynomials.
+\newcommand*{\largeNorders}{27}
+\newcommand*{\largeNLmin}{2}
+\newcommand*{\largeNLmax}{10}
+\newcommand*{\largeNchisq}{23.7}
+\newcommand*{\largeNpvalue}{0.65}
+\newcommand*{\largeNzmax}{2.3}
+\newcommand*{\largeNphi}{$3\times10^{-10}$}
