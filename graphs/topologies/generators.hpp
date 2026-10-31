@@ -269,9 +269,6 @@ class handledPermutatedTopology {
   //  It is raised only after the execution of (getCanonical), and it is lowered as soon as a new
   //  permutation has been selected
   bool bCanonized;
-  // The problem is: in my approach, must the symmetry factor take the tadpoles into account? I
-  //  would say so...
-  long int symmetryFactor;
   bool bConnected;
   int nLoops;
   bool bOPI;
@@ -314,8 +311,6 @@ public:
     this->bCanonized = false;
     // Initial colouring
     this->colors = new int[iOrder];
-    // Computation of the symmetry factor, trivial for now
-    this->symmetryFactor = 0;
     // Check whether the topology is connected
     int nConnectedGroups = numOfConnectedGroups(iMatrix, iOrder);
     this->bConnected = (nConnectedGroups == 1);
@@ -396,7 +391,6 @@ public:
     return ((this->tadpoles) ? this->tadpoles[this->permutation->rCurrentPermutation()[num]] : 0);
   }
   int rNLines(void) { return this->nLines; }
-  long int rSymmetryFactor(void) { return this->symmetryFactor; }
   int rNLoops(void) { return this->nLoops; }
   bool isConnected(void) { return this->bConnected; }
   bool isOPI(void) { return this->bOPI; }
@@ -545,45 +539,31 @@ public:
     return false;
   }
   friend std::ostream &operator<<(std::ostream &s, topology a) {
-    if (&s == &std::cout) {
-      for (int i = 0; i < a->rOrder(); ++i) {
-        for (int j = 0; j < a->rOrder(); ++j)
-          if (j == i)
-            // The case of the tadpoles!
-            s << (2 * a->rTadpoles(i)) << " ";
-          else s << a->rMatrix(i, j) << " ";
-        s << std::endl;
-      }
-      s << "Symmetry factor=" << a->rSymmetryFactor() << ", loops=" << (a->rNLoops())
-          << (a->isConnected() ? ", connected, " : ", disconnected, ")
-          << (a->isOPI() ? "OPI." : "non-OPI.") << std::endl;
-    } else {
-      s << a->rOrder() << "(";
-      // Tadpoles, if any
-      int i;
-      for (i = 0; i < a->rOrder(); ++i)
-        if (a->rTadpoles(i)) break;
-      if (i < a->rOrder()) {
-        s << "[";
-        // Since there is at least one non-null tadpole, the order is necessarily non-null.
-        // nCons accumulates the number of the consecutive equal tadpole numbers
-        int current = a->rTadpoles(0), nCons = 1;
-        for (i = 1; i < a->rOrder() + 1; ++i)
-          if (i == a->rOrder() || a->rTadpoles(i) != current) {
-            if (current) {
-              s << current;
-              if (nCons > 1) s << "^" << nCons;
-            } else s << "." << nCons;
-            if (i != a->rOrder()) {
-              current = a->rTadpoles(i);
-              if (current) s << " ";
-              nCons = 1;
-            }
-          } else ++nCons;
-        s << "]";
-      }
-      s << *(a->rPermutation()) << ")" << std::endl;
+    s << a->rOrder() << "(";
+    // Tadpoles, if any
+    int i;
+    for (i = 0; i < a->rOrder(); ++i)
+      if (a->rTadpoles(i)) break;
+    if (i < a->rOrder()) {
+      s << "[";
+      // Since there is at least one non-null tadpole, the order is necessarily non-null.
+      // nCons accumulates the number of the consecutive equal tadpole numbers
+      int current = a->rTadpoles(0), nCons = 1;
+      for (i = 1; i < a->rOrder() + 1; ++i)
+        if (i == a->rOrder() || a->rTadpoles(i) != current) {
+          if (current) {
+            s << current;
+            if (nCons > 1) s << "^" << nCons;
+          } else s << "." << nCons;
+          if (i != a->rOrder()) {
+            current = a->rTadpoles(i);
+            if (current) s << " ";
+            nCons = 1;
+          }
+        } else ++nCons;
+      s << "]";
     }
+    s << *(a->rPermutation()) << ")" << std::endl;
     return s;
   }
 };
